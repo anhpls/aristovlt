@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #333333;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+:root {
+  --font-inter: "Inter", sans-serif;
+}
+
+/* globals.css */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.Toastify__toast {
+  border-radius: 8px;
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #222222;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.Toastify__toast--success {
+  background-color: #4caf50; /* Green for success */
+}
+
+.Toastify__close-button {
+  color: #ffffff;
+}
+
+.Toastify__progress-bar {
+  background-color: #ffffff;
+}
