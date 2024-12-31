@@ -84,6 +84,7 @@ const LandingPage = () => {
           className="text-5xl md:text-7xl p-2  text-neutral-800 mb-6 font-black shadow-lg shadow-neutral-900 pointer-events-none"
         />
       )}
+
       <motion.input
         initial={{ opacity: 0, y: 0 }}
         animate={{ opacity: 1, y: 0 }}
