@@ -12,7 +12,12 @@ export const config = {
   },
 };
 
-export default async function handler(req: any, res: any) {
+import { NextApiRequest, NextApiResponse } from "next";
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const sig = req.headers["stripe-signature"] || "";
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || "";
 
@@ -21,9 +26,17 @@ export default async function handler(req: any, res: any) {
   try {
     const rawBody = await buffer(req);
     event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
-  } catch (err: any) {
-    console.error("Error verifying Stripe webhook:", err.message);
-    return res.status(400).send(`Webhook Error: ${err.message}`);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error("Error verifying Stripe webhook:", err.message);
+    } else {
+      console.error("Error verifying Stripe webhook:", err);
+    }
+    return res
+      .status(400)
+      .send(
+        `Webhook Error: ${err instanceof Error ? err.message : String(err)}`
+      );
   }
 
   if (event.type === "checkout.session.completed") {
