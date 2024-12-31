@@ -57,4 +57,14 @@ Failed Payment: 4000 0000 0000 9995
  git push origin        to push changes to the remote repository
  npm run build           to build the project
  
+
+
+ - inside app folder, name folders as per the routes
+ - inside the folder, create page.tsx for metadata and server side rendering
+ - create "any name".tsx for the actual page client side rendering
+ - inside components folder, create folders for components and name them as per the components but inside use index.tsx for the component itself
+
+
+ 
+ for typescript, remember to make a types.ts file for the types that return from the API or any other types that are used in the project.
  */

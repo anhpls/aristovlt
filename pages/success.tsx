@@ -1,6 +1,8 @@
-import { motion } from "framer-motion";
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const ThankYouPage = () => {
   return (
@@ -57,7 +59,7 @@ const ThankYouPage = () => {
         className="mt-10 flex flex-col items-center space-y-4"
       >
         <Image
-          src="/images/placeholder.png" // Replace with your illustration
+          src="/images/thank_you_illustration.svg" // Replace with your illustration
           alt="Thank You Illustration"
           width={300}
           height={300}
