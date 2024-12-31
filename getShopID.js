@@ -43,15 +43,12 @@
 
 /**
  * 
- * Once redirected to Stripe Checkout, use Stripe's test cards to simulate payments:
+  Once redirected to Stripe Checkout, use Stripe's test cards to simulate payments:
 
 Successful Payment: 4242 4242 4242 4242 (Use any future expiration date, e.g., 12/34 and any CVC, e.g., 123)
 Authentication Required: 4000 0027 6000 3184
 Failed Payment: 4000 0000 0000 9995 
 
-*/
-
-/**
  npx tsc --noEmit       to check for build errors 
  git remote -v           to check the remote repository URL
  git status              to check the status of the repository
