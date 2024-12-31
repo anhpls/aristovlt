@@ -160,7 +160,7 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
   return (
     <>
       <HeaderWithNavBar />
-      <div className="grid grid-cols-1 md:grid-cols-[2fr,1fr] gap-8 md:py-36 md:px-20">
+      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8 md:py-36 md:px-20">
         <ProductDetailLeft
           product={product}
           filteredImages={filteredImages}

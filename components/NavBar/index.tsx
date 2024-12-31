@@ -82,7 +82,7 @@ const NavBar = ({
         transition={{ duration: 0.2 }}
       >
         <motion.nav
-          className="mt-16 space-y-5 font-semibold lg:space-y-6 p-6 "
+          className="mt-16 space-y-5 font-semibold text-sm lg:space-y-6 p-6 "
           variants={containerVariants} // Apply the container variants
           initial="hidden"
           animate={isOpen ? "visible" : "hidden"}
@@ -91,6 +91,7 @@ const NavBar = ({
             { href: "/collections", label: "VAULTS" },
             { href: "/about", label: "ABOUT" },
             { href: "/contact", label: "CONTACT" },
+            { href: "/thecrowned", label: "THECROWNED" },
           ].map((link) => (
             <motion.div
               key={link.href}

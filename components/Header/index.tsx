@@ -45,7 +45,7 @@ const Header: React.FC<HeaderProps> = ({}) => {
           }}
         >
           <MagnifyingGlassIcon
-            className={`w-6 h-6 transition-colors  hover:cursor-pointer hover:text-black  ${switchColor}`}
+            className={`w-6 h-6 transition-colors  hover:cursor-pointer   ${switchColor}`}
           />
         </motion.div>
 
@@ -62,7 +62,7 @@ const Header: React.FC<HeaderProps> = ({}) => {
           }}
         >
           <ShoppingCartIcon
-            className={`w-6 h-6 transition-colors hover:cursor-pointer hover:text-black  ${switchColor}`}
+            className={`w-6 h-6 transition-colors hover:cursor-pointer  ${switchColor}`}
           />
           {cart.length > 0 && ( // Show badge only if there are items in the cart
             <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
@@ -83,7 +83,7 @@ const Header: React.FC<HeaderProps> = ({}) => {
           }}
         >
           <UserIcon
-            className={`w-6 h-6 transition-colors hover:cursor-pointer hover:text-black  ${switchColor}`}
+            className={`w-6 h-6 transition-colors hover:cursor-pointer ${switchColor}`}
           />
         </motion.div>
       </div>
