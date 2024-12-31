@@ -44,8 +44,8 @@ export default async function handler(
       metadata: {
         cart: JSON.stringify(metadataCart), // Pass simplified cart data
       },
-      success_url: `${process.env.BASE_URL}/success`,
-      cancel_url: `${process.env.BASE_URL}/cancel`,
+      success_url: `${process.env.BASE_URL}/approved`,
+      cancel_url: `${process.env.BASE_URL}/return`,
     });
 
     res.status(200).json({ url: session.url });

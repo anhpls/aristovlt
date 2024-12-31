@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
-const CancelPage = () => {
+const PaymentCancelled = () => {
   const router = useRouter();
 
   return (
@@ -63,7 +63,7 @@ const CancelPage = () => {
           Browse Products
         </button>
         <button
-          onClick={() => router.push("/home")}
+          onClick={() => router.push("/")}
           className="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-300 transition duration-300"
         >
           Go to Homepage
@@ -72,4 +72,5 @@ const CancelPage = () => {
     </div>
   );
 };
-export default CancelPage;
+
+export default PaymentCancelled;
