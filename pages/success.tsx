@@ -57,7 +57,7 @@ const ThankYouPage = () => {
         className="mt-10 flex flex-col items-center space-y-4"
       >
         <Image
-          src="/images/thank_you_illustration.svg" // Replace with your illustration
+          src="/images/placeholder.png" // Replace with your illustration
           alt="Thank You Illustration"
           width={300}
           height={300}
