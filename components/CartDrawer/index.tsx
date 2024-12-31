@@ -30,6 +30,27 @@ const CartDrawer = () => {
     };
   }, [isCartVisible, handleOutsideClick]);
 
+  const handleCheckout = async () => {
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cart,
+          successUrl: `${window.location.origin}/success`,
+          cancelUrl: `${window.location.origin}/cart`,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url; // Redirect to Stripe Checkout
+      }
+    } catch (error) {
+      console.error("Error redirecting to checkout:", error);
+    }
+  };
+
   return (
     <>
       {/* Overlay */}
@@ -144,7 +165,10 @@ const CartDrawer = () => {
           </div>
 
           {/* Checkout Button */}
-          <button className="w-full py-3 bg-neutral-800 text-sm text-white font-semibold uppercase rounded-lg hover:bg-neutral-700 transition-colors duration-300">
+          <button
+            className="w-full py-3 bg-neutral-800 text-sm text-white font-semibold uppercase rounded-lg hover:bg-neutral-700 transition-colors duration-300"
+            onClick={handleCheckout}
+          >
             Proceed to Checkout
           </button>
         </div>
