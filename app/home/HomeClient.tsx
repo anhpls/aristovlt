@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import HeaderWithNavBar from "@/components/HeaderWithNavBar.tsx";
+import { memo } from "react";
 
 const HomeClient = () => {
   return (
@@ -10,9 +11,11 @@ const HomeClient = () => {
         <Image
           src="/images/homebg2.png"
           alt="Home Background"
-          layout="fill"
-          objectFit="cover"
-          objectPosition="top"
+          fill
+          style={{
+            objectFit: "cover",
+            objectPosition: "top",
+          }}
           priority
         />
       </div>
@@ -21,4 +24,4 @@ const HomeClient = () => {
   );
 };
 
-export default HomeClient;
+export default memo(HomeClient);

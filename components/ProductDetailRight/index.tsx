@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { Product } from "@/types/types";
+import { memo } from "react";
 
 interface ProductDetailRightProps {
   product: Product;
@@ -43,24 +44,30 @@ const ProductDetailRight: React.FC<ProductDetailRightProps> = ({
           ${productPrice}
         </p>
       </div>
+
       {/* Colors */}
       <div className="mt-6">
         <p className="text-sm font-extrabold text-neutral-600">Colors:</p>
         <div className="flex space-x-4 mt-2 relative">
           {availableColors?.map((color) => (
-            <button
-              key={color.id}
-              onClick={() => setSelectedColor(color.id)}
-              className={`w-6 h-6 rounded-full border ${
-                selectedColor === color.id
-                  ? "border-black ring-2 ring-stone-600"
-                  : "border-gray-300"
-              }`}
-              style={{
-                backgroundColor: color.colors?.[0] || "#000",
-              }}
-              aria-label={color.title}
-            />
+            <div key={color.id} className="relative group">
+              <button
+                onClick={() => setSelectedColor(color.id)}
+                className={`w-6 h-6 rounded-full border ${
+                  selectedColor === color.id
+                    ? "border-black ring-2 ring-stone-600"
+                    : "border-gray-300"
+                }`}
+                style={{
+                  backgroundColor: color.colors?.[0] || "#000",
+                }}
+                aria-label={color.title}
+              />
+              {/* Tooltip for color title */}
+              <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 scale-0 group-hover:scale-125 bg-neutral-700 text-white text-xs rounded px-2 py-1 transition">
+                {color.title}
+              </div>
+            </div>
           ))}
         </div>
       </div>
@@ -70,8 +77,11 @@ const ProductDetailRight: React.FC<ProductDetailRightProps> = ({
         <p className="text-sm font-extrabold text-neutral-600">Sizes:</p>
         <div className="flex space-x-2 mt-2">
           {product.options
-            .find((option) => option.name === "Sizes")
-            ?.values.map((size) => (
+            .find((option) => option.name.toLowerCase() === "sizes")
+            ?.values.filter((size) =>
+              ["XS", "S", "M", "L", "XL", "2XL"].includes(size.title)
+            )
+            .map((size) => (
               <button
                 key={size.id}
                 onClick={() => setSelectedSize(size.id)}
@@ -122,4 +132,4 @@ const ProductDetailRight: React.FC<ProductDetailRightProps> = ({
   );
 };
 
-export default ProductDetailRight;
+export default memo(ProductDetailRight);

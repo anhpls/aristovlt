@@ -2,6 +2,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { Product, Images as ProductImage } from "@/types/types";
+import { memo } from "react";
 
 interface ProductDetailLeftProps {
   product: Product;
@@ -58,4 +59,4 @@ const ProductDetailLeft: React.FC<ProductDetailLeftProps> = ({
   );
 };
 
-export default ProductDetailLeft;
+export default memo(ProductDetailLeft);

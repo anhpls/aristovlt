@@ -26,7 +26,6 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
   const searchParams = useSearchParams();
   const router = useRouter();
   const { addToCart } = useCart();
-
   const colorQuery = searchParams?.get("color");
 
   useEffect(() => {
@@ -85,7 +84,7 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
       const currentQuery = searchParams?.get("color");
       if (currentQuery !== String(selectedColor)) {
         const newUrl = `/collections/${product.id}?color=${selectedColor}`;
-        router.replace(newUrl);
+        router.push(newUrl);
       }
     }
   }, [selectedColor, product, router, searchParams]);
@@ -107,6 +106,9 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
       alert("Please select a color and size before adding to cart.");
       return;
     }
+    const selectedImage = product.images.find((image) =>
+      image.variant_ids?.includes(selectedVariant.id)
+    )?.src;
 
     addToCart({
       id: product.id,
@@ -119,10 +121,12 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
         ?.find((option) => option.name.toLowerCase() === "colors")
         ?.values.find((color) => color.id === selectedColor)?.title,
       quantity: 1,
+      image: selectedImage || "/placeholder.png",
     });
   }, [selectedVariant, selectedColor, selectedSize, addToCart, product]);
 
   const handleSelectColor = (colorId: number) => {
+    const scrollY = window.scrollY;
     setSelectedColor(colorId);
 
     const variant = product.variants.find((variant) =>
@@ -132,6 +136,8 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
 
     const newUrl = `/collections/${product.id}?color=${colorId}`;
     router.push(newUrl);
+
+    window.scrollTo(0, scrollY);
   };
 
   const availableColors = useMemo(
@@ -154,7 +160,7 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
   return (
     <>
       <HeaderWithNavBar />
-      <div className="grid grid-cols-1 md:grid-cols-[2fr,1fr] gap-8 md:py-44 md:px-20">
+      <div className="grid grid-cols-1 md:grid-cols-[2fr,1fr] gap-8 md:py-36 md:px-20">
         <ProductDetailLeft
           product={product}
           filteredImages={filteredImages}

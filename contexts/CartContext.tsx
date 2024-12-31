@@ -1,6 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -11,6 +17,7 @@ type CartItem = {
   size?: string;
   color?: string;
   quantity: number;
+  image: string;
 };
 
 type CartContextType = {
@@ -28,6 +35,19 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartVisible, setIsCartVisible] = useState(false);
 
+  // Load cart from localStorage when the app initializes
+  useEffect(() => {
+    const storedCart = sessionStorage.getItem("shoppingCart");
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+    }
+  }, []);
+
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    sessionStorage.setItem("shoppingCart", JSON.stringify(cart));
+  }, [cart]);
+
   const toggleCartVisibility = () => {
     setIsCartVisible((prev) => !prev);
   };
@@ -38,7 +58,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         (cartItem) =>
           cartItem.id === item.id &&
           cartItem.size === item.size &&
-          cartItem.color === item.color // Ensure size and color are both considered
+          cartItem.color === item.color
+        // Ensure size and color are both considered
       );
 
       if (existingItem) {
