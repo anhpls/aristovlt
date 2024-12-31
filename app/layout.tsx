@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "WELCOME TO ARISTO VAULT",
+  title: "ARISTO VAULT",
   description: "Aristocrats in the making.",
 };
 

@@ -76,7 +76,7 @@ const LandingPage = () => {
 
       {showAnimation && (
         <TypeAnimation
-          sequence={["ARISTO  VAULT", 2000]}
+          sequence={["ARISTO . VLT", 300, "ARISTO VAULT", 2000]}
           wrapper="span"
           speed={1}
           repeat={0}
@@ -87,7 +87,7 @@ const LandingPage = () => {
       <motion.input
         initial={{ opacity: 0, y: 0 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 2, delay: 2.6 }}
+        transition={{ duration: 2, delay: 3.8 }}
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -98,7 +98,7 @@ const LandingPage = () => {
       <motion.button
         initial={{ opacity: 0, y: 0 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 2, delay: 2.6 }}
+        transition={{ duration: 2, delay: 3.8 }}
         onClick={handleLogin}
         type="submit"
         className="mt-6 px-6 py-2 bg-orange-700 text-white rounded-full drop-shadow-md hover:bg-orange-600 transition-colors duration-500 hover:border-orange-800 border-2 border-transparent "
