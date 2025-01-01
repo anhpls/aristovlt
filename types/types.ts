@@ -9,6 +9,7 @@ export interface Variant {
   options: number[]; // Array of IDs referring to options
   is_enabled: boolean;
   is_available: boolean;
+  is_default?: boolean;
 }
 
 export interface OptionValue {
@@ -29,6 +30,7 @@ export interface Images {
   position: string;
   variant_ids: number[]; // IDs of variants the image is linked to
   alt?: string;
+  is_default?: boolean;
 }
 
 export interface Product {
@@ -41,6 +43,7 @@ export interface Product {
   images: Images[];
   color?: OptionValue;
   imageSrc?: string;
+  is_default?: boolean;
 }
 
 export interface PageProps {

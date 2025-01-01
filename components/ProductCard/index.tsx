@@ -54,18 +54,20 @@ const ProductCard = ({
   );
 
   // Get color options
-  const colorOptions = product.options
-    ?.find((option) => option.name.toLowerCase() === "colors")
-    ?.values.filter((color) =>
-      enabledVariants.some((variant) => variant.options.includes(color.id))
-    );
+  // const colorOptions = product.options
+  //   ?.find((option) => option.name.toLowerCase() === "colors")
+  //   ?.values.filter((color) =>
+  //     enabledVariants.some((variant) => variant.options.includes(color.id))
+  //   );
 
   // Framer Motion variants for slide-up fade-in animation
   const variants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 20, height: "auto", width: "auto" },
     visible: {
       opacity: 1,
       y: 0,
+      height: "auto",
+      width: "auto",
       transition: { delay: delay / 1000, duration: 0.5 },
     },
   };
@@ -84,11 +86,11 @@ const ProductCard = ({
         initial="hidden"
         animate={isVisible ? "visible" : "hidden"}
         variants={variants}
-        className="flex flex-col items-center rounded-lg "
+        className="flex flex-col items-center rounded-sm px-10  hover:shadow-md shadow-neutral-800 transition-shadow duration-500 py-3 "
       >
         {/* Product Image */}
         <div
-          className="relative w-10/12 h-96 flex items-center justify-center"
+          className="  flex items-center justify-center h-80 "
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
@@ -96,17 +98,17 @@ const ProductCard = ({
             <Image
               src={backImage.src}
               alt={`${product.title} - Back`}
-              width={450}
-              height={450}
-              className="object-contain rounded-t-lg"
+              width={500} // Adjust as needed
+              height={500} // Ensures square aspect ratio
+              className="object-cover w-full h-full"
             />
           ) : frontImage ? (
             <Image
               src={frontImage.src}
               alt={`${product.title} - Front`}
-              width={450}
-              height={450}
-              className="object-contain rounded-t-lg"
+              width={500} // Adjust as needed
+              height={500} // Ensures square aspect ratio
+              className="object-cover w-full h-full"
             />
           ) : (
             <div className="flex items-center justify-center h-full text-gray-400">
@@ -117,14 +119,14 @@ const ProductCard = ({
 
         {/* Product Title */}
         <div className="w-full text-center md:-mt-15 mt-2">
-          <h2 className="text-sm md:text-base lg:text-sm -mt-8 md:mt-8 font-bold uppercase">
+          <h2 className="text-sm md:text-xs lg:text-xs md:-mt-1 font-bold uppercase h-10 overflow-hidden ">
             {product.title}
           </h2>
 
           {/* Product Price */}
           {price !== null ? (
-            <p className="text-sm md:text-md font-semibold text-neutral-600 mt-2">
-              ${price / 100}
+            <p className="text-sm md:text-xs font-semibold text-neutral-600 mt-2">
+              ${price / 100} USD
             </p>
           ) : (
             <p className="text-md md:text-lg font-semibold text-red-500 mt-2">
@@ -132,7 +134,8 @@ const ProductCard = ({
             </p>
           )}
 
-          {/* Color Options */}
+          {/* Color Circle */}
+          {/* Color Options
           <div className="flex justify-center space-x-2 mt-2">
             {colorOptions?.map((color) => (
               <div
@@ -141,12 +144,12 @@ const ProductCard = ({
                 style={{ backgroundColor: color.colors?.[0] || "#000" }}
               >
                 {/* Tooltip for color title */}
-                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 scale-0 group-hover:scale-125 bg-neutral-700 text-white text-xs rounded px-2 py-1 transition">
+          {/* <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 scale-0 group-hover:scale-125 bg-neutral-700 text-white text-xs rounded px-2 py-1 transition">
                   {color.title}
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </motion.div>
     </Link>
