@@ -26,13 +26,13 @@ export function middleware(req: NextRequest) {
     // Example condition: check for a specific header or referer
     const referer = req.headers.get("referer");
     if (!referer || !referer.includes("https://aristovlt.vercel.app/")) {
-      return NextResponse.redirect(new URL("/", req.url));
+      return NextResponse.redirect(new URL("/home", req.url));
     }
 
     // Example condition: check for a specific session cookie
     const checkoutSession = req.cookies.get("checkoutSession")?.value;
     if (!checkoutSession) {
-      return NextResponse.redirect(new URL("/", req.url));
+      return NextResponse.redirect(new URL("/home", req.url));
     }
   }
 
