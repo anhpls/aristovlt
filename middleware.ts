@@ -32,7 +32,7 @@ export function middleware(req: NextRequest) {
     // Example condition: check for a specific session cookie
     const checkoutSession = req.cookies.get("checkoutSession")?.value;
     if (!checkoutSession) {
-      return NextResponse.redirect(new URL("/home", req.url));
+      return NextResponse.redirect(new URL("/", req.url));
     }
   }
 
