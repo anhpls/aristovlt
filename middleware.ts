@@ -6,21 +6,39 @@ export function middleware(req: NextRequest) {
   const storeClosed = process.env.STORE_CLOSED === "true";
   const passwordProtection = process.env.PASSWORD_PROTECTION === "true";
 
+  // redirect to /closed if the store is closed
   if (storeClosed && !url.pathname.startsWith("/closed")) {
     return NextResponse.redirect(new URL("/closed", req.url));
   }
 
+  // enforce password protection
   if (passwordProtection) {
     const accessGranted = req.cookies.get("accessGranted")?.value === "true";
     if (!accessGranted && url.pathname !== "/") {
       return NextResponse.redirect(new URL("/", req.url));
     }
   } else if (url.pathname === "/") {
+    // redirect to /home if password protection is disabled
     return NextResponse.redirect(new URL("/home", req.url));
+  }
+
+  if (url.pathname === "/approved" || url.pathname === "/return") {
+    // Example condition: check for a specific header or referer
+    const referer = req.headers.get("referer");
+    if (!referer || !referer.includes("https://aristovlt.vercel.app/")) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+
+    // Example condition: check for a specific session cookie
+    const checkoutSession = req.cookies.get("checkoutSession")?.value;
+    if (!checkoutSession) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
   }
 
   const response = NextResponse.next();
   response.headers.set("Cache-Control", "no-store");
+
   return response;
 }
 
@@ -33,5 +51,8 @@ export const config = {
     "/closed",
     "/api/products",
     "/about",
+    "/contact",
+    "/return",
+    "/approved",
   ],
 };

@@ -17,13 +17,15 @@ const ProductCard = ({
   delay: number;
 }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isTapped, setIsTapped] = useState(false);
+
+  const toggleTap = () => setIsTapped((prev) => !prev);
 
   useEffect(() => {
     const timeout = setTimeout(() => setIsVisible(true), delay);
     return () => clearTimeout(timeout);
   }, [delay]);
-
-  const [isHovered, setIsHovered] = useState(false);
 
   // Filter only enabled and available variants
   const enabledVariants = product.variants.filter(
@@ -93,10 +95,11 @@ const ProductCard = ({
           className="  flex items-center justify-center h-80 w-96 "
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          onTouchStart={toggleTap}
         >
-          {isHovered && backImage ? (
+          {(isHovered && backImage) || isTapped ? (
             <Image
-              src={backImage.src}
+              src={backImage?.src || ""}
               alt={`${product.title} - Back`}
               width={500} // Adjust as needed
               height={500} // Ensures square aspect ratio
@@ -117,21 +120,20 @@ const ProductCard = ({
           )}
         </div>
 
-        {/* Product Title */}
-        <div className="w-full text-center md:-mt-15 mt-2">
-          <h2 className="text-sm md:text-xs lg:text-xs md:-mt-1 font-bold uppercase h-10 overflow-hidden ">
+        {/* Product Title and Price */}
+        <div className="w-full flex justify-between items-center mt-4">
+          {/* Title */}
+          <h2 className="text-sm font-bold uppercase text-gray-800 overflow-hidden whitespace-normal max-w-[70%]">
             {product.title}
           </h2>
 
-          {/* Product Price */}
+          {/* Price */}
           {price !== null ? (
-            <p className="text-sm md:text-xs font-semibold text-neutral-600 mt-2">
+            <p className="text-sm font-semibold text-neutral-600">
               ${price / 100} USD
             </p>
           ) : (
-            <p className="text-md md:text-lg font-semibold text-red-500 mt-2">
-              Not Available
-            </p>
+            <p className="text-md font-semibold text-red-500">Not Available</p>
           )}
 
           {/* Color Circle */}
