@@ -90,7 +90,7 @@ const ProductCard = ({
       >
         {/* Product Image */}
         <div
-          className="  flex items-center justify-center h-80 "
+          className="  flex items-center justify-center h-80 w-96 "
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
@@ -100,7 +100,7 @@ const ProductCard = ({
               alt={`${product.title} - Back`}
               width={500} // Adjust as needed
               height={500} // Ensures square aspect ratio
-              className="object-cover w-full h-full"
+              className="object-cover aspect-w-1 aspect-h-1 w-full h-full"
             />
           ) : frontImage ? (
             <Image
@@ -108,7 +108,7 @@ const ProductCard = ({
               alt={`${product.title} - Front`}
               width={500} // Adjust as needed
               height={500} // Ensures square aspect ratio
-              className="object-cover w-full h-full"
+              className="object-cover w-full h-full aspet-w-1 aspect-h-1"
             />
           ) : (
             <div className="flex items-center justify-center h-full text-gray-400">

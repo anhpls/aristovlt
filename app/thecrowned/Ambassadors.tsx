@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import React from "react";
+import Image from "next/image";
 
 const MembershipPerks = () => {
   const containerVariants = {
@@ -92,7 +93,13 @@ const MembershipPerks = () => {
               transition={{ delay: 0.1 * index, duration: 0.5 }}
               className="w-16 h-16 mb-4"
             >
-              <img src={perk.icon} alt={perk.title} className="w-full h-full" />
+              <Image
+                src={perk.icon}
+                alt={perk.title}
+                width={64}
+                height={64}
+                className="w-full h-full"
+              />
             </motion.div>
 
             {/* Title */}
