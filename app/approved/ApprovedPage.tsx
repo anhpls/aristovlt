@@ -3,21 +3,22 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 
 const ThankYouProcessing = () => {
   const router = useRouter();
   const { session_id } = router.query;
+  const [loading, setLoading] = useState(true);
   const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
     if (!session_id) {
+      console.error("Session ID is missing. Redirecting to homepage.");
       router.replace("/"); // Redirect if no session ID
       return;
     }
 
-    // Validate the session ID
     const validateSession = async () => {
       try {
         const response = await fetch(
@@ -28,6 +29,7 @@ const ThankYouProcessing = () => {
         if (data.valid) {
           setIsValid(true); // Session is valid
         } else {
+          console.error("Invalid session. Redirecting to homepage.");
           router.replace("/"); // Redirect if session is invalid
         }
       } catch (error) {
@@ -39,8 +41,16 @@ const ThankYouProcessing = () => {
     validateSession();
   }, [session_id, router]);
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-600 text-lg">Validating your order...</p>
+      </div>
+    );
+  }
+
   if (!isValid) {
-    return null; // Show nothing until validation is complete
+    return null;
   }
 
   return (

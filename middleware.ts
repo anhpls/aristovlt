@@ -6,6 +6,18 @@ export function middleware(req: NextRequest) {
   const storeClosed = process.env.STORE_CLOSED === "true";
   const passwordProtection = process.env.PASSWORD_PROTECTION === "true";
 
+  // Allow `/approved` and `/return` routes
+  if (url.pathname === "/approved" || url.pathname === "/return") {
+    return NextResponse.next();
+  }
+
+  // Example: Redirect unauthenticated users
+  const isLoggedIn = req.cookies.get("auth_token");
+  if (!isLoggedIn && !url.pathname.startsWith("/login")) {
+    url.pathname = "/home";
+    return NextResponse.redirect(url);
+  }
+
   // redirect to /closed if the store is closed
   if (storeClosed && !url.pathname.startsWith("/closed")) {
     return NextResponse.redirect(new URL("/closed", req.url));
@@ -20,11 +32,6 @@ export function middleware(req: NextRequest) {
   } else if (url.pathname === "/") {
     // redirect to /home if password protection is disabled
     return NextResponse.redirect(new URL("/home", req.url));
-  }
-
-  // Allow approved and return routes
-  if (url.pathname === "/approved" || url.pathname === "/return") {
-    return NextResponse.next();
   }
 
   if (url.pathname === "/approved" || url.pathname === "/return") {

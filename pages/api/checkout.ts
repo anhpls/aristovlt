@@ -45,7 +45,7 @@ export default async function handler(
         cart: JSON.stringify(metadataCart), // Pass simplified cart data
       },
       success_url: `${process.env.BASE_URL}/approved?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.BASE_URL}/return?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.BASE_URL}/return`,
     });
 
     res.status(200).json({ url: session.url });
