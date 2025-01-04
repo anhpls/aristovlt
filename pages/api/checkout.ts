@@ -20,29 +20,42 @@ export default async function handler(
       return res.status(400).json({ message: "Cart is empty" });
     }
 
-    // Simplify cart metadata to include only essential data
-    const metadataCart = cart.map((item: { id: string; quantity: number }) => ({
-      id: item.id,
-      quantity: item.quantity,
-    }));
+    // Build metadata for Printify
+    const metadataCart = cart.map(
+      (item: { id: string; sku: string; quantity: number }) => ({
+        id: item.id,
+        sku: item.sku,
+        quantity: item.quantity,
+      })
+    );
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
       line_items: cart.map(
-        (item: { title: string; price: number; quantity: number }) => ({
+        (item: {
+          title: string;
+          price: number;
+          quantity: number;
+          sku: string;
+          size: string;
+        }) => ({
           price_data: {
             currency: "usd",
             product_data: {
-              name: item.title,
+              name: `${item.title} - Size: ${item.size}`,
+              metadata: {
+                sku: item.sku,
+                size: item.size,
+              },
             },
-            unit_amount: Math.round(item.price * 100), // Stripe expects amounts in cents
+            unit_amount: Math.round(item.price * 100),
           },
           quantity: item.quantity,
         })
       ),
       metadata: {
-        cart: JSON.stringify(metadataCart), // Pass simplified cart data
+        cart: JSON.stringify(metadataCart),
       },
       success_url: `${process.env.BASE_URL}/approved`,
       cancel_url: `${process.env.BASE_URL}/return`,

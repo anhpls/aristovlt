@@ -1,17 +1,18 @@
 import Stripe from "stripe";
 
 export async function createPrintifyOrder(
-  cart: any,
+  cart: { id: string; sku: string; quantity: number }[],
   session: Stripe.Checkout.Session,
   shippingDetails: Stripe.Checkout.Session.ShippingDetails
 ) {
-  // Use `shippingDetails` to send shipping information to Printify
   const printifyOrder = {
-    line_items: cart.map((item: any) => ({
-      product_id: item.id,
-      variant_id: item.variant_id,
-      quantity: item.quantity,
-    })),
+    line_items: cart.map(
+      (item: { id: string; sku: string; quantity: number }) => ({
+        product_id: item.id,
+        variant_id: item.sku,
+        quantity: item.quantity,
+      })
+    ),
     shipping_method: "Standard",
     address_to: {
       first_name: shippingDetails.name?.split(" ")[0] || "",
@@ -27,9 +28,8 @@ export async function createPrintifyOrder(
     },
   };
 
-  // Send the Printify order using their API
   const response = await fetch(
-    "https://api.printify.com/v1/shops/{shop_id}/orders.json",
+    `https://api.printify.com/v1/shops/${process.env.PRINTIFY_SHOP_ID}/orders.json`,
     {
       method: "POST",
       headers: {

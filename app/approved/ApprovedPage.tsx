@@ -63,7 +63,7 @@ const ThankYouProcessing = () => {
         className="mt-10"
       >
         <Image
-          src="/images/order_processing_illustration.svg" // Replace with your image
+          src="/images/placeholder.png" // Replace with your image
           alt="Order Processing Illustration"
           width={350}
           height={350}
@@ -79,23 +79,23 @@ const ThankYouProcessing = () => {
         className="mt-8 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4"
       >
         <Link href="/collections">
-          <motion.a
+          <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="px-8 py-4 bg-blue-600 text-white rounded-lg shadow-lg font-medium tracking-wide uppercase text-center"
           >
             Continue Shopping
-          </motion.a>
+          </motion.div>
         </Link>
 
         <Link href="/order-status">
-          <motion.a
+          <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="px-8 py-4 bg-gray-800 text-white rounded-lg shadow-lg font-medium tracking-wide uppercase text-center"
           >
             Check Order Status
-          </motion.a>
+          </motion.div>
         </Link>
       </motion.div>
     </div>

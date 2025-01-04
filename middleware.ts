@@ -14,6 +14,7 @@ export function middleware(req: NextRequest) {
   // enforce password protection
   if (passwordProtection) {
     const accessGranted = req.cookies.get("accessGranted")?.value === "true";
+
     if (!accessGranted && url.pathname !== "/") {
       return NextResponse.redirect(new URL("/", req.url));
     }
