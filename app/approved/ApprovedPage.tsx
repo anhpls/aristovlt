@@ -1,35 +1,42 @@
-"use client";
+"use client"; // Ensures this is treated as a client component
 
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import router, { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
-const ThankYouProcessing = () => {
+const ApprovedPage: React.FC = () => {
   const router = useRouter();
-  const { session_id } = router.query;
-  const [loading, setLoading] = useState(true);
-  const [isValid, setIsValid] = useState(false);
+  const [isValid, setIsValid] = useState<boolean | null>(null); // Validity state for the session
 
   useEffect(() => {
-    if (!session_id) {
+    // Extract session_id from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const sessionId = urlParams.get("session_id");
+
+    if (!sessionId) {
       console.error("Session ID is missing. Redirecting to homepage.");
-      router.replace("/"); // Redirect if no session ID
+      router.replace("/"); // Redirect to homepage if session ID is missing
       return;
     }
 
     const validateSession = async () => {
       try {
         const response = await fetch(
-          `/api/validate-session?session_id=${session_id}`
+          `/api/validate-session?session_id=${sessionId}`
         );
-        const data = await response.json();
-
-        if (data.valid) {
-          setIsValid(true); // Session is valid
-        } else {
+        if (!response.ok) {
           console.error("Invalid session. Redirecting to homepage.");
+          router.replace("/"); // Redirect to homepage if session validation fails
+          return;
+        }
+
+        const data = await response.json();
+        if (data.valid) {
+          setIsValid(true); // Mark session as valid
+        } else {
+          console.error("Invalid session data. Redirecting to homepage.");
           router.replace("/"); // Redirect if session is invalid
         }
       } catch (error) {
@@ -39,17 +46,21 @@ const ThankYouProcessing = () => {
     };
 
     validateSession();
-  }, [session_id, router]);
+  }, [router]);
 
-  if (loading) {
+  if (isValid === null) {
+    // Show a loading state while validation is ongoing
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-600 text-lg">Validating your order...</p>
+      <div className="flex flex-col items-center justify-center h-screen">
+        <h1 className="text-4xl font-bold text-gray-700">
+          Validating your purchase...
+        </h1>
       </div>
     );
   }
 
   if (!isValid) {
+    // Invalid state should redirect automatically, so this block won't render
     return null;
   }
 
@@ -111,7 +122,7 @@ const ThankYouProcessing = () => {
         className="mt-10"
       >
         <Image
-          src="/images/order_processing_illustration.svg" // Replace with your image
+          src="/images/placeholder.png" // Replace with your image
           alt="Order Processing Illustration"
           width={350}
           height={350}
@@ -150,4 +161,4 @@ const ThankYouProcessing = () => {
   );
 };
 
-export default ThankYouProcessing;
+export default ApprovedPage;

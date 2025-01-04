@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ThankYouProcessing from "./ApprovedPage";
+import ApprovedPage from "app/approved/ApprovedPage";
 
 export const metadata: Metadata = {
   title: "ARISTO VAULT",
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      <ThankYouProcessing />
+      <ApprovedPage />
     </>
   );
 }
