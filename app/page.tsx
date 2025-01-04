@@ -76,7 +76,7 @@ const LandingPage = () => {
 
       {showAnimation && (
         <TypeAnimation
-          sequence={["ARISTO . VLT", 300, "ARISTO VAULT", 2000]}
+          sequence={["ARISTO.VLT", 300, "ARISTO VAULT", 2000]}
           wrapper="span"
           speed={1}
           repeat={0}

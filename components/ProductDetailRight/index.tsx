@@ -77,7 +77,7 @@ const ProductDetailRight: React.FC<ProductDetailRightProps> = ({
         <p className="text-sm font-extrabold text-neutral-600">Sizes:</p>
         <div className="flex space-x-2 mt-2">
           {product.options
-            .find((option) => option.name.toLowerCase() === "sizes")
+            .find((option) => option?.type?.toLowerCase() === "sizes")
             ?.values.filter((size) =>
               ["XS", "S", "M", "L", "XL", "2XL"].includes(size.title)
             )

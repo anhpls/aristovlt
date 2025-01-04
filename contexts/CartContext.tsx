@@ -91,11 +91,18 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setCart(
       (prevCart) =>
         prevCart
-          .map((item) =>
-            item.id === id && item.size === size && item.color === color
-              ? { ...item, quantity: item.quantity - 1 }
-              : item
-          )
+          .map((item) => {
+            const isMatchingItem =
+              item.id === id &&
+              item.size === size &&
+              (item.color === color || (!item.color && !color)); // Match even if color is undefined
+
+            if (isMatchingItem) {
+              // Decrease the quantity if the item matches
+              return { ...item, quantity: item.quantity - 1 };
+            }
+            return item; // Return the item unchanged if it doesn't match
+          })
           .filter((item) => item.quantity > 0) // Remove items with 0 quantity
     );
   };
