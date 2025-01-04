@@ -1,69 +1,10 @@
-"use client"; // Ensures this is treated as a client component
+"use client";
 
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
 
-const ApprovedPage: React.FC = () => {
-  const router = useRouter();
-  const [isValid, setIsValid] = useState<boolean | null>(null); // Validity state for the session
-
-  useEffect(() => {
-    // Extract session_id from the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const sessionId = urlParams.get("session_id");
-
-    if (!sessionId) {
-      console.error("Session ID is missing. Redirecting to homepage.");
-      router.replace("/"); // Redirect to homepage if session ID is missing
-      return;
-    }
-
-    const validateSession = async () => {
-      try {
-        const response = await fetch(
-          `/api/validate-session?session_id=${sessionId}`
-        );
-        if (!response.ok) {
-          console.error("Invalid session. Redirecting to homepage.");
-          router.replace("/"); // Redirect to homepage if session validation fails
-          return;
-        }
-
-        const data = await response.json();
-        if (data.valid) {
-          setIsValid(true); // Mark session as valid
-        } else {
-          console.error("Invalid session data. Redirecting to homepage.");
-          router.replace("/"); // Redirect if session is invalid
-        }
-      } catch (error) {
-        console.error("Error validating session:", error);
-        router.replace("/"); // Redirect on error
-      }
-    };
-
-    validateSession();
-  }, [router]);
-
-  if (isValid === null) {
-    // Show a loading state while validation is ongoing
-    return (
-      <div className="flex flex-col items-center justify-center h-screen">
-        <h1 className="text-4xl font-bold text-gray-700">
-          Validating your purchase...
-        </h1>
-      </div>
-    );
-  }
-
-  if (!isValid) {
-    // Invalid state should redirect automatically, so this block won't render
-    return null;
-  }
-
+const ThankYouProcessing = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-gray-100 flex flex-col items-center justify-center p-8">
       <motion.div
@@ -122,7 +63,7 @@ const ApprovedPage: React.FC = () => {
         className="mt-10"
       >
         <Image
-          src="/images/placeholder.png" // Replace with your image
+          src="/images/order_processing_illustration.svg" // Replace with your image
           alt="Order Processing Illustration"
           width={350}
           height={350}
@@ -161,4 +102,4 @@ const ApprovedPage: React.FC = () => {
   );
 };
 
-export default ApprovedPage;
+export default ThankYouProcessing;
