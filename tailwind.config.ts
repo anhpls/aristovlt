@@ -13,10 +13,12 @@ export default {
         foreground: "var(--foreground)",
       },
       width: {
+        "88": "23rem",
         "128": "40rem",
         "130": "50rem",
       },
       height: {
+        "88": "23rem",
         "128": "40rem",
         "130": "50rem",
       },

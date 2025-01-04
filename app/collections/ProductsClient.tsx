@@ -29,7 +29,7 @@ const ProductsClient = () => {
             ?.values.map((color) => ({
               ...product,
               color, // Add color details
-              title: `${product.title} - ${color.title}`, // Concatenate title with color
+              title: `${product.title} ${color.title}`, // Concatenate title with color
             })) || []
       );
 
@@ -52,8 +52,10 @@ const ProductsClient = () => {
 
   const visibleProducts = useMemo(
     () =>
-      transformedProducts.filter((product) =>
-        product.variants.some((v) => v.is_enabled && v.is_available)
+      transformedProducts.filter(
+        (product) =>
+          product.visible &&
+          product.variants.some((v) => v.is_enabled && v.is_available)
       ),
     [transformedProducts]
   );

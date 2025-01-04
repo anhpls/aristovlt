@@ -44,6 +44,7 @@ export interface Product {
   color?: OptionValue;
   imageSrc?: string;
   is_default?: boolean;
+  visible?: boolean;
 }
 
 export interface PageProps {

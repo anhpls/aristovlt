@@ -88,11 +88,11 @@ const ProductCard = ({
         initial="hidden"
         animate={isVisible ? "visible" : "hidden"}
         variants={variants}
-        className="flex flex-col items-center rounded-sm px-10  hover:shadow-md shadow-neutral-800 transition-shadow duration-500 py-3 "
+        className="flex flex-col items-center rounded-md w-full max-w-xs md:max-w-sm lg:max-w-md hover:shadow-md shadow-neutral-800 transition-shadow duration-500"
       >
         {/* Product Image */}
         <div
-          className="  flex items-center justify-center h-80 w-96 "
+          className="relative flex items-center justify-center w-full h-72 sm:h-64 md:h-80 lg:h-96 overflow-hidden rounded-t-md"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onTouchStart={toggleTap}
@@ -101,17 +101,17 @@ const ProductCard = ({
             <Image
               src={backImage?.src || ""}
               alt={`${product.title} - Back`}
-              width={500} // Adjust as needed
-              height={500} // Ensures square aspect ratio
-              className="object-cover aspect-w-1 aspect-h-1 w-full h-full"
+              layout="fill"
+              objectFit="cover" // Ensures the image fills the container entirely
+              className="rounded-t-md"
             />
           ) : frontImage ? (
             <Image
               src={frontImage.src}
               alt={`${product.title} - Front`}
-              width={500} // Adjust as needed
-              height={500} // Ensures square aspect ratio
-              className="object-cover w-full h-full aspet-w-1 aspect-h-1"
+              layout="fill"
+              objectFit="cover" // Ensures the image fills the container entirely
+              className="rounded-t-md"
             />
           ) : (
             <div className="flex items-center justify-center h-full text-gray-400">
@@ -123,13 +123,13 @@ const ProductCard = ({
         {/* Product Title and Price */}
         <div className="w-full flex justify-between items-center mt-4">
           {/* Title */}
-          <h2 className="text-sm font-bold uppercase text-gray-800 overflow-hidden whitespace-normal max-w-[70%]">
+          <h2 className="text-xs font-extrabold uppercase text-gray-800 overflow-hidden whitespace-normal max-w-[70%] h-16 ml-4">
             {product.title}
           </h2>
 
           {/* Price */}
           {price !== null ? (
-            <p className="text-sm font-semibold text-neutral-600">
+            <p className="text-xs font-semibold text-neutral-600 mb-12 mr-4">
               ${price / 100} USD
             </p>
           ) : (
