@@ -7,7 +7,7 @@ import axios from "axios";
 import ProductCard from "@/components/ProductCard";
 import HeaderWithNavBar from "@/components/HeaderWithNavBar.tsx";
 import { TypeAnimation } from "react-type-animation";
-import { Product } from "@/types/types";
+import { Product, Option } from "@/types/types";
 
 const ProductsClient = () => {
   // const [products, setProducts] = useState<Product[]>([]);
@@ -25,7 +25,9 @@ const ProductsClient = () => {
       const transformed = data.flatMap(
         (product) =>
           product.options
-            .find((option) => option.name.toLowerCase() === "colors")
+            .find(
+              (option) => (option as Option).type?.toLowerCase() === "color"
+            )
             ?.values.map((color) => ({
               ...product,
               color, // Add color details

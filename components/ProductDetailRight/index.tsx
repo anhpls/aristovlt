@@ -101,9 +101,9 @@ const ProductDetailRight: React.FC<ProductDetailRightProps> = ({
       <button
         onClick={handleAddToCart}
         className={`mt-8 bg-black text-white py-3 px-6 rounded-lg hover:bg-neutral-800 ${
-          !selectedColor || !selectedSize ? "opacity-50 cursor-not-allowed" : ""
+          !selectedSize ? "opacity-50 cursor-not-allowed" : ""
         }`}
-        disabled={!selectedColor || !selectedSize}
+        disabled={!selectedSize}
       >
         Add to Cart
       </button>

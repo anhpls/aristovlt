@@ -22,19 +22,20 @@ export interface Option {
   id: number;
   name: string;
   values: OptionValue[];
+  type?: string;
 }
 
 export interface Images {
   id: number;
   src: string;
   position: string;
-  variant_ids: number[]; // IDs of variants the image is linked to
+  variant_ids: number[];
   alt?: string;
   is_default?: boolean;
 }
 
 export interface Product {
-  id: string; // Product IDs are strings
+  id: string;
   title: string;
   description: string;
   tags: string[];
@@ -49,5 +50,5 @@ export interface Product {
 
 export interface PageProps {
   params?: Promise<{ id: string }>;
-  searchParams?: Promise<any>; // If you use searchParams, ensure it's a Promise too
+  searchParams?: Promise<any>;
 }

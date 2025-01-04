@@ -14,6 +14,7 @@ export default async function handler(
       {
         method: "GET",
         headers: {
+          "Cache-Control": "no-cache",
           Authorization: `Bearer ${process.env.PRINTIFY_API_KEY}`,
         },
       }
@@ -24,6 +25,7 @@ export default async function handler(
     }
 
     const data = await response.json();
+
     res.status(200).json(data);
   } catch (error) {
     if (error instanceof Error) {
@@ -43,6 +45,7 @@ export async function fetchProduct(id: string) {
     {
       method: "GET",
       headers: {
+        "Cache-Control": "no-cache",
         Authorization: `Bearer ${process.env.PRINTIFY_API_KEY}`,
       },
       cache: "no-store",

@@ -102,7 +102,7 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
   }, [filteredImages]);
 
   const handleAddToCart = useCallback(() => {
-    if (!selectedVariant || !selectedColor || !selectedSize) {
+    if (!selectedVariant || !selectedSize) {
       alert("Please select a color and size before adding to cart.");
       return;
     }

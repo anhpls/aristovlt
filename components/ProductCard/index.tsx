@@ -41,18 +41,19 @@ const ProductCard = ({
   }
 
   // Find the front and back images corresponding to the color
-  const frontImage = product.images.find(
-    (image) =>
-      image.variant_ids.some((variantId) =>
-        enabledVariants.some((variant) => variant.id === variantId)
-      ) && image.position === "front"
-  );
+  const frontImage =
+    product.images.find(
+      (image) =>
+        image.variant_ids.some((variantId) =>
+          enabledVariants.some((variant) => variant.id === variantId)
+        ) && image.position?.toLowerCase() === "front"
+    ) || product.images[0]; // Fallback to the first image
 
   const backImage = product.images.find(
     (image) =>
       image.variant_ids.some((variantId) =>
         enabledVariants.some((variant) => variant.id === variantId)
-      ) && image.position === "back"
+      ) && image.position?.toLowerCase() === "back"
   );
 
   // Get color options
@@ -97,21 +98,27 @@ const ProductCard = ({
           onMouseLeave={() => setIsHovered(false)}
           onTouchStart={toggleTap}
         >
-          {(isHovered && backImage) || isTapped ? (
+          {/* Hover Logic */}
+          {(isHovered && (backImage || product.images[1])) || isTapped ? (
             <Image
-              src={backImage?.src || ""}
-              alt={`${product.title} - Back`}
-              layout="fill"
-              objectFit="cover" // Ensures the image fills the container entirely
-              className="rounded-t-md"
+              src={
+                backImage?.src || product.images[1]?.src || "/placeholder.png"
+              } // Use backImage first, fallback to second image
+              alt={`${product.title} - Hover`}
+              fill
+              objectFit="cover"
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+              priority
+              className="rounded-t-md object-cover"
             />
           ) : frontImage ? (
             <Image
               src={frontImage.src}
               alt={`${product.title} - Front`}
-              layout="fill"
-              objectFit="cover" // Ensures the image fills the container entirely
-              className="rounded-t-md"
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+              priority
+              className="rounded-t-md object-cover "
             />
           ) : (
             <div className="flex items-center justify-center h-full text-gray-400">
