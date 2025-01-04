@@ -76,9 +76,9 @@ const LandingPage = () => {
 
       {showAnimation && (
         <TypeAnimation
-          sequence={["ARISTO.VLT", 300, "ARISTO VAULT", 2000]}
+          sequence={["ARISTO.VLT", 400, "ARISTO VAULT", 2000]}
           wrapper="span"
-          speed={1}
+          speed={5}
           repeat={0}
           cursor={false}
           className="text-5xl md:text-7xl p-2  text-neutral-800 mb-6 font-black shadow-lg shadow-neutral-900 pointer-events-none"
