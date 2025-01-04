@@ -103,7 +103,8 @@ const CartDrawer = () => {
                         {item.title}
                       </p>
                       <p className="text-sm text-gray-500">
-                        Color: {item.color}
+                        Color:{" "}
+                        {typeof item.color === "string" ? item.color : "N/A"}
                       </p>
                       <p className="text-sm text-gray-500">Size: {item.size}</p>
                       <p className="text-sm text-gray-500">
@@ -126,11 +127,16 @@ const CartDrawer = () => {
 
                   {/* Remove Button */}
                   <button
-                    onClick={() => {
-                      if (item.size && item.color) {
-                        removeFromCart(item.id, item.size, item.color);
-                      }
-                    }}
+                    onClick={() =>
+                      removeFromCart(
+                        item.id,
+                        item.size,
+                        typeof item.color === "object"
+                          ? item.color.title
+                          : item.color,
+                        item.title
+                      )
+                    }
                     className="text-red-500 text-sm font-medium hover:underline"
                   >
                     Remove

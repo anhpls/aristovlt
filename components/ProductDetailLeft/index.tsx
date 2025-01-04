@@ -36,7 +36,7 @@ const ProductDetailLeft: React.FC<ProductDetailLeftProps> = ({
               alt={product.title}
               fill
               style={{ objectFit: "contain" }}
-              className="rounded-lg"
+              className=""
             />
           </motion.div>
         </AnimatePresence>

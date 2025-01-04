@@ -38,7 +38,7 @@ const ProductDetailRight: React.FC<ProductDetailRightProps> = ({
 
   return (
     <div className="flex flex-col space-y-4 sticky top-20 self-start h-fit -mt-48 md:mt-0">
-      <h1 className="text-lg font-bold">{product.title}</h1>
+      <h1 className="text-lg font-bold uppercase">{product.title}</h1>
       <div className="mt-4">
         <p className="text-sm md:text-lg font-medium text-zinc-500">
           ${productPrice}
@@ -77,7 +77,11 @@ const ProductDetailRight: React.FC<ProductDetailRightProps> = ({
         <p className="text-sm font-extrabold text-neutral-600">Sizes:</p>
         <div className="flex space-x-2 mt-2">
           {product.options
-            .find((option) => option?.type?.toLowerCase() === "sizes")
+            .find(
+              (option) =>
+                option.name.toLowerCase() === "sizes" ||
+                option.type?.toLowerCase() === "size"
+            )
             ?.values.filter((size) =>
               ["XS", "S", "M", "L", "XL", "2XL"].includes(size.title)
             )

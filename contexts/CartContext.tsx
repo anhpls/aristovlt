@@ -15,7 +15,7 @@ type CartItem = {
   title: string;
   price: number;
   size?: string;
-  color?: string;
+  color?: string | { title?: string; colors?: string[] };
   quantity: number;
   image: string;
 };
@@ -24,7 +24,12 @@ type CartContextType = {
   cart: CartItem[];
   isCartVisible: boolean;
   addToCart: (item: CartItem) => void;
-  removeFromCart: (id: string, size: string, color: string) => void;
+  removeFromCart: (
+    id: string,
+    size?: string,
+    color?: string | { title?: string; colors?: string[] },
+    title?: string
+  ) => void;
   clearCart: () => void;
   toggleCartVisibility: () => void;
 };
@@ -58,7 +63,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         (cartItem) =>
           cartItem.id === item.id &&
           cartItem.size === item.size &&
-          cartItem.color === item.color
+          cartItem.color === item.color &&
+          cartItem.title === item.title
         // Ensure size and color are both considered
       );
 
@@ -87,23 +93,32 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const removeFromCart = (id: string, size?: string, color?: string) => {
-    setCart(
-      (prevCart) =>
-        prevCart
-          .map((item) => {
-            const isMatchingItem =
-              item.id === id &&
-              item.size === size &&
-              (item.color === color || (!item.color && !color)); // Match even if color is undefined
+  const removeFromCart = (
+    id: string,
+    size?: string,
+    color?: string | { title?: string; colors?: string[] },
+    title?: string
+  ) => {
+    setCart((prevCart) => {
+      const updatedCart = prevCart
+        .map((item) => {
+          const isMatchingItem =
+            (item.id === id &&
+              (item.size === size || (!size && !item.size)) &&
+              (item.color === color || (!color && !item.color))) ||
+            (item.title === title &&
+              item.color === color &&
+              item.size === size);
 
-            if (isMatchingItem) {
-              return { ...item, quantity: item.quantity - 1 };
-            }
-            return item; // Return the item unchanged if it doesn't match
-          })
-          .filter((item) => item.quantity > 0) // Remove items with 0 quantity
-    );
+          if (isMatchingItem) {
+            return { ...item, quantity: item.quantity - 1 }; // Decrement quantity
+          }
+          return item; // Return the item unchanged if not matched
+        })
+        .filter((item) => item.quantity > 0); // Remove items with 0 quantity
+
+      return updatedCart;
+    });
   };
 
   const clearCart = () => {
