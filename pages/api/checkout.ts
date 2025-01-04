@@ -54,6 +54,11 @@ export default async function handler(
           quantity: item.quantity,
         })
       ),
+
+      shipping_address_collection: {
+        allowed_countries: ["US", "CA", "GB"],
+      },
+      billing_address_collection: "required",
       metadata: {
         cart: JSON.stringify(metadataCart),
       },
