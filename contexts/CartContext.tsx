@@ -98,7 +98,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
               (item.color === color || (!item.color && !color)); // Match even if color is undefined
 
             if (isMatchingItem) {
-              // Decrease the quantity if the item matches
               return { ...item, quantity: item.quantity - 1 };
             }
             return item; // Return the item unchanged if it doesn't match
