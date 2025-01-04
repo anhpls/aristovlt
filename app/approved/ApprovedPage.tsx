@@ -3,8 +3,46 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 const ThankYouProcessing = () => {
+  const router = useRouter();
+  const { session_id } = router.query;
+  const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+    if (!session_id) {
+      router.replace("/"); // Redirect if no session ID
+      return;
+    }
+
+    // Validate the session ID
+    const validateSession = async () => {
+      try {
+        const response = await fetch(
+          `/api/validate-session?session_id=${session_id}`
+        );
+        const data = await response.json();
+
+        if (data.valid) {
+          setIsValid(true); // Session is valid
+        } else {
+          router.replace("/"); // Redirect if session is invalid
+        }
+      } catch (error) {
+        console.error("Error validating session:", error);
+        router.replace("/"); // Redirect on error
+      }
+    };
+
+    validateSession();
+  }, [session_id, router]);
+
+  if (!isValid) {
+    return null; // Show nothing until validation is complete
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-gray-100 flex flex-col items-center justify-center p-8">
       <motion.div

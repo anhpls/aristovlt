@@ -22,6 +22,11 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/home", req.url));
   }
 
+  // Allow approved and return routes
+  if (url.pathname === "/approved" || url.pathname === "/return") {
+    return NextResponse.next();
+  }
+
   if (url.pathname === "/approved" || url.pathname === "/return") {
     // Example condition: check for a specific header or referer
     const referer = req.headers.get("referer");

@@ -45,7 +45,8 @@
  * 
   Once redirected to Stripe Checkout, use Stripe's test cards to simulate payments:
 
-Successful Payment: 4242 4242 4242 4242 (Use any future expiration date, e.g., 12/34 and any CVC, e.g., 123)
+Successful Payment: 
+4242 4242 4242 4242 (Use any future expiration date, e.g., 12/34 and any CVC, e.g., 123)
 Authentication Required: 4000 0027 6000 3184
 Failed Payment: 4000 0000 0000 9995 
 
