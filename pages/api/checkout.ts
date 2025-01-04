@@ -62,6 +62,7 @@ export default async function handler(
       metadata: {
         cart: JSON.stringify(metadataCart),
       },
+      automatic_tax: { enabled: true },
       success_url: `${process.env.BASE_URL}/approved`,
       cancel_url: `${process.env.BASE_URL}/return`,
     });
