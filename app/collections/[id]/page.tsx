@@ -39,7 +39,7 @@ export default async function Page({ params }: Params) {
     const product = await fetchProduct(id);
 
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-stone-200">
         <ProductDetailClient product={product} />
       </div>
     );

@@ -56,3 +56,23 @@ export async function fetchProduct(id: string) {
 
   return response.json();
 }
+
+// pages/api/products.ts
+
+import { Product } from "@/types/types";
+
+export async function fetchProducts(): Promise<Product[]> {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${process.env.PRINTIFY_API_KEY}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch products");
+  }
+
+  const data = await response.json();
+  return data.data || [];
+}

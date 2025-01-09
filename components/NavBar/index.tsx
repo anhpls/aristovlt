@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { LockClosedIcon, LockOpenIcon } from "@heroicons/react/24/outline";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 const NavBar = ({
   isOpen,
@@ -45,6 +46,9 @@ const NavBar = ({
   };
 
   const switchColor = pathname === "/home" ? "text-white" : "text-neutral-800";
+  const [vaultOpen, setVaultOpen] = useState(false);
+  const searchParams = useSearchParams();
+  const currentId = searchParams?.get("id");
 
   return (
     <>
@@ -87,8 +91,60 @@ const NavBar = ({
           initial="hidden"
           animate={isOpen ? "visible" : "hidden"}
         >
+          {/* VAULTS with Subcategories */}
+          <div className="relative group left-4 ">
+            <button
+              onClick={() => setVaultOpen(!vaultOpen)}
+              className="w-full text-left hover:underline underline-offset-8"
+            >
+              VAULTS
+            </button>
+            {vaultOpen && (
+              <motion.ul
+                className="pl-4 mt-4 space-y-4 text-gray-400 text-xs underline-offset-4"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+              >
+                <li>
+                  <Link
+                    href="/collections"
+                    className={`hover:text-gray-200 ${
+                      pathname === "/collections" && !currentId
+                        ? "underline text-gray-200 "
+                        : ""
+                    }`}
+                  >
+                    ALL LOOKS
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/collections?id=m4m"
+                    className={`hover:text-gray-200 ${
+                      pathname === "/collections" && currentId === "m4m"
+                        ? "underline text-gray-200"
+                        : ""
+                    }`}
+                  >
+                    Made for Motion
+                  </Link>
+                </li>
+                {/* <li>
+                  <Link href="/vaults/legacy" className="hover:text-gray-200">
+                    Legacy Collection
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/vaults/limited" className="hover:text-gray-200">
+                    Limited Drops
+                  </Link>
+                </li> */}
+              </motion.ul>
+            )}
+          </div>
           {[
-            { href: "/collections", label: "VAULTS" },
+            // { href: "/collections", label: "VAULTS" },
             { href: "/about", label: "ABOUT" },
             { href: "/contact", label: "CONTACT" },
             { href: "/club", label: "MEMBERS" },
@@ -108,7 +164,7 @@ const NavBar = ({
         </motion.nav>
         <motion.nav
           className="bottom-0 absolute space-y-2 font-semibold text-xs lg:space-y-2 p-6 "
-          variants={containerVariants} // Apply the container variants
+          variants={containerVariants}
           initial="hidden"
           animate={isOpen ? "visible" : "hidden"}
         >

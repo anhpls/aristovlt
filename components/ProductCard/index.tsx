@@ -90,7 +90,7 @@ const ProductCard = ({
       >
         {/* Product Image */}
         <div
-          className="relative flex items-center justify-center w-full h-96 sm:h-64 md:h-96 lg:h-128 overflow-hidden"
+          className="relative flex items-center justify-center w-full h-96 sm:h-64 md:h-96 lg:h-110 overflow-hidden"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onTouchStart={toggleTap}

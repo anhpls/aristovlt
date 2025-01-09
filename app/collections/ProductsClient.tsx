@@ -3,6 +3,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 import axios from "axios";
 import ProductCard from "@/components/ProductCard";
 import HeaderWithNavBar from "@/components/HeaderWithNavBar.tsx";
@@ -10,10 +11,12 @@ import { TypeAnimation } from "react-type-animation";
 import { Product, Option } from "@/types/types";
 
 const ProductsClient = () => {
-  // const [products, setProducts] = useState<Product[]>([]);
   const [transformedProducts, setTransformedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const searchParams = useSearchParams();
+  const collectionId = searchParams?.get("id")?.toLowerCase(); // Get collection ID from the URL
 
   // Fetch products using Axios
   const fetchProducts = async () => {
@@ -35,7 +38,6 @@ const ProductsClient = () => {
             })) || []
       );
 
-      // setProducts(data);
       setTransformedProducts(transformed);
       setLoading(false);
     } catch (err) {
@@ -52,19 +54,21 @@ const ProductsClient = () => {
     fetchProducts();
   }, []);
 
-  const visibleProducts = useMemo(
-    () =>
-      transformedProducts.filter(
-        (product) =>
-          product.visible &&
-          product.variants.some((v) => v.is_enabled && v.is_available)
-      ),
-    [transformedProducts]
-  );
+  const visibleProducts = useMemo(() => {
+    return transformedProducts.filter((product) => {
+      const matchesCollection =
+        !collectionId || product.title.toLowerCase().includes(collectionId);
+      return (
+        product.visible &&
+        product.variants.some((v) => v.is_enabled && v.is_available) &&
+        matchesCollection
+      );
+    });
+  }, [transformedProducts, collectionId]);
 
   if (loading)
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex items-center justify-center h-screen bg-stone-300">
         <p className="text-center font-extrabold text-neutral-700 text-3xl md:text-6xl lg:text-9xl flex justify-center items-center">
           {" "}
           <span>UNLOCKING</span>
@@ -90,7 +94,7 @@ const ProductsClient = () => {
   return (
     <div className="min-h-full bg-stone-200 py-10 pt-28">
       <div className="w-full h-full flex justify-center items-center">
-        <div className="text-center px-10 md:px-16  shadow-neutral-400 shadow-inner py-6 flex-col">
+        <div className="text-center px-10 md:px-16 shadow-neutral-400 shadow-inner py-6 flex-col">
           <h1 className="text-2xl md:text-4xl drop-shadow-md text-neutral-50 font-extrabold uppercase">
             unvaulted collections
           </h1>
@@ -101,7 +105,6 @@ const ProductsClient = () => {
       </div>
 
       <div className="min-h-screen">
-        {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-20 md:gap-x-4 md:gap-y-28 mt-24 px-20 h-full auto-rows-[1fr] ">
           {visibleProducts.map((product, index) => (
             <ProductCard
@@ -116,7 +119,6 @@ const ProductsClient = () => {
                       ?.includes(product.color?.title?.toLowerCase() || "")
                   )?.src || "/placeholder.png",
               }}
-              // href={`/product/${product.id}?color=${product.color?.id}`}
               delay={index * 80}
             />
           ))}
