@@ -13,9 +13,16 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function TrackOrderPage() {
   return (
     <>
-      <HeaderWithNavBar />
-      <TrackYourOrderClient />
-      <Footer />
+      <div className="min-h-screen bg-stone-300 flex flex-col">
+        <HeaderWithNavBar />
+
+        <main className="flex-1">
+          {" "}
+          <TrackYourOrderClient />
+        </main>
+
+        <Footer />
+      </div>
     </>
   );
 }

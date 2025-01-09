@@ -14,7 +14,7 @@ const TermsClient: React.FC = () => {
 
   return (
     <motion.div
-      className=" flex flex-col justify-center items-center mt-36 h-full"
+      className=" flex flex-col justify-center items-center mt-36 h-full "
       initial="hidden"
       animate="visible"
       variants={containerVariants}

@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({}) => {
     pathname === "/home" ? "text-white relative -left-2" : "text-neutral-800 ";
 
   return (
-    <div className="absolute top-0 left-0 w-full flex items-center justify-center p-4">
+    <div className="absolute top-0 left-0 w-full flex items-center justify-center p-4 z-40">
       {/* Title Positioned Consistently */}
       <h1
         className={`text-xl font-extrabold hover:cursor-pointer  transition ${switchColor}`}

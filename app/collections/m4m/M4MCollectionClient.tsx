@@ -1,16 +1,13 @@
-// ProductsClient.tsx
-
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import ProductCard from "@/components/ProductCard";
-import HeaderWithNavBar from "@/components/HeaderWithNavBar.tsx";
-import { TypeAnimation } from "react-type-animation";
 import { Product, Option } from "@/types/types";
+import { TypeAnimation } from "react-type-animation";
+import HeaderWithNavBar from "@/components/HeaderWithNavBar.tsx";
 
-const ProductsClient = () => {
-  // const [products, setProducts] = useState<Product[]>([]);
+const M4MCollectionsPage = () => {
   const [transformedProducts, setTransformedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -35,7 +32,6 @@ const ProductsClient = () => {
             })) || []
       );
 
-      // setProducts(data);
       setTransformedProducts(transformed);
       setLoading(false);
     } catch (err) {
@@ -52,20 +48,21 @@ const ProductsClient = () => {
     fetchProducts();
   }, []);
 
-  const visibleProducts = useMemo(
-    () =>
-      transformedProducts.filter(
-        (product) =>
-          product.visible &&
-          product.variants.some((v) => v.is_enabled && v.is_available)
-      ),
-    [transformedProducts]
-  );
+  const m4mProducts = useMemo(() => {
+    return transformedProducts.filter((product) => {
+      const matchesM4M = product.title.toLowerCase().includes("m4m");
+      return (
+        product.visible &&
+        product.variants.some((v) => v.is_enabled && v.is_available) &&
+        matchesM4M
+      );
+    });
+  }, [transformedProducts]);
 
   if (loading)
     return (
       <div className="flex items-center justify-center h-screen bg-stone-300">
-        <p className="text-center font-extrabold text-neutral-700  text-3xl md:text-6xl lg:text-9xl flex justify-center items-center">
+        <p className="text-center font-extrabold text-neutral-700 text-3xl md:text-6xl lg:text-9xl flex justify-center items-center">
           {" "}
           <span>UNLOCKING</span>
           <TypeAnimation
@@ -90,19 +87,24 @@ const ProductsClient = () => {
   return (
     <div className="min-h-full bg-stone-200 py-10 pt-28">
       <div className="w-full h-full flex justify-center items-center">
-        <div className="text-center px-10 md:px-16 shadow-neutral-400 shadow-inner py-6 flex-col">
-          <h1 className="text-2xl md:text-8xl drop-shadow-md text-neutral-50 font-extrabold uppercase">
-            unvaulted collections
+        <div className="text-center md:px-16 shadow-neutral-400 shadow-inner py-6 flex-col">
+          <h1 className=" drop-shadow-sm text-neutral-50 font-extrabold uppercase px-40">
+            <span className="text-2xl md:text-8xl">Unvaulted</span>
+            <span className="italic font-semibold text-xl flex justify-center">
+              {" "}
+              || Made for Motion ||
+            </span>
           </h1>
-          <p className="text-xs md:text-sm text-stone-400 capitalize md:mt-5">
-            Shop all the pieces
+          <p className="text-xs md:text-sm text-stone-500 mt-2">
+            Engineered for the Bold Hustler - Designed to Move, Destined to
+            Impress
           </p>
         </div>
       </div>
 
       <div className="min-h-screen">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-20 md:gap-x-4 md:gap-y-28 mt-24 px-20 h-full auto-rows-[1fr] ">
-          {visibleProducts.map((product, index) => (
+          {m4mProducts.map((product, index) => (
             <ProductCard
               key={`${product.id}-${product.color?.id ?? "no-color"}`}
               product={{
@@ -120,10 +122,9 @@ const ProductsClient = () => {
           ))}
         </div>
       </div>
-
       <HeaderWithNavBar />
     </div>
   );
 };
 
-export default ProductsClient;
+export default M4MCollectionsPage;

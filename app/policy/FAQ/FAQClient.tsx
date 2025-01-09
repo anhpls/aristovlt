@@ -61,12 +61,12 @@ const FAQClient: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white px-6 py-12">
+    <div className="flex flex-col items-center justify-center min-h-screen px-6 py-12">
       <motion.h1
         initial="hidden"
         animate="visible"
         variants={containerVariants}
-        className="text-4xl font-bold text-gray-800 mb-10 text-center"
+        className="text-4xl font-bold text-neutral-800 mb-10 text-center"
       >
         Frequently Asked Questions
       </motion.h1>
@@ -79,17 +79,17 @@ const FAQClient: React.FC = () => {
         {faqData.map((faq, index) => (
           <div
             key={index}
-            className="border border-gray-200 rounded-lg shadow-sm overflow-hidden"
+            className="border border-neutral-200 rounded-lg shadow-sm overflow-hidden"
           >
             <button
               onClick={() => toggleFAQ(index)}
-              className="w-full flex justify-between items-center px-6 py-4 text-left text-lg font-medium bg-gray-50 text-gray-800"
+              className="w-full flex justify-between items-center px-6 py-4 text-left text-lg font-medium bg-stone-200 text-neutral-800"
             >
               <span>{faq.question}</span>
               <motion.span
                 animate={{ rotate: openIndex === index ? 45 : 0 }}
                 transition={{ duration: 0.3 }}
-                className="text-2xl font-bold text-gray-500"
+                className="text-2xl font-bold text-neutral-500"
               >
                 +
               </motion.span>
@@ -98,7 +98,7 @@ const FAQClient: React.FC = () => {
               initial="hidden"
               animate={openIndex === index ? "visible" : "hidden"}
               variants={answerVariants}
-              className="px-6 overflow-hidden bg-white text-gray-700"
+              className="px-6 overflow-hidden bg-stone-100 text-neutral-700"
             >
               <p className="py-4">{faq.answer}</p>
             </motion.div>

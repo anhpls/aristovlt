@@ -42,7 +42,7 @@ const TrackYourOrderClient: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4">
+    <div className="flex flex-col items-center justify-center min-h-screen px-4">
       <h1 className="text-2xl font-bold mb-4">Track Your Order</h1>
       <div className="w-full max-w-md">
         <input
@@ -56,7 +56,7 @@ const TrackYourOrderClient: React.FC = () => {
           onClick={handleTrackOrder}
           disabled={loading}
           className={`w-full py-2 text-white rounded ${
-            loading ? "bg-gray-500" : "bg-blue-600 hover:bg-blue-700"
+            loading ? "bg-gray-500" : "bg-neutral-600 hover:bg-neutral-700"
           }`}
         >
           {loading ? "Tracking..." : "Track Order"}

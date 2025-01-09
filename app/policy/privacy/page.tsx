@@ -13,9 +13,15 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function PrivacyPolicyPage() {
   return (
     <>
-      <HeaderWithNavBar />
-      <PrivacyPolicyClient />
-      <Footer />
+      <div className="min-h-screen bg-stone-300 flex flex-col">
+        <HeaderWithNavBar />
+
+        <main className="flex-1">
+          <PrivacyPolicyClient />
+        </main>
+
+        <Footer />
+      </div>
     </>
   );
 }

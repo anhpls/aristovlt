@@ -18,7 +18,7 @@ const SalesPolicyClient: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-800 px-6 py-44 -mt-10">
+    <div className="min-h-screen text-neutral-800 px-6 py-44 -mt-10">
       <motion.div
         className="max-w-4xl mx-auto"
         initial="hidden"
@@ -32,7 +32,7 @@ const SalesPolicyClient: React.FC = () => {
           Shipping & Return Policy
         </motion.h1>
         <motion.p
-          className="text-sm md:text-md mb-12 text-center text-gray-600"
+          className="text-sm md:text-md mb-12 text-center text-neutral-600"
           variants={sectionVariants}
         >
           At AristoVLT, we are committed to ensuring your satisfaction with
@@ -42,13 +42,13 @@ const SalesPolicyClient: React.FC = () => {
 
         {/* Shipping Policy Section */}
         <motion.div
-          className="border border-gray-300 rounded-lg p-6 mb-8"
+          className="border border-neutral-800 rounded-lg p-6 mb-8"
           variants={sectionVariants}
         >
           <h2 className="text-lg md:text-xl font-semibold mb-4">
             Shipping Policy
           </h2>
-          <p className="text-gray-700 mb-4 text-sm md:text-md">
+          <p className="text-neutral-700 mb-4 text-sm md:text-md">
             We ship worldwide with reliable carriers. Here’s what you need to
             know:
           </p>
@@ -56,7 +56,7 @@ const SalesPolicyClient: React.FC = () => {
             <li>Domestic (USA): 3-7 business days</li>
             <li>International: 7-21 business days</li>
           </ul>
-          <p className="text-gray-700 mt-4 text-sm md:text-md">
+          <p className="text-neutral-700 mt-4 text-sm md:text-md">
             Shipping costs are calculated at checkout and vary by location.
             Orders are processed within 1-2 business days.
           </p>
@@ -64,18 +64,18 @@ const SalesPolicyClient: React.FC = () => {
 
         {/* Return Policy Section */}
         <motion.div
-          className="border border-gray-300 rounded-lg p-6"
+          className="border border-neutral-800 rounded-lg p-6"
           variants={sectionVariants}
         >
           <h2 className="text-lg md:text-xl font-semibold mb-4">
             Return Policy
           </h2>
-          <p className="text-gray-700 mb-4 text-sm md:text-md">
+          <p className="text-neutral-700 mb-4 text-sm md:text-md">
             We want you to love your purchase. If you&apos;re not satisfied, we
             offer a hassle-free return policy. Items can be returned within 30
             days of receipt if they meet the following conditions:
           </p>
-          <ul className="list-disc list-inside text-gray-700 space-y-2 text-sm md:text-md">
+          <ul className="list-disc list-inside text-neutral-700 space-y-2 text-sm md:text-md">
             <li>
               Items must be unworn, unwashed, and in their original condition.
             </li>
@@ -86,7 +86,7 @@ const SalesPolicyClient: React.FC = () => {
             To initiate a return, please email our support team at{" "}
             <a
               href="mailto:support@aristovlt.com"
-              className="text-zinc-800 font-extrabold underline hover:text-zinc-400"
+              className="text-neutral-800 font-extrabold underline hover:text-neutral-500"
             >
               aristovlt.info@gmail.com
             </a>

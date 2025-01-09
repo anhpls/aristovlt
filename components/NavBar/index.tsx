@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { LockClosedIcon, LockOpenIcon } from "@heroicons/react/24/outline";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const NavBar = ({
@@ -47,8 +47,6 @@ const NavBar = ({
 
   const switchColor = pathname === "/home" ? "text-white" : "text-neutral-800";
   const [vaultOpen, setVaultOpen] = useState(false);
-  const searchParams = useSearchParams();
-  const currentId = searchParams?.get("id");
 
   return (
     <>
@@ -101,7 +99,7 @@ const NavBar = ({
             </button>
             {vaultOpen && (
               <motion.ul
-                className="pl-4 mt-4 space-y-4 text-gray-400 text-xs underline-offset-4"
+                className="pl-4 mt-4 space-y-4 text-zinc-300 text-xs underline-offset-4"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
@@ -109,10 +107,8 @@ const NavBar = ({
                 <li>
                   <Link
                     href="/collections"
-                    className={`hover:text-gray-200 ${
-                      pathname === "/collections" && !currentId
-                        ? "underline text-gray-200 "
-                        : ""
+                    className={`hover:text-white ${
+                      pathname === "/collections" ? "underline text-white " : ""
                     }`}
                   >
                     ALL LOOKS
@@ -120,14 +116,14 @@ const NavBar = ({
                 </li>
                 <li>
                   <Link
-                    href="/collections?id=m4m"
-                    className={`hover:text-gray-200 ${
-                      pathname === "/collections" && currentId === "m4m"
-                        ? "underline text-gray-200"
+                    href="/collections/m4m"
+                    className={`hover:text-white ${
+                      pathname === "/collections/m4m"
+                        ? "underline text-white"
                         : ""
                     }`}
                   >
-                    Made for Motion
+                    MADE FOR MOTION
                   </Link>
                 </li>
                 {/* <li>

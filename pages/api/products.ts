@@ -57,22 +57,38 @@ export async function fetchProduct(id: string) {
   return response.json();
 }
 
-// pages/api/products.ts
-
 import { Product } from "@/types/types";
 
 export async function fetchProducts(): Promise<Product[]> {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${process.env.PRINTIFY_API_KEY}`,
-    },
-  });
+  try {
+    const response = await fetch(
+      `https://api.printify.com/v1/shops/19732715/products.json
+`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${process.env.PRINTIFY_API_KEY}`,
+        },
+      }
+    );
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch products");
+    if (!response.ok) {
+      throw new Error(`Failed to fetch products: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (!data.data) {
+      throw new Error("Invalid API response structure");
+    }
+
+    return data.data; // Assuming the data structure has a `data` array
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error fetching products:", error.message);
+    } else {
+      console.error("Error fetching products:", error);
+    }
+    throw error; // Ensure the error is propagated
   }
-
-  const data = await response.json();
-  return data.data || [];
 }

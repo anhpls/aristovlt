@@ -2,9 +2,9 @@
 
 import { motion } from "framer-motion";
 
-const ContactPage = () => {
+const ContactPageClient = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 text-gray-800 flex flex-col items-center p-8 pt-28">
+    <div className="min-h-screen bg-gradient-to-br from-neutral-100 via-neutral-200 to-neutral-300 text-gray-800 flex flex-col items-center p-8 pt-28">
       {/* Hero Section */}
       <motion.div
         initial={{ opacity: 0, y: -50 }}
@@ -194,4 +194,4 @@ const ContactPage = () => {
   );
 };
 
-export default ContactPage;
+export default ContactPageClient;

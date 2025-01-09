@@ -5,11 +5,15 @@ import ProductsClient from "./ProductsClient";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Shop - ARISTO VAULT",
+    title: "Shop All - ARISTO VAULT",
     description: "Explore our premium collection of products.",
   };
 }
 
 export default function ProductsPage() {
-  return <ProductsClient />;
+  return (
+    <>
+      <ProductsClient />
+    </>
+  );
 }

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ContactPage from "./ContactClient";
+import ContactPageClient from "./ContactClient";
 import HeaderWithNavBar from "@/components/HeaderWithNavBar.tsx";
 import { Footer } from "@/components/Footer";
 
@@ -8,12 +8,18 @@ export const metadata: Metadata = {
   description: "Experience the epitome of elegance and sophistication.",
 };
 
-export default function HomePage() {
+export default function ContactPage() {
   return (
     <>
-      <HeaderWithNavBar />
-      <ContactPage />
-      <Footer />
+      <div className="min-h-screen flex flex-col">
+        <HeaderWithNavBar />
+
+        <main className="flex-1">
+          <ContactPageClient />
+        </main>
+
+        <Footer />
+      </div>
     </>
   );
 }
