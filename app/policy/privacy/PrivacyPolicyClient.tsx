@@ -1,10 +1,25 @@
+"use client";
 import React from "react";
+import { motion } from "framer-motion";
 
-export const PrivacyPolicyClient = () => {
+const PrivacyPolicyClient: React.FC = () => {
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+  };
   return (
     <>
-      <div className="flex flex-col justify-center items-center mt-36 w-screeen h-full">
-        <h2 className="font-extrabold text-lg md:text-4xl ">Privacy Policy</h2>
+      <motion.div
+        className="flex flex-col justify-center items-center mt-36 w-screeen h-full"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        <h2 className="font-extrabold text-xl md:text-4xl ">Privacy Policy</h2>
         <div className="w-88 md:w-128 text-xs md:text-sm mt-20 text-wrap break-words">
           <p className="mb-10 leading-relaxed">
             <strong>Effective Date:</strong> {new Date().toLocaleDateString()}
@@ -209,13 +224,13 @@ export const PrivacyPolicyClient = () => {
           </p>
           <ul className="leading-relaxed mt-3">
             <li>
-              <strong>Email:</strong> privacy@aristovlt.com
+              <strong>Email:</strong> aristovlt.info@gmail.com
             </li>
             <li>
               <strong>Phone:</strong> +1 (555) 123-4567
             </li>
             <li>
-              <strong>Address:</strong> 123 Aristo Blvd, Los Angeles, CA 90001
+              <strong>Address:</strong> San Diego, CA 92129
             </li>
           </ul>
 
@@ -223,7 +238,9 @@ export const PrivacyPolicyClient = () => {
             Thank you for trusting AristoVLT with your personal information.
           </p>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };
+
+export default PrivacyPolicyClient;

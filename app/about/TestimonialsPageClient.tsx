@@ -33,7 +33,7 @@ const TestimonialPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 px-8 py-16">
+    <div className="min-h-screen  px-8 py-16">
       {/* Header Section */}
       <motion.div
         initial="hidden"

@@ -1,18 +1,16 @@
 import { Metadata } from "next";
-
 import HeaderWithNavBar from "@/components/HeaderWithNavBar.tsx";
-
 import { Footer } from "@/components/Footer";
-import { PrivacyPolicyClient } from "./PrivacyPolicyClient";
+import PrivacyPolicyClient from "./PrivacyPolicyClient";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "PRIVACY POLICY - ARISTO VAULT",
-    description: "WHO WE ARE?",
+    description: "Privacy Policy for ARISTO VAULT",
   };
 }
 
-export default function ProductsPage() {
+export default function PrivacyPolicyPage() {
   return (
     <>
       <HeaderWithNavBar />

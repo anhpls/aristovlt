@@ -1,20 +1,20 @@
 import { Metadata } from "next";
 import HeaderWithNavBar from "@/components/HeaderWithNavBar.tsx";
-import Terms from "./TermsClient";
 import { Footer } from "@/components/Footer";
+import TrackYourOrderClient from "./TrackYourOrderClient";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Terms & Conditions - ARISTO VAULT",
-    description: "WHO WE ARE?",
+    title: "Track Your Order - ARISTO VAULT",
+    description: "Track Your AristoVLT Order",
   };
 }
 
-export default function TermsPolicyPage() {
+export default function TrackOrderPage() {
   return (
     <>
       <HeaderWithNavBar />
-      <Terms />
+      <TrackYourOrderClient />
       <Footer />
     </>
   );

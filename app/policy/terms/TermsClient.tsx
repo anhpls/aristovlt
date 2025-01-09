@@ -1,8 +1,24 @@
+"use client";
 import React from "react";
+import { motion } from "framer-motion";
 
-const Terms = () => {
+const TermsClient: React.FC = () => {
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+  };
+
   return (
-    <div className=" flex flex-col justify-center items-center mt-36 w-screeen h-full  ">
+    <motion.div
+      className=" flex flex-col justify-center items-center mt-36 h-full"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
       <h1 className="text-md md:text-lg lg:text-4xl font-extrabold mb-">
         Terms of Service
       </h1>
@@ -298,8 +314,8 @@ const Terms = () => {
           Thank you for choosing <span className="font-bold">AristoVLT!</span>
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
-export default Terms;
+export default TermsClient;

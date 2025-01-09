@@ -21,7 +21,8 @@ const Header: React.FC<HeaderProps> = ({}) => {
   const { toggleCartVisibility, cart } = useCart(); // Access CartContext
 
   // Dynamic header color based on the current path
-  const switchColor = pathname === "/home" ? "text-white" : "text-neutral-800";
+  const switchColor =
+    pathname === "/home" ? "text-white relative -left-2" : "text-neutral-800 ";
 
   return (
     <div className="absolute top-0 left-0 w-full flex items-center justify-center p-4">

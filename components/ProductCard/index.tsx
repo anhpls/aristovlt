@@ -86,7 +86,7 @@ const ProductCard = ({
         initial="hidden"
         animate={isVisible ? "visible" : "hidden"}
         variants={variants}
-        className="flex flex-col items-center rounded-md w-full max-w-xs md:max-w-sm lg:max-w-md hover:shadow-md shadow-neutral-800 transition-shadow duration-500"
+        className="flex flex-col items-center w-full max-w-xs md:max-w-sm lg:max-w-md hover:shadow-md shadow-neutral-800 transition-shadow bg-neutral-300 duration-500"
       >
         {/* Product Image */}
         <div
@@ -106,7 +106,7 @@ const ProductCard = ({
               objectFit="cover"
               sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
               priority
-              className="rounded-t-md object-cover"
+              className="object-cover"
             />
           ) : frontImage ? (
             <Image
@@ -115,7 +115,7 @@ const ProductCard = ({
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
               priority
-              className="rounded-t-md object-cover "
+              className=" object-cover "
             />
           ) : (
             <div className="flex items-center justify-center h-full text-gray-400">

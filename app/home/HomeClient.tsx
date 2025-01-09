@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import HeaderWithNavBar from "@/components/HeaderWithNavBar.tsx";
 import { memo } from "react";
 
 const HomeClient = () => {
@@ -19,7 +18,6 @@ const HomeClient = () => {
           priority
         />
       </div>
-      <HeaderWithNavBar />
     </div>
   );
 };

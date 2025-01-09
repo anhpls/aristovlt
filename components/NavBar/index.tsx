@@ -115,9 +115,9 @@ const NavBar = ({
           {[
             { href: "/policy/terms", label: "TERMS OF SERVICE" },
             { href: "/policy/privacy", label: "PRIVACY POLICY" },
-            { href: "/about", label: "REFUND + SHIPPING POLICY" },
-            { href: "/contact", label: "FAQ" },
-            { href: "/club", label: "TRACK YOUR ORDER" },
+            { href: "/policy/sales", label: "REFUND + SHIPPING POLICY" },
+            { href: "/policy/FAQ", label: "FAQ" },
+            { href: "/policy/trackorder", label: "TRACK YOUR ORDER" },
           ].map((link) => (
             <motion.div
               key={link.href}

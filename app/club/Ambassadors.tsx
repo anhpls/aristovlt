@@ -53,64 +53,66 @@ const MembershipPerks = () => {
   ];
 
   return (
-    <motion.section
-      className="bg-gradient-to-b from-gray-100 to-white py-16 px-8 md:px-20 md:pt-32"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={containerVariants}
-    >
-      {/* Heading */}
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        className="text-center mb-12"
-      >
-        <h2 className="text-4xl font-extrabold text-gray-800">
-          Membership Perks
-        </h2>
-        <p className="text-gray-600 mt-4">
-          Discover the exclusive benefits of joining the Aristo Vault Club.
-        </p>
-      </motion.div>
-
-      {/* Perks */}
-      <motion.div
-        className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-10"
+    <div className="w-screen h-screen bg-zinc-100">
+      <motion.section
+        className=" py-16 px-8 md:px-20 md:pt-32"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
         variants={containerVariants}
       >
-        {perks.map((perk, index) => (
-          <motion.div
-            key={index}
-            variants={perkVariants}
-            className="flex flex-col items-center bg-white shadow-lg rounded-lg p-6 text-center hover:shadow-2xl transition-shadow duration-300"
-          >
-            {/* Icon */}
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-4xl font-extrabold text-gray-800">
+            Membership Perks
+          </h2>
+          <p className="text-gray-600 mt-4">
+            Discover the exclusive benefits of joining the Aristo Vault Club.
+          </p>
+        </motion.div>
+
+        {/* Perks */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-10"
+          variants={containerVariants}
+        >
+          {perks.map((perk, index) => (
             <motion.div
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.1 * index, duration: 0.5 }}
-              className="w-16 h-16 mb-4"
+              key={index}
+              variants={perkVariants}
+              className="flex flex-col items-center bg-white shadow-lg rounded-lg p-6 text-center hover:shadow-2xl transition-shadow duration-300"
             >
-              <Image
-                src={perk.icon}
-                alt={perk.title}
-                width={64}
-                height={64}
-                className="w-full h-full"
-              />
+              {/* Icon */}
+              <motion.div
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.1 * index, duration: 0.5 }}
+                className="w-16 h-16 mb-4"
+              >
+                <Image
+                  src={perk.icon}
+                  alt={perk.title}
+                  width={64}
+                  height={64}
+                  className="w-full h-full"
+                />
+              </motion.div>
+
+              {/* Title */}
+              <h3 className="text-xl font-bold text-gray-800">{perk.title}</h3>
+
+              {/* Description */}
+              <p className="text-sm text-gray-600 mt-2">{perk.description}</p>
             </motion.div>
-
-            {/* Title */}
-            <h3 className="text-xl font-bold text-gray-800">{perk.title}</h3>
-
-            {/* Description */}
-            <p className="text-sm text-gray-600 mt-2">{perk.description}</p>
-          </motion.div>
-        ))}
-      </motion.div>
-    </motion.section>
+          ))}
+        </motion.div>
+      </motion.section>
+    </div>
   );
 };
 

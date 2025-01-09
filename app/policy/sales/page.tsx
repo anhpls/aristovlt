@@ -1,20 +1,20 @@
 import { Metadata } from "next";
 import HeaderWithNavBar from "@/components/HeaderWithNavBar.tsx";
-import Terms from "./TermsClient";
 import { Footer } from "@/components/Footer";
+import SalesPolicyClient from "./SalesPolicy";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Terms & Conditions - ARISTO VAULT",
-    description: "WHO WE ARE?",
+    title: "Sales Policy - ARISTO VAULT",
+    description: "Shipping, Returns, and Refunds",
   };
 }
 
-export default function TermsPolicyPage() {
+export default function SalesPolicyPage() {
   return (
     <>
       <HeaderWithNavBar />
-      <Terms />
+      <SalesPolicyClient />
       <Footer />
     </>
   );
