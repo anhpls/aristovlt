@@ -24,8 +24,10 @@ const ProductDetailRight: React.FC<ProductDetailRightProps> = ({
   isDescriptionExpanded,
   setIsDescriptionExpanded,
 }) => {
-  const productPrice = product.variants[0]?.price
-    ? (product.variants[0].price / 100).toFixed(2)
+  const enabledVariant = product.variants.find((variant) => variant.is_enabled);
+
+  const productPrice = enabledVariant?.price
+    ? (enabledVariant.price / 100).toFixed(2)
     : "N/A";
 
   const availableColors = product.options

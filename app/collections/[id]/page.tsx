@@ -39,14 +39,14 @@ export default async function Page({ params }: Params) {
     const product = await fetchProduct(id);
 
     return (
-      <div className="min-h-screen bg-neutral-100">
+      <div className="min-h-screen bg-white">
         <ProductDetailClient product={product} />
       </div>
     );
   } catch (error) {
     console.error("Error fetching product:", error);
     return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-100">
+      <div className="min-h-screen flex items-center justify-center bg-stone-200">
         <p className="text-lg text-red-500">Product not found</p>
       </div>
     );

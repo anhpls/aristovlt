@@ -104,7 +104,9 @@ const CartDrawer = () => {
                       </p>
                       <p className="text-sm text-gray-500">
                         Color:{" "}
-                        {typeof item.color === "string" ? item.color : "N/A"}
+                        {typeof item.color === "string"
+                          ? item.color
+                          : "Default"}
                       </p>
                       <p className="text-sm text-gray-500">Size: {item.size}</p>
                       <p className="text-sm text-gray-500">

@@ -88,10 +88,10 @@ const ProductsClient = () => {
     );
 
   return (
-    <div className="min-h-full bg-stone-100 py-10 pt-28">
+    <div className="min-h-full bg-stone-200 py-10 pt-28">
       <div className="w-full h-full flex justify-center items-center">
-        <div className="text-center px-10 md:px-16 shadow-md shadow-zinc-300 py-6 flex-col">
-          <h1 className="text-2xl md:text-4xl drop-shadow-md text-zinc-500 font-extrabold uppercase">
+        <div className="text-center px-10 md:px-16  shadow-neutral-400 shadow-inner py-6 flex-col">
+          <h1 className="text-2xl md:text-4xl drop-shadow-md text-neutral-50 font-extrabold uppercase">
             unvaulted collections
           </h1>
           <p className="text-xs md:text-sm text-stone-400 capitalize">
@@ -102,7 +102,7 @@ const ProductsClient = () => {
 
       <div className="min-h-screen">
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-10 md:gap-x-10 md:gap-y-10 mt-24 px-20 h-full auto-rows-[1fr] ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-20 md:gap-x-4 md:gap-y-28 mt-24 px-20 h-full auto-rows-[1fr] ">
           {visibleProducts.map((product, index) => (
             <ProductCard
               key={`${product.id}-${product.color?.id ?? "no-color"}`}

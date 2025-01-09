@@ -86,11 +86,11 @@ const ProductCard = ({
         initial="hidden"
         animate={isVisible ? "visible" : "hidden"}
         variants={variants}
-        className="flex flex-col items-center w-full max-w-xs md:max-w-sm lg:max-w-md hover:shadow-md shadow-neutral-800 transition-shadow bg-neutral-300 duration-500"
+        className="flex flex-col items-center w-full max-w-xs md:max-w-sm lg:max-w-md bg-white shadow-neutral-800 transition-shadow duration-500"
       >
         {/* Product Image */}
         <div
-          className="relative flex items-center justify-center w-full h-72 sm:h-64 md:h-80 lg:h-96 overflow-hidden rounded-t-md"
+          className="relative flex items-center justify-center w-full h-96 sm:h-64 md:h-96 lg:h-128 overflow-hidden"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onTouchStart={toggleTap}
@@ -103,10 +103,9 @@ const ProductCard = ({
               } // Use backImage first, fallback to second image
               alt={`${product.title} - Hover`}
               fill
-              objectFit="cover"
               sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
               priority
-              className="object-cover"
+              className="object-contain"
             />
           ) : frontImage ? (
             <Image
@@ -115,7 +114,7 @@ const ProductCard = ({
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
               priority
-              className=" object-cover "
+              className=" object-contain "
             />
           ) : (
             <div className="flex items-center justify-center h-full text-gray-400">
@@ -125,7 +124,7 @@ const ProductCard = ({
         </div>
 
         {/* Product Title and Price */}
-        <div className="w-full flex justify-between items-center mt-4">
+        <div className="w-full flex justify-between  items-center mt-4">
           {/* Title */}
           <h2 className="text-xs font-extrabold uppercase text-gray-800 overflow-hidden whitespace-normal max-w-[70%] h-16 ml-4">
             {product.title}
