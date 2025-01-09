@@ -91,7 +91,7 @@ const ProductsClient = () => {
     <div className="min-h-full bg-stone-200 py-10 pt-28">
       <div className="w-full h-full flex justify-center items-center">
         <div className="text-center px-10 md:px-16 shadow-neutral-400 shadow-inner py-6 flex-col">
-          <h1 className="text-2xl md:text-8xl drop-shadow-md text-neutral-50 font-extrabold uppercase">
+          <h1 className="text-2xl md:text-6xl drop-shadow-md text-neutral-50 font-extrabold uppercase">
             unvaulted collections
           </h1>
           <p className="text-xs md:text-sm text-stone-600 font-semibold capitalize md:mt-5">
