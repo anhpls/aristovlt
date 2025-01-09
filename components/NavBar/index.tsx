@@ -91,11 +91,37 @@ const NavBar = ({
             { href: "/collections", label: "VAULTS" },
             { href: "/about", label: "ABOUT" },
             { href: "/contact", label: "CONTACT" },
-            { href: "/thecrowned", label: "THECROWNED" },
+            { href: "/club", label: "MEMBERS" },
           ].map((link) => (
             <motion.div
               key={link.href}
               variants={linkVariants} // Apply the individual link variants
+              className={`text-md ${
+                pathname === link.href
+                  ? " underline-offset-8 underline text-white "
+                  : ""
+              } hover:underline underline-offset-8  rounded px-4`}
+            >
+              <Link href={link.href}>{link.label}</Link>
+            </motion.div>
+          ))}
+        </motion.nav>
+        <motion.nav
+          className="bottom-0 absolute space-y-2 font-semibold text-xs lg:space-y-2 p-6 "
+          variants={containerVariants} // Apply the container variants
+          initial="hidden"
+          animate={isOpen ? "visible" : "hidden"}
+        >
+          {[
+            { href: "/policy/terms", label: "TERMS OF SERVICE" },
+            { href: "/policy/privacy", label: "PRIVACY POLICY" },
+            { href: "/about", label: "REFUND + SHIPPING POLICY" },
+            { href: "/contact", label: "FAQ" },
+            { href: "/club", label: "TRACK YOUR ORDER" },
+          ].map((link) => (
+            <motion.div
+              key={link.href}
+              variants={linkVariants}
               className={`text-md ${
                 pathname === link.href
                   ? " underline-offset-8 underline text-white "

@@ -25,36 +25,36 @@ const MembershipPerks = () => {
     {
       title: "Exclusive Early Access",
       description: "Get early access to new collections before anyone else.",
-      icon: "/icons/early-access.svg",
+      icon: "/images/placeholder.png",
     },
     {
       title: "Member-Only Discounts",
       description:
         "Enjoy exclusive discounts on every drop and seasonal sales.",
-      icon: "/icons/discounts.svg",
+      icon: "/images/placeholder.png",
     },
     {
       title: "VIP Events",
       description: "Invitation to members-only virtual and in-person events.",
-      icon: "/icons/events.svg",
+      icon: "/images/placeholder.png",
     },
     {
       title: "Free Gifts",
       description:
         "Receive free items with select purchases and special drops.",
-      icon: "/icons/free-gifts.svg",
+      icon: "/images/placeholder.png",
     },
     {
       title: "Custom Packaging",
       description:
         "Your orders will arrive in premium, members-only packaging.",
-      icon: "/icons/packaging.svg",
+      icon: "/images/placeholder.png",
     },
   ];
 
   return (
     <motion.section
-      className="bg-gradient-to-b from-gray-100 to-white py-16 px-8 md:px-20"
+      className="bg-gradient-to-b from-gray-100 to-white py-16 px-8 md:px-20 md:pt-32"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}

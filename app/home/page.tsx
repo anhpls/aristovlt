@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import HomeClient from "./HomeClient"; // Client Component
 
 export const metadata: Metadata = {
-  title: "ARISTO VAULT",
+  title: "Home - ARISTO VAULT",
   description: "Experience the epitome of elegance and sophistication.",
 };
 

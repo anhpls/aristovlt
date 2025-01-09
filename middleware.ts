@@ -55,5 +55,6 @@ export const config = {
     "/contact",
     "/return",
     "/approved",
+    "/policy/:path*",
   ],
 };
