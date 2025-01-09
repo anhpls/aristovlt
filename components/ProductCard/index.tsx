@@ -86,7 +86,7 @@ const ProductCard = ({
         initial="hidden"
         animate={isVisible ? "visible" : "hidden"}
         variants={variants}
-        className="flex flex-col items-center w-full max-w-xs md:max-w-sm lg:max-w-md bg-white shadow-neutral-800 transition-shadow duration-500"
+        className="flex flex-col items-center w-full max-w-xs md:max-w-sm lg:max-w-md bg-white transition-shadow duration-500 hover:shadow-md "
       >
         {/* Product Image */}
         <div

@@ -94,7 +94,7 @@ const ProductsClient = () => {
           <h1 className="text-2xl md:text-8xl drop-shadow-md text-neutral-50 font-extrabold uppercase">
             unvaulted collections
           </h1>
-          <p className="text-xs md:text-sm text-stone-400 capitalize md:mt-5">
+          <p className="text-xs md:text-sm text-stone-600 font-semibold capitalize md:mt-5">
             Shop all the pieces
           </p>
         </div>
