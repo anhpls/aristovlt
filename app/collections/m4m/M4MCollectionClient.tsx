@@ -87,12 +87,12 @@ const M4MCollectionsPage = () => {
   return (
     <div className="min-h-full bg-stone-200 py-10 pt-28">
       <div className="w-full h-full flex justify-center items-center">
-        <div className="text-center md:px-16 shadow-neutral-400 shadow-inner py-6 flex-col">
+        <div className="text-center md:px-16 shadow-neutral-500 shadow-inner py-6 flex-col bg-black bg-opacity-10 rounded-sm">
           <h1 className=" drop-shadow-sm text-neutral-50 font-extrabold uppercase px-40">
             <span className="text-2xl md:text-8xl">Unvaulted</span>
-            <span className="italic font-semibold text-xl flex justify-center">
+            <span className=" font-semibold text-xl flex justify-center text-orange-50 ">
               {" "}
-              || Made for Motion ||
+              | Made for Motion |
             </span>
           </h1>
           <p className="text-xs md:text-sm text-stone-500 mt-2">

@@ -105,7 +105,7 @@ export default async function handler(
       metadata: {
         cart: JSON.stringify(metadataCart), // Add cart details to metadata
       },
-      automatic_tax: { enabled: true }, // Enable automatic tax calculations
+      automatic_tax: { enabled: false }, // Enable automatic tax calculations
       allow_promotion_codes: true,
       success_url: `${process.env.BASE_URL}/approved`,
       cancel_url: `${process.env.BASE_URL}/return`,
