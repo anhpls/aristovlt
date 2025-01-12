@@ -32,22 +32,34 @@ const CartDrawer = () => {
 
   const handleCheckout = async () => {
     try {
+      const shippingMethod = "standard"; // Replace with a dynamic value if applicable
+
       const response = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           cart,
+          shippingMethod, // Include shipping method
           successUrl: `${window.location.origin}/success`,
           cancelUrl: `${window.location.origin}/cart`,
         }),
       });
 
       const data = await response.json();
+
+      // Log the response for debugging
+      console.log("API Response:", data);
+
       if (data.url) {
         window.location.href = data.url; // Redirect to Stripe Checkout
+      } else {
+        console.error(
+          "Failed to create checkout session:",
+          data.message || "No URL returned"
+        );
       }
     } catch (error) {
-      console.error("Error redirecting to checkout:", error);
+      console.error("Error during checkout:", error);
     }
   };
 

@@ -5,6 +5,17 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2024-12-18.acacia",
 });
 
+// Shipping tiers based on cart total
+function calculateShippingCost(subtotal: number): number {
+  if (subtotal < 50) {
+    return 795; // $7.95
+  } else if (subtotal < 150) {
+    return 5.95; // $5.95
+  } else {
+    return 0; // Free shipping
+  }
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -16,19 +27,20 @@ export default async function handler(
   try {
     const { cart } = req.body;
 
+    // Validate request body
     if (!cart || cart.length === 0) {
       return res.status(400).json({ message: "Cart is empty" });
     }
 
+    // Calculate cart subtotal
     const totalCartCost = cart.reduce(
       (total: number, item: { price: number; quantity: number }) =>
         total + item.price * item.quantity,
       0
     );
 
-    // Calculate shipping as a percentage of the total cart cost (e.g., 10%)
-    const shippingPercentage = 0.1; // 10%
-    const shippingCost = Math.round(totalCartCost * shippingPercentage * 100); // Convert to cents
+    // Calculate shipping cost based on subtotal
+    const shippingCost = calculateShippingCost(totalCartCost);
 
     // Build metadata for Printify
     const metadataCart = cart.map(
@@ -40,12 +52,7 @@ export default async function handler(
       })
     );
 
-    // fixed shipping
-    // const shippingCost =
-    //   shippingMethod === "express"
-    //     ? 1200 // $12 for express shipping
-    //     : 500; // $5 for standard shipping
-
+    // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
@@ -74,24 +81,25 @@ export default async function handler(
         })
       ),
 
-      // Add shipping as a line item
+      // Add shipping cost dynamically
       shipping_options: [
         {
           shipping_rate_data: {
             type: "fixed_amount",
             fixed_amount: {
-              amount: shippingCost, // Shipping cost as percentage of total cart cost
+              amount: shippingCost, // Shipping cost based on subtotal
               currency: "usd",
             },
-            display_name: `Shipping (${shippingPercentage * 100}%)`,
+            display_name:
+              shippingCost === 0 ? "Free Shipping" : `Standard Shipping`,
             delivery_estimate: {
               minimum: {
                 unit: "business_day",
-                value: 3,
+                value: 4,
               },
               maximum: {
                 unit: "business_day",
-                value: 7,
+                value: 8,
               },
             },
           },
@@ -99,7 +107,7 @@ export default async function handler(
       ],
 
       shipping_address_collection: {
-        allowed_countries: ["US", "CA", "GB"],
+        allowed_countries: ["US", "CA"],
       },
       billing_address_collection: "required",
       metadata: {
@@ -111,6 +119,7 @@ export default async function handler(
       cancel_url: `${process.env.BASE_URL}/return`,
     });
 
+    // Send session URL back to the frontend
     res.status(200).json({ url: session.url });
   } catch (error) {
     console.error("Error creating checkout session:", error);
