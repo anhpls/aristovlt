@@ -4,14 +4,40 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { TypeAnimation } from "react-type-animation";
-// import Image from "next/image";
+import CountdownTimer from "@/components/Countdown";
+// import SubscribeButton from "@/components/SubscribeButton";
 
 const LandingPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
-
   const [showAnimation, setShowAnimation] = useState(false);
+  // const [email, setEmail] = useState("");
+  // const [status, setStatus] = useState(""); // For success/error messages
+
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const res = await fetch("/api/subscribe", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ email }),
+  //     });
+
+  //     if (res.ok) {
+  //       setStatus("success");
+  //       setEmail(""); // Clear the input field
+  //     } else {
+  //       setStatus("error");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error subscribing to newsletter:", error);
+  //     setStatus("error");
+  //   }
+  // };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -102,11 +128,44 @@ const LandingPage = () => {
         transition={{ duration: 2, delay: 3.8 }}
         onClick={handleLogin}
         type="submit"
-        className="mt-6 px-6 py-2 bg-orange-700 text-white rounded-full drop-shadow-md hover:bg-orange-600 transition-colors duration-500 hover:border-orange-800 border-2 border-transparent "
+        className="mt-6 px-6 py-2 bg-orange-600 text-white rounded-full drop-shadow-md hover:bg-orange-500 transition-colors duration-500 hover:border-orange-100 border-2 border-transparent "
       >
         Enter
       </motion.button>
       {error && <p className="text-red-600 mt-4">{error}</p>}
+
+      {/* <form
+        className="flex flex-col md:flex-row items-center gap-2 justify-center md:justify-end "
+        onSubmit={handleSubmit}
+      >
+        <input
+          type="email"
+          placeholder="Enter your email"
+          className="px-4 py-2 border border-gray-200 rounded-md w-full md:w-auto font-normal"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <SubscribeButton />
+      </form>
+
+      {status === "success" && (
+        <p className="text-green-600 mt-2">Welcome to the AristoVLT family!</p>
+      )}
+      {status === "error" && (
+        <p className="text-red-600 mt-2">
+          Something went wrong. Please try again.
+        </p>
+      )} */}
+
+      <motion.div
+        className="flex space-x-4 text-lg font-semibold absolute bottom-16 "
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2, delay: 0 }}
+      >
+        <CountdownTimer targetDate="2025-01-25T23:59:59" />
+      </motion.div>
     </div>
   );
 };
