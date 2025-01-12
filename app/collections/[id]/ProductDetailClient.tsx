@@ -163,7 +163,7 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
   return (
     <>
       <HeaderWithNavBar />
-      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8 md:py-44 md:px-20 ">
+      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8 md:py-44 md:px-20 mt-20 md:-mt-14 xl:-mt-10">
         <ProductDetailLeft
           product={product}
           filteredImages={filteredImages}
@@ -187,7 +187,7 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
         />
       </div>
 
-      <section className="-mt-96 ">
+      <section className="xl:-mt-96 ">
         <YouMayAlsoLike excludeProductId={product.id} />
       </section>
 

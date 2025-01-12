@@ -42,7 +42,7 @@ const ProductDetailRight: React.FC<ProductDetailRightProps> = ({
     );
 
   return (
-    <div className="flex flex-col space-y-4 sticky top-20 self-start h-fit -mt-48 md:mt-0">
+    <div className="flex flex-col space-y-4 sticky top-20 self-start h-fit mx-5 md:mx-0 md:mt-20 xl:mt-2 ">
       <h1 className="text-lg font-bold uppercase">{product.title}</h1>
       <div className="mt-4">
         <p className="text-sm md:text-lg font-medium text-zinc-500">

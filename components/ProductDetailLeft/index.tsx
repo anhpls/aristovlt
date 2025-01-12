@@ -21,7 +21,9 @@ const ProductDetailLeft: React.FC<ProductDetailLeftProps> = ({
 }) => {
   return (
     <div className="relative flex flex-col space-y-4">
-      <div className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] rounded-lg overflow-hidden">
+      <div className="relative w-full h-[500px] md:h-[600px] xl:h-130 rounded-lg overflow-hidden">
+        {" "}
+        {/* change heights when real pictures come */}
         <AnimatePresence mode="wait">
           <motion.div
             key={selectedImage}
@@ -40,7 +42,6 @@ const ProductDetailLeft: React.FC<ProductDetailLeftProps> = ({
             />
           </motion.div>
         </AnimatePresence>
-
         {/* Previous Arrow */}
         <button
           onClick={handlePrev}
@@ -49,7 +50,6 @@ const ProductDetailLeft: React.FC<ProductDetailLeftProps> = ({
         >
           <ChevronLeftIcon className="w-6 h-6 text-gray-700" />
         </button>
-
         {/* Next Arrow */}
         <button
           onClick={handleNext}
