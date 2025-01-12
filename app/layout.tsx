@@ -25,6 +25,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" type="image/png" href="/images/favicon.ico" />
       </head>
+
       <body className={`${inter.className} antialiased`}>
         <CartProvider>
           <CartDrawer />
