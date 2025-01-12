@@ -56,11 +56,11 @@ const YouMayAlsoLike: React.FC<YouMayAlsoLikeProps> = ({
 
   return (
     <div className="mt-12 xl:mt-96 mb-24 px-4 md:px-8 lg:px-16">
-      <h2 className="text-lg font-bold text-neutral-800 mb-6 text-center uppercase">
+      <h2 className="text-lg font-bold text-neutral-800 mb-5 text-center uppercase">
         You May Also Like
       </h2>
       <motion.div
-        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"
+        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
@@ -83,7 +83,7 @@ const YouMayAlsoLike: React.FC<YouMayAlsoLikeProps> = ({
               <Link href={`/collections/${product.id}`}>
                 <div>
                   {/* Image container */}
-                  <div className="relative w-full h-44 md:h-48 overflow-hidden rounded-lg bg-white">
+                  <div className="relative w-full h-72 md:h-110 overflow-hidden  bg-white">
                     <Image
                       src={
                         product.imageSrc ||
@@ -97,7 +97,7 @@ const YouMayAlsoLike: React.FC<YouMayAlsoLikeProps> = ({
                     />
                   </div>
                   {/* Text container */}
-                  <div className="mt-4 text-center">
+                  <div className="text-center">
                     <p className="text-sm md:text-md text-neutral-800 font-bold truncate ">
                       {product.title}
                     </p>

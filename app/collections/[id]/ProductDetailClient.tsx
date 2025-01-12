@@ -29,6 +29,7 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
   const router = useRouter();
   const { addToCart } = useCart();
   const colorQuery = searchParams?.get("color");
+  const [isShippingExpanded, setIsShippingExpanded] = useState(false);
 
   useEffect(() => {
     if (colorQuery && selectedColor === null) {
@@ -162,7 +163,7 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
   return (
     <>
       <HeaderWithNavBar />
-      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8 md:py-36 md:px-20">
+      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8 md:py-44 md:px-20 ">
         <ProductDetailLeft
           product={product}
           filteredImages={filteredImages}
@@ -170,6 +171,7 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
           handleNext={handleNext}
           handlePrev={handlePrev}
         />
+
         <ProductDetailRight
           product={product}
           selectedColor={selectedColor}
@@ -180,10 +182,12 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
           isDescriptionExpanded={isDescriptionExpanded}
           setIsDescriptionExpanded={setIsDescriptionExpanded}
           availableColors={availableColors}
+          isShippingExpanded={isShippingExpanded}
+          setIsShippingExpanded={setIsShippingExpanded}
         />
       </div>
 
-      <section className="mt-10 ">
+      <section className="-mt-96 ">
         <YouMayAlsoLike excludeProductId={product.id} />
       </section>
 

@@ -29,7 +29,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "components/CartDrawer"
+    "components/CartDrawer",
+    "pages/api/shippingReturns.js"
   ],
   "exclude": ["node_modules"]
 }

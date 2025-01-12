@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Product } from "@/types/types";
-import { memo } from "react";
+import { memo, useState } from "react";
 
 interface ProductDetailRightProps {
   product: Product;
@@ -12,6 +12,8 @@ interface ProductDetailRightProps {
   isDescriptionExpanded: boolean;
   setIsDescriptionExpanded: (expanded: boolean) => void;
   availableColors: { id: number; title: string; colors: string[] }[];
+  isShippingExpanded: boolean;
+  setIsShippingExpanded: (expanded: boolean) => void;
 }
 
 const ProductDetailRight: React.FC<ProductDetailRightProps> = ({
@@ -25,6 +27,7 @@ const ProductDetailRight: React.FC<ProductDetailRightProps> = ({
   setIsDescriptionExpanded,
 }) => {
   const enabledVariant = product.variants.find((variant) => variant.is_enabled);
+  const [isShippingExpanded, setIsShippingExpanded] = useState(false);
 
   const productPrice = enabledVariant?.price
     ? (enabledVariant.price / 100).toFixed(2)
@@ -129,10 +132,12 @@ const ProductDetailRight: React.FC<ProductDetailRightProps> = ({
       </button>
 
       {/* Description */}
-      <div>
+      <div className="mt-2">
+        {" "}
+        {/* Added consistent top margin */}
         <button
           onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
-          className="text-sm font-medium text-neutral-600 shadow py-3 w-full mt-2"
+          className="text-sm font-medium text-neutral-600 shadow py-3 w-full "
         >
           {isDescriptionExpanded ? "Hide Details" : "Show Details"}
         </button>
@@ -144,9 +149,48 @@ const ProductDetailRight: React.FC<ProductDetailRightProps> = ({
             collapsed: { height: 0, opacity: 0 },
           }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="overflow-hidden pt-10 text-neutral-500 text-xs"
+          className="overflow-hidden pt-4 text-neutral-500 text-xs"
         >
           <div dangerouslySetInnerHTML={{ __html: product.description }} />
+        </motion.div>
+      </div>
+
+      {/* Shipping & Returns */}
+      <div className="mt-2">
+        {" "}
+        {/* Replaced -mt-96 with consistent spacing */}
+        <button
+          onClick={() => setIsShippingExpanded(!isShippingExpanded)}
+          className="text-sm font-medium text-neutral-600 shadow py-3 w-full -mt-10"
+        >
+          {isShippingExpanded
+            ? "Hide Shipping & Returns"
+            : "Shipping & Returns"}
+        </button>
+        <motion.div
+          initial={{ maxHeight: 0, opacity: 0 }}
+          animate={
+            isShippingExpanded
+              ? { maxHeight: 500, opacity: 1 }
+              : { maxHeight: 0, opacity: 0 }
+          }
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="overflow-hidden pt-4 text-neutral-500 text-xs"
+        >
+          <div>
+            <p>
+              <strong>Shipping:</strong> Orders are processed within 1–2
+              business days. Delivery time is estimated at 3–5 business days for
+              standard shipping. Free shipping is available on orders over $150.
+            </p>
+            <p className="mt-4">
+              <strong>Returns:</strong> We accept returns within 30 days of
+              purchase. Items must be in their original condition with tags
+              attached. Please contact our support{" "}
+              <span className="font-bold">contact@aristovlt.com</span> team for
+              a return label.
+            </p>
+          </div>
         </motion.div>
       </div>
     </div>

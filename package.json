@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@sendgrid/mail": "^8.1.4",
     "axios": "^1.7.9",
     "cookie": "^1.0.2",
     "js-cookie": "^3.0.5",
