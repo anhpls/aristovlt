@@ -15,7 +15,8 @@ export interface Variant {
 export interface OptionValue {
   id: number;
   title: string;
-  colors?: string[]; // Optional for color codes
+  colors?: string[];
+  is_available: boolean;
 }
 
 export interface Option {

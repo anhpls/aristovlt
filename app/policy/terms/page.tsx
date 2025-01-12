@@ -16,7 +16,7 @@ export default function TermsPolicyPage() {
       <div className="min-h-screen bg-stone-300 flex flex-col">
         <HeaderWithNavBar />
 
-        <main className="flex-1">
+        <main className="flex-1 mb-40">
           <Terms />
         </main>
 

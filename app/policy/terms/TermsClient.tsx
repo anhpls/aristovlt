@@ -182,8 +182,8 @@ const TermsClient: React.FC = () => {
           </li>
           <li>
             <strong>Process:</strong> To request a return or exchange, contact
-            us at <span className="italic">aristovlt.info@gmail.com</span> with
-            your order details.
+            us at <span className="font-semibold">contact@aristovlt.com</span>{" "}
+            with your order details.
           </li>
         </ul>
 
@@ -301,7 +301,7 @@ const TermsClient: React.FC = () => {
         </p>
         <ul className="list-disc list-inside mt-3">
           <li>
-            <strong>Email:</strong> aristovlt.info@gmail.com
+            <strong>Email:</strong> contact@aristovlt.com
           </li>
           <li>
             <strong>Phone:</strong> +1 (555) 123-4567

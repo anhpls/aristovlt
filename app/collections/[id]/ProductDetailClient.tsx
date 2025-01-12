@@ -3,10 +3,12 @@
 import ProductDetailLeft from "@/components/ProductDetailLeft";
 import ProductDetailRight from "@/components/ProductDetailRight";
 import { useState, useEffect, useCallback, useMemo } from "react";
+import YouMayAlsoLike from "@/components/YouMayAlsoLike";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Product, Variant } from "@/types/types";
 import HeaderWithNavBar from "@/components/HeaderWithNavBar.tsx";
 import { useCart } from "@/contexts/CartContext";
+import { Footer } from "@/components/Footer";
 
 interface ProductDetailClientProps {
   product: Product;
@@ -180,6 +182,12 @@ const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
           availableColors={availableColors}
         />
       </div>
+
+      <section className="mt-10 ">
+        <YouMayAlsoLike excludeProductId={product.id} />
+      </section>
+
+      <Footer />
     </>
   );
 };

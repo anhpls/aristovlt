@@ -224,7 +224,7 @@ const PrivacyPolicyClient: React.FC = () => {
           </p>
           <ul className="leading-relaxed mt-3">
             <li>
-              <strong>Email:</strong> aristovlt.info@gmail.com
+              <strong>Email:</strong> contact@aristovlt.com
             </li>
             <li>
               <strong>Phone:</strong> +1 (555) 123-4567

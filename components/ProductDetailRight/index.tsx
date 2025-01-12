@@ -87,19 +87,33 @@ const ProductDetailRight: React.FC<ProductDetailRightProps> = ({
             ?.values.filter((size) =>
               ["XS", "S", "M", "L", "XL", "2XL"].includes(size.title)
             )
-            .map((size) => (
-              <button
-                key={size.id}
-                onClick={() => setSelectedSize(size.id)}
-                className={`px-3 py-1 md:px-4 md:py-2 rounded-lg border ${
-                  selectedSize === size.id
-                    ? "bg-black text-white"
-                    : "bg-white text-neutral-800"
-                }`}
-              >
-                {size.title}
-              </button>
-            ))}
+            .map((size) => {
+              const matchingVariant = product.variants.find(
+                (variant) =>
+                  variant.options.includes(size.id) &&
+                  (selectedColor === null ||
+                    variant.options.includes(selectedColor!))
+              );
+
+              const isAvailable = matchingVariant?.is_available ?? false;
+
+              return (
+                <button
+                  key={size.id}
+                  onClick={() => isAvailable && setSelectedSize(size.id)}
+                  disabled={!isAvailable} // Disable if not available
+                  className={`px-3 py-1 md:px-4 md:py-2 rounded-lg border ${
+                    !isAvailable
+                      ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                      : selectedSize === size.id
+                      ? "bg-black text-white"
+                      : "bg-white text-neutral-800"
+                  }`}
+                >
+                  {size.title}
+                </button>
+              );
+            })}
         </div>
       </div>
 
@@ -113,6 +127,7 @@ const ProductDetailRight: React.FC<ProductDetailRightProps> = ({
       >
         Add to Cart
       </button>
+
       {/* Description */}
       <div>
         <button

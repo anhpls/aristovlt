@@ -6,6 +6,7 @@ import ProductCard from "@/components/ProductCard";
 import { Product, Option } from "@/types/types";
 import { TypeAnimation } from "react-type-animation";
 import HeaderWithNavBar from "@/components/HeaderWithNavBar.tsx";
+import { Footer } from "@/components/Footer";
 
 const M4MCollectionsPage = () => {
   const [transformedProducts, setTransformedProducts] = useState<Product[]>([]);
@@ -61,7 +62,7 @@ const M4MCollectionsPage = () => {
 
   if (loading)
     return (
-      <div className="flex items-center justify-center h-screen bg-stone-300">
+      <div className="flex items-center justify-center h-screen bg-stone-200">
         <p className="text-center font-extrabold text-neutral-700 text-3xl md:text-6xl lg:text-9xl flex justify-center items-center">
           {" "}
           <span>UNLOCKING</span>
@@ -85,45 +86,49 @@ const M4MCollectionsPage = () => {
     );
 
   return (
-    <div className="min-h-full bg-stone-200 py-10 pt-28">
-      <div className="w-full h-full flex justify-center items-center">
-        <div className="text-center md:px-16 shadow-neutral-500 shadow-inner py-6 flex-col bg-black bg-opacity-10 rounded-sm">
-          <h1 className=" drop-shadow-sm text-neutral-50 font-extrabold uppercase px-40">
-            <span className="text-2xl md:text-8xl">Unvaulted</span>
-            <span className=" font-semibold text-xl flex justify-center text-orange-50 ">
-              {" "}
-              | Made for Motion |
-            </span>
-          </h1>
-          <p className="text-xs md:text-sm text-stone-500 mt-2">
-            Engineered for the Bold Hustler - Designed to Move, Destined to
-            Impress
-          </p>
+    <>
+      <div className="min-h-full bg-stone-200 py-10 pt-28">
+        <div className="w-full h-full flex justify-center items-center">
+          <div className="text-center shadow-neutral-500 shadow-inner py-14 flex-col bg-black bg-opacity-10 rounded-sm w-full">
+            <h1 className=" drop-shadow-sm text-neutral-50 font-extrabold uppercase">
+              <span className="text-4xl lg:text-6xl xl:text-8xl">
+                Unvaulted
+              </span>
+              <span className=" font-bold text-xs m:text-md lg:text-lg xl:text-2xl flex justify-center text-stone-700 font-silverGardenBold">
+                {" "}
+                Made for Motion
+              </span>
+            </h1>
+            <p className="text-xs md:text-sm text-stone-500 mt-2 ">
+              Engineered for the Bold Hustler - Designed to Move, Destined to
+              Impress
+            </p>
+          </div>
         </div>
-      </div>
-
-      <div className="min-h-screen">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-20 md:gap-x-4 md:gap-y-28 mt-24 px-20 h-full auto-rows-[1fr] ">
-          {m4mProducts.map((product, index) => (
-            <ProductCard
-              key={`${product.id}-${product.color?.id ?? "no-color"}`}
-              product={{
-                ...product,
-                variants: product.variants ?? [],
-                imageSrc:
-                  product.images.find((image) =>
-                    image.src
-                      ?.toLowerCase()
-                      ?.includes(product.color?.title?.toLowerCase() || "")
-                  )?.src || "/placeholder.png",
-              }}
-              delay={index * 80}
-            />
-          ))}
+        <div className="min-h-screen mb-44">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-y-20 md:gap-x-4 md:gap-y-28 mt-24 px-20 h-full auto-rows-[1fr] ">
+            {m4mProducts.map((product, index) => (
+              <ProductCard
+                key={`${product.id}-${product.color?.id ?? "no-color"}`}
+                product={{
+                  ...product,
+                  variants: product.variants ?? [],
+                  imageSrc:
+                    product.images.find((image) =>
+                      image.src
+                        ?.toLowerCase()
+                        ?.includes(product.color?.title?.toLowerCase() || "")
+                    )?.src || "/placeholder.png",
+                }}
+                delay={index * 80}
+              />
+            ))}
+          </div>
         </div>
+        <HeaderWithNavBar />
+        <Footer />
       </div>
-      <HeaderWithNavBar />
-    </div>
+    </>
   );
 };
 

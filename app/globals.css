@@ -2,6 +2,83 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Bropella";
+  src: url("/fonts/Bropella.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Dunce Cap Italic";
+  src: url("/fonts/duncecapbb_ital.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Dunce Cap Regular";
+  src: url("/fonts/duncecapbb_reg.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Italiano";
+  src: url("/fonts/Italiano-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Junebug";
+  src: url("/fonts/JUNEBUG.TTF") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Milkyway";
+  src: url("/fonts/Milkyway DEMO.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Monte Carlo";
+  src: url("/fonts/MonteCarlo-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Silver Garden Bold Italic";
+  src: url("/fonts/Silver Garden Bold Italic.otf") format("opentype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Silver Garden Bold";
+  src: url("/fonts/Silver Garden Bold.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Silver Garden Italic";
+  src: url("/fonts/Silver Garden Italic.otf") format("opentype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Silver Garden";
+  src: url("/fonts/Silver Garden.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #333333;
@@ -21,6 +98,7 @@ body {
 .line-clamp-3 {
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

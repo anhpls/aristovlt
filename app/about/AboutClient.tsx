@@ -30,7 +30,7 @@ const AboutPage = () => {
   };
 
   return (
-    <div className="bg-white h-screen w-full">
+    <div className="w-full">
       <motion.div
         className="min-h-screen text-neutral-800 py-16 px-4 md:px-16 mt-24"
         initial="hidden"

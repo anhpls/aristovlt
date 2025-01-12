@@ -81,7 +81,7 @@ const LandingPage = () => {
           speed={5}
           repeat={0}
           cursor={false}
-          className="text-5xl md:text-7xl p-2  text-neutral-800 mb-6 font-black shadow-lg shadow-neutral-900 pointer-events-none"
+          className="text-5xl md:text-7xl p-2  text-neutral-800 mb-6 font-black shadow-lg shadow-neutral-900 pointer-events-none "
         />
       )}
 

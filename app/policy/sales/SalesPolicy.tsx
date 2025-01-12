@@ -85,10 +85,10 @@ const SalesPolicyClient: React.FC = () => {
           <p className="text-gray-700 mt-4 text-sm md:text-md">
             To initiate a return, please email our support team at{" "}
             <a
-              href="mailto:support@aristovlt.com"
+              href="mailto:contact@aristovlt.com?subject=Customer%20Inquiry&body=Hello%2C%20I%20have%20a%20question%20about..."
               className="text-neutral-800 font-extrabold underline hover:text-neutral-500"
             >
-              aristovlt.info@gmail.com
+              contact@aristovlt.com
             </a>
             . Refunds will be processed within 7-10 business days after we
             receive the returned items.

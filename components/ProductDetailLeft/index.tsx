@@ -21,7 +21,8 @@ const ProductDetailLeft: React.FC<ProductDetailLeftProps> = ({
 }) => {
   return (
     <div className="flex flex-col space-y-4 relative">
-      <div className="relative w-full h-130 rounded-lg overflow-hidden">
+      <div className="relative w-full h-130 md:h-130 lg:h-130 xl:h-130 rounded-lg overflow-hidden">
+        {/* change media query pic heights after new mockups */}
         <AnimatePresence mode="wait">
           <motion.div
             key={selectedImage}

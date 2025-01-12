@@ -31,7 +31,7 @@ const faqData: FAQItem[] = [
   {
     question: "How can I contact customer support?",
     answer:
-      "You can reach us via email at aristovlt.info@gmail.com or through the Contact Us page on our website.",
+      "You can reach us via email at contact@aristovlt.com or through the Contact Us page on our website.",
   },
 ];
 
