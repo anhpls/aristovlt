@@ -8,9 +8,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 // Shipping tiers based on cart total
 function calculateShippingCost(subtotal: number): number {
   if (subtotal < 50) {
-    return 795; // $7.95
+    return 895; // $8.95
   } else if (subtotal < 150) {
-    return 5.95; // $5.95
+    return 6.95; // $6.95
   } else {
     return 0; // Free shipping
   }
