@@ -126,8 +126,8 @@ const M4MCollectionsPage = () => {
           </div>
         </div>
         <HeaderWithNavBar />
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 };

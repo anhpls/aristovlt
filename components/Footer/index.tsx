@@ -34,7 +34,7 @@ export const Footer = () => {
 
   return (
     <div className="bg-stone-100">
-      <footer className="text-gray-600 py-8 px-8 mt-4">
+      <footer className="text-gray-600 py-8 px-8 pt-20">
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-xs">
           {/* Left Section - Links */}
           <div className="space-y-2">

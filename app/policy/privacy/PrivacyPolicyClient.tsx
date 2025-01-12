@@ -226,12 +226,12 @@ const PrivacyPolicyClient: React.FC = () => {
             <li>
               <strong>Email:</strong> contact@aristovlt.com
             </li>
-            <li>
+            {/* <li>
               <strong>Phone:</strong> +1 (555) 123-4567
             </li>
             <li>
               <strong>Address:</strong> San Diego, CA 92129
-            </li>
+            </li> */}
           </ul>
 
           <p className="leading-relaxed mt-10">

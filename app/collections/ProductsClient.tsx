@@ -124,8 +124,8 @@ const ProductsClient = () => {
         </div>
 
         <HeaderWithNavBar />
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 };
