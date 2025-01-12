@@ -124,10 +124,10 @@ export const Footer = () => {
 
             {/* Social Media Icons */}
             <div className="flex justify-center md:justify-end space-x-4">
-              <a href="https://www.instagram.com/aristo.vlt" target="_blank">
+              <a href="https://www.instagram.com/aristovlt" target="_blank">
                 <CiInstagram className="w-8 h-8 " />
               </a>
-              <a href="https://www.instagram.com/aristo.vlt" target="_blank">
+              <a href="https://www.instagram.com/aristovlt" target="_blank">
                 <FaTiktok className="w-7 h-7 " />
               </a>
             </div>
