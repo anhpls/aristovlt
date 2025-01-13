@@ -43,9 +43,11 @@ const Register = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
-        <h1 className="text-2xl font-semibold text-center mb-6">Register</h1>
+    <div className="flex justify-center items-center h-screen pb-32">
+      <div className="w-full max-w-md  p-6">
+        <h1 className="text-xl font-semibold text-center mb-6 uppercase">
+          Account
+        </h1>
 
         {error && (
           <div className="bg-red-100 text-red-700 p-3 rounded mb-4">
@@ -60,59 +62,58 @@ const Register = () => {
 
         <form onSubmit={handleRegister}>
           <div className="mb-4">
-            <label htmlFor="name" className="block text-gray-700 mb-2">
-              Name
-            </label>
             <input
               type="text"
               id="name"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-800"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              placeholder="Name"
               required
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700 mb-2">
-              Email
-            </label>
             <input
               type="email"
               id="email"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-800"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
               required
             />
           </div>
 
           <div className="mb-6">
-            <label htmlFor="password" className="block text-gray-700 mb-2">
-              Password
-            </label>
             <input
               type="password"
               id="password"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-800"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
               required
             />
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors"
-          >
-            Register
-          </button>
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="w-1/2 bg-stone-800 text-white py-2 rounded-lg hover:bg-stone-700 transition-colors duration-300 uppercase"
+            >
+              Sign up
+            </button>
+          </div>
         </form>
 
-        <div className="text-center mt-4">
-          <p className="text-gray-600">
+        <div className="text-center mt-8 text-sm">
+          <p className="text-neutral-600">
             Already have an account?{" "}
-            <a href="/account/login" className="text-blue-500 hover:underline">
+            <a
+              href="/account/login"
+              className="text-white underline-offset-4 hover:underline"
+            >
               Login here
             </a>
           </p>

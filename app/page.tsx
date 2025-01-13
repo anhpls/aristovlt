@@ -120,7 +120,7 @@ const LandingPage = () => {
         onChange={(e) => setPassword(e.target.value)}
         onKeyDown={handleKeyPress}
         placeholder="Password"
-        className="font-bold p-2 rounded-md text-black outline-neutral-900 drop-shadow-md placeholder-stone-900 border-opacity-65 border-1  placeholder-opacity-30"
+        className="font-bold p-2 rounded-md text-black outline-neutral-900 drop-shadow-md placeholder-stone-900 border-opacity-65 border-1  placeholder-opacity-30 focus:outline-none focus:ring-2 focus:ring-neutral-800"
       />
       <motion.button
         initial={{ opacity: 0, y: 0 }}
