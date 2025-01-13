@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   MagnifyingGlassIcon,
   ShoppingCartIcon,
@@ -19,16 +19,21 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({}) => {
   const pathname = usePathname();
   const { toggleCartVisibility, cart } = useCart(); // Access CartContext
+  const router = useRouter();
 
   // Dynamic header color based on the current path
   const switchColor =
-    pathname === "/home" ? "text-white relative -left-2" : "text-neutral-800 ";
+    pathname === "/home" ? "text-white " : "text-neutral-800 ";
+
+  const handleRedirect = () => {
+    router.push("/account/login");
+  };
 
   return (
     <div className="absolute top-0 left-0 w-full flex items-center justify-center p-4 z-40">
       {/* Title Positioned Consistently */}
       <h1
-        className={`text-xl font-extrabold hover:cursor-pointer  transition ${switchColor}`}
+        className={`text-xl font-extrabold hover:cursor-pointer ml transition ${switchColor}`}
       >
         <Link href="/home">ARISTO VAULT</Link>
       </h1>
@@ -82,6 +87,7 @@ const Header: React.FC<HeaderProps> = ({}) => {
             stiffness: 500,
             damping: 50,
           }}
+          onClick={handleRedirect}
         >
           <UserIcon
             className={`w-6 h-6 transition-colors hover:cursor-pointer ${switchColor}`}

@@ -123,3 +123,12 @@ body {
 .Toastify__progress-bar {
   background-color: #ffffff;
 }
+
+html {
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Edge */
+}
