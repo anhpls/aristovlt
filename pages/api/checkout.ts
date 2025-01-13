@@ -10,7 +10,7 @@ function calculateShippingCost(subtotal: number): number {
   if (subtotal < 50) {
     return 895; // $8.95
   } else if (subtotal < 150) {
-    return 6.95; // $6.95
+    return 695; // $6.95
   } else {
     return 0; // Free shipping
   }
