@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { LockClosedIcon, LockOpenIcon } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const NavBar = ({
   isOpen,
@@ -48,15 +48,44 @@ const NavBar = ({
   const switchColor = pathname === "/home" ? "text-white" : "text-neutral-800";
   const [vaultOpen, setVaultOpen] = useState(false);
 
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY.current) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+      lastScrollY.current = window.scrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <>
       {/* Lock Menu Icon */}
       <motion.button
         onClick={toggleMenu}
-        className={`absolute top-5 left-6 z-50 ${switchColor}`}
+        className={`fixed top-5 left-6 z-50 ${switchColor}`}
         aria-label={isOpen ? "Close menu" : "Open menu"}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
+        animate={{
+          opacity: isVisible || isOpen ? 1 : 0,
+          y: isVisible || isOpen ? 0 : -20,
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 300,
+          damping: 30,
+        }}
       >
         <motion.div
           variants={iconVariants}
@@ -143,7 +172,7 @@ const NavBar = ({
             // { href: "/collections", label: "VAULTS" },
             { href: "/about", label: "ABOUT" },
             { href: "/contact", label: "CONTACT" },
-            { href: "/club", label: "MEMBERS" },
+            { href: "/aristocracy", label: "THE ARISTOCRACY" },
           ].map((link) => (
             <motion.div
               key={link.href}
@@ -170,6 +199,7 @@ const NavBar = ({
             { href: "/policy/sales", label: "REFUND + SHIPPING POLICY" },
             { href: "/policy/FAQ", label: "FAQ" },
             { href: "/policy/trackorder", label: "TRACK YOUR ORDER" },
+            { href: "/newsletter", label: "NEWSLETTER" },
           ].map((link) => (
             <motion.div
               key={link.href}

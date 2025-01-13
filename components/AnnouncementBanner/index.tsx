@@ -25,7 +25,7 @@ const AnnouncementBanner = () => {
 
   return (
     <motion.div
-      className="fixed bottom-4 right-4 bg-stone-800 text-white py-3 px-4 rounded-lg shadow-lg z-50"
+      className="fixed bottom-4 lg:right-4 bg-stone-800 text-white py-3 px-4 rounded-lg shadow-lg z-50"
       initial={{ x: 100, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: 100, opacity: 0 }}
