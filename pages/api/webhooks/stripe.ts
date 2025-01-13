@@ -46,8 +46,18 @@ export default async function handler(
         // Send a confirmation email
         const email = session.customer_details?.email;
         if (email) {
-          await sendConfirmationEmail(email, session.id);
-          console.log("Confirmation email sent to:", email);
+          try {
+            await sendConfirmationEmail(email, session.id);
+            console.log("Confirmation email sent to:", email);
+          } catch (error) {
+            if (error instanceof Error) {
+              console.error("Error sending confirmation email:", error.message);
+            } else {
+              console.error("Error sending confirmation email:", error);
+            }
+          }
+        } else {
+          console.warn("Customer email not found in session.");
         }
         break;
       }
