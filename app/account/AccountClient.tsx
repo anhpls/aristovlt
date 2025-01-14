@@ -29,20 +29,23 @@ const Account: React.FC = () => {
         setLoading(true);
 
         // Fetch user info
-        const userResponse = await axios.get("/auth/login"); // Replace with your actual API endpoint
+        const userResponse = await axios.get("/api/auth/login"); // Replace with your actual API endpoint
+        console.log("User Response:", userResponse.data);
         setUser(userResponse.data);
 
         // Fetch saved items
-        const savedItemsResponse = await axios.get("/items/save"); // Replace with your actual API endpoint
+        const savedItemsResponse = await axios.get("/api/items/save"); // Replace with your actual API endpoint
+        console.log("Saved Items Response:", savedItemsResponse.data);
         setSavedItems(savedItemsResponse.data);
 
         // Fetch orders
-        const ordersResponse = await axios.get("/orders/view"); // Replace with your actual API endpoint
+        const ordersResponse = await axios.get("/api/orders/view"); // Replace with your actual API endpoint
+        console.log("Orders Response:", ordersResponse.data);
         setOrders(ordersResponse.data);
 
         setLoading(false);
       } catch (err) {
-        console.error(err);
+        console.error("Error fetching account data:", err);
         setError("Failed to load account information.");
         setLoading(false);
       }
