@@ -29,17 +29,17 @@ const Account: React.FC = () => {
         setLoading(true);
 
         // Fetch user info
-        const userResponse = await axios.get("/api/auth/login"); // Replace with your actual API endpoint
+        const userResponse = await axios.get("/api/auth/login");
         console.log("User Response:", userResponse.data);
         setUser(userResponse.data);
 
         // Fetch saved items
-        const savedItemsResponse = await axios.get("/api/items/save"); // Replace with your actual API endpoint
+        const savedItemsResponse = await axios.get("/api/items/save");
         console.log("Saved Items Response:", savedItemsResponse.data);
         setSavedItems(savedItemsResponse.data);
 
         // Fetch orders
-        const ordersResponse = await axios.get("/api/orders/view"); // Replace with your actual API endpoint
+        const ordersResponse = await axios.get("/api/orders/view");
         console.log("Orders Response:", ordersResponse.data);
         setOrders(ordersResponse.data);
 
