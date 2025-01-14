@@ -8,7 +8,7 @@ datasource db {
 }
 
 model User {
-  id         String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id         Int         @id @default(autoincrement()) 
   email      String      @unique
   password   String
   name       String?
@@ -20,7 +20,7 @@ model User {
 
 model SavedItem {
   id     Int     @id @default(autoincrement())
-  userId String  @db.Uuid
+  userId Int     
   user   User    @relation(fields: [userId], references: [id])
   name   String
   link   String
@@ -28,9 +28,8 @@ model SavedItem {
 
 model Order {
   id          Int     @id @default(autoincrement())
-  userId      String  @db.Uuid
+  userId      Int     
   user        User    @relation(fields: [userId], references: [id])
   totalAmount Float
   createdAt   DateTime @default(now())
 }
-
