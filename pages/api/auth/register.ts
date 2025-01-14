@@ -13,8 +13,6 @@ export default async function handler(
   }
 
   const { email, password, name } = req.body;
-  console.log("Environment DATABASE_URL:", process.env.DATABASE_URL);
-  console.log("Request Body:", req.body);
 
   if (!email || !password) {
     return res
@@ -31,7 +29,6 @@ export default async function handler(
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log("Hashed Password:", hashedPassword);
 
     // Create the user
     const user = await prisma.user.create({
