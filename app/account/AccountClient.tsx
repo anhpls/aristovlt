@@ -1,184 +1,137 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import axios from "axios";
 
-// Mock data for orders, saved payment methods, and favorited items
-const mockOrders = [
-  {
-    id: 1,
-    date: "2023-12-15",
-    total: "$120.00",
-    items: 3,
-  },
-  {
-    id: 2,
-    date: "2023-11-10",
-    total: "$89.50",
-    items: 2,
-  },
-];
+interface SavedItem {
+  id: number;
+  name: string;
+  link: string;
+}
 
-const mockPayments = [
-  {
-    id: 1,
-    cardType: "Visa",
-    last4: "1234",
-    expiry: "12/25",
-  },
-  {
-    id: 2,
-    cardType: "MasterCard",
-    last4: "5678",
-    expiry: "08/24",
-  },
-];
+interface Order {
+  id: number;
+  totalAmount: number;
+  createdAt: string;
+}
 
-const mockFavorites = [
-  {
-    id: 1,
-    name: "Product 1",
-    image: "/images/product1.jpg",
-    price: "$40.00",
-  },
-  {
-    id: 2,
-    name: "Product 2",
-    image: "/images/product2.jpg",
-    price: "$60.00",
-  },
-];
-
-const AccountPage = () => {
-  interface Order {
-    id: number;
-    date: string;
-    total: string;
-    items: number;
-  }
-  
-  interface PaymentMethod {
-    id: number;
-    cardType: string;
-    last4: string;
-    expiry: string;
-  }
-  
-  interface FavoriteItem {
-    id: number;
-    name: string;
-    image: string;
-    price: string;
-  }
-  
+const Account: React.FC = () => {
+  const [user, setUser] = useState({ name: "", email: "" });
+  const [savedItems, setSavedItems] = useState<SavedItem[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
-  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
-  const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    // Simulate fetching data from an API
-    setOrders(mockOrders);
-    setPaymentMethods(mockPayments);
-    setFavorites(mockFavorites);
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+
+        // Fetch user info
+        const userResponse = await axios.get("/auth/login"); // Replace with your actual API endpoint
+        setUser(userResponse.data);
+
+        // Fetch saved items
+        const savedItemsResponse = await axios.get("/items/save"); // Replace with your actual API endpoint
+        setSavedItems(savedItemsResponse.data);
+
+        // Fetch orders
+        const ordersResponse = await axios.get("/orders/view"); // Replace with your actual API endpoint
+        setOrders(ordersResponse.data);
+
+        setLoading(false);
+      } catch (err) {
+        console.error(err);
+        setError("Failed to load account information.");
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  // Framer Motion animation variants
-  const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.2 } },
-  };
+  if (loading) {
+    return <div className="text-center py-10">Loading...</div>;
+  }
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
+  if (error) {
+    return <div className="text-center py-10 text-red-500">{error}</div>;
+  }
 
   return (
-    <div className="p-8 bg-gray-100 min-h-screen">
-      <motion.h1
-        className="text-3xl font-bold mb-6"
+    <div className="p-6 max-w-4xl mx-auto">
+      {/* Profile Information */}
+      <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
+        className="bg-white p-6 rounded-lg shadow-lg mb-8"
       >
-        My Account
-      </motion.h1>
-
-      {/* Previous Orders Section */}
-      <motion.div
-        className="mb-8"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <h2 className="text-2xl font-semibold mb-4">Previous Orders</h2>
-        <div className="space-y-4">
-          {orders.map((order) => (
-            <motion.div
-              key={order.id}
-              className="p-4 bg-white rounded-lg shadow-md"
-              variants={itemVariants}
-            >
-              <p className="text-lg font-medium">Order ID: {order.id}</p>
-              <p>Date: {order.date}</p>
-              <p>Total: {order.total}</p>
-              <p>Items: {order.items}</p>
-            </motion.div>
-          ))}
-        </div>
+        <h2 className="text-2xl font-semibold mb-2">Account Information</h2>
+        <p>
+          <span className="font-semibold">Name:</span> {user.name || "N/A"}
+        </p>
+        <p>
+          <span className="font-semibold">Email:</span> {user.email || "N/A"}
+        </p>
       </motion.div>
 
-      {/* Saved Payment Methods Section */}
+      {/* Saved Items */}
       <motion.div
-        className="mb-8"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+        className="bg-white p-6 rounded-lg shadow-lg mb-8"
       >
-        <h2 className="text-2xl font-semibold mb-4">Saved Payment Methods</h2>
-        <div className="space-y-4">
-          {paymentMethods.map((method) => (
-            <motion.div
-              key={method.id}
-              className="p-4 bg-white rounded-lg shadow-md"
-              variants={itemVariants}
-            >
-              <p className="text-lg font-medium">{method.cardType}</p>
-              <p>Ending in: {method.last4}</p>
-              <img
-                src={method.image}
-                alt={method.name}
-                className="w-full h-40 object-cover rounded-md mb-4"
-              />
+        <h2 className="text-2xl font-semibold mb-4">Saved Items</h2>
+        {savedItems.length > 0 ? (
+          <ul className="space-y-2">
+            {savedItems.map((item) => (
+              <li key={item.id}>
+                <a href={item.link} className="text-blue-500 hover:underline">
+                  {item.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No saved items yet.</p>
+        )}
+      </motion.div>
 
-      {/* Favorited Items Section */}
+      {/* Past Orders */}
       <motion.div
-        className="mb-8"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+        className="bg-white p-6 rounded-lg shadow-lg"
       >
-        <h2 className="text-2xl font-semibold mb-4">Favorited Items</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {favorites.map((item) => (
-            <motion.div
-              key={item.id}
-              className="p-4 bg-white rounded-lg shadow-md"
-              variants={itemVariants}
-            >
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-full h-40 object-cover rounded-md mb-4"
-              />
-              <p className="text-lg font-medium">{item.name}</p>
-              <p>{item.price}</p>
-            </motion.div>
-          ))}
-        </div>
+        <h2 className="text-2xl font-semibold mb-4">Order History</h2>
+        {orders.length > 0 ? (
+          <ul className="space-y-4">
+            {orders.map((order) => (
+              <li key={order.id} className="border-t pt-2">
+                <p>
+                  <span className="font-semibold">Order ID:</span> {order.id}
+                </p>
+                <p>
+                  <span className="font-semibold">Total Amount:</span> $
+                  {order.totalAmount.toFixed(2)}
+                </p>
+                <p>
+                  <span className="font-semibold">Date:</span>{" "}
+                  {new Date(order.createdAt).toLocaleDateString()}
+                </p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No past orders found.</p>
+        )}
       </motion.div>
     </div>
   );
 };
 
-export default AccountPage;
+export default Account;

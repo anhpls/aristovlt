@@ -8,28 +8,28 @@ datasource db {
 }
 
 model User {
-  id         Int         @id @default(autoincrement())
-  email      String      @unique
+  id         Int          @id @default(autoincrement())
+  email      String       @unique
   password   String
   name       String?
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  orders     Order[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
   savedItems SavedItem[]
+  orders     Order[]
 }
 
 model SavedItem {
   id     Int    @id @default(autoincrement())
   userId Int
+  user   User   @relation(fields: [userId], references: [id])
   name   String
   link   String
-  user   User   @relation(fields: [userId], references: [id])
 }
 
 model Order {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   userId      Int
+  user        User      @relation(fields: [userId], references: [id])
   totalAmount Float
-  createdAt   DateTime @default(now())
-  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime  @default(now())
 }
