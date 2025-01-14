@@ -27,10 +27,10 @@ model SavedItem {
 }
 
 model Order {
-  id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  userId      String  @db.Uuid
-  user        User    @relation(fields: [userId], references: [id])
-  totalAmount Float
-  createdAt   DateTime @default(now())
+    id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    user_id     String  @db.Uuid
+    user        User    @relation(fields: [user_id], references: [id])
+    totalAmount Float
+    createdAt   DateTime @default(now())
 }
 
