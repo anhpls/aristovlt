@@ -1,39 +1,28 @@
-import { PrismaClient } from "@prisma/client";
-import jwt from "jsonwebtoken";
+// view.ts
 import { NextApiRequest, NextApiResponse } from "next";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-
-interface JwtPayload {
-  userId: string;
-}
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === "GET") {
-    const { token } = req.query as { token: string };
+  if (req.method !== "GET") {
+    return res.status(405).json({ message: "Method Not Allowed" });
+  }
 
-    try {
-      if (!process.env.JWT_SECRET) {
-        throw new Error("JWT_SECRET is not defined");
-      }
-      const { userId } = jwt.verify(
-        token,
-        process.env.JWT_SECRET as string
-      ) as unknown as JwtPayload;
+  const { userId } = req.query;
 
-      const orders = await prisma.order.findMany({
-        where: { userId: parseInt(userId, 10) },
-      });
+  if (!userId || typeof userId !== "string") {
+    return res.status(400).json({ message: "Invalid or missing userId." });
+  }
 
-      res.status(200).json(orders);
-    } catch (error) {
-      console.error(error);
-      res.status(401).json({ error: "Unauthorized" });
-    }
-  } else {
-    res.status(405).json({ error: "Method not allowed" });
+  try {
+    const savedItems = await prisma.savedItem.findMany({ where: { userId } });
+    res.status(200).json(savedItems);
+  } catch (error) {
+    console.error("Error retrieving saved items:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 }

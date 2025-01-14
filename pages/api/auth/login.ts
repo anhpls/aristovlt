@@ -1,46 +1,40 @@
+// login.ts
+import { NextApiRequest, NextApiResponse } from "next";
+import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import type { NextApiRequest, NextApiResponse } from "next";
 
 const prisma = new PrismaClient();
 
-interface LoginRequestBody {
-  email: string;
-  password: string;
-}
-
-interface LoginResponseData {
-  token?: string;
-  error?: string;
-}
-
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<LoginResponseData>
+  res: NextApiResponse
 ) {
-  if (req.method === "POST") {
-    const { email, password }: LoginRequestBody = req.body;
+  if (req.method !== "POST") {
+    return res.status(405).json({ message: "Method Not Allowed" });
+  }
 
-    if (!email || !password) {
-      return res.status(400).json({ error: "Email and password are required" });
-    }
+  const { email, password } = req.body;
 
+  if (!email || !password) {
+    return res
+      .status(400)
+      .json({ message: "Email and password are required." });
+  }
+
+  try {
     const user = await prisma.user.findUnique({ where: { email } });
-
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      return res.status(401).json({ error: "Invalid email or password" });
+    if (!user) {
+      return res.status(401).json({ message: "Invalid credentials." });
     }
 
-    if (!process.env.JWT_SECRET) {
-      return res.status(500).json({ error: "JWT_SECRET is not defined" });
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "Invalid credentials." });
     }
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
 
-    res.status(200).json({ token });
-  } else {
-    res.status(405).json({ error: "Method not allowed" });
+    res.status(200).json({ message: "Login successful", userId: user.id });
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 }
