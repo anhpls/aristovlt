@@ -19,7 +19,7 @@ model User {
 }
 
 model SavedItem {
-  id     Int     @id @default(autoincrement())
+  id     String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   userId String  @db.Uuid
   user   User    @relation(fields: [userId], references: [id])
   name   String
@@ -27,7 +27,7 @@ model SavedItem {
 }
 
 model Order {
-  id          Int     @id @default(autoincrement())
+  id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   userId      String  @db.Uuid
   user        User    @relation(fields: [userId], references: [id])
   totalAmount Float
