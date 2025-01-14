@@ -12,9 +12,14 @@ const Register = () => {
   const router = useRouter();
 
   const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent form refresh
-    setError(""); // Reset error messages
-    setSuccess(false); // Reset success state
+    e.preventDefault();
+    setError("");
+    setSuccess(false);
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long.");
+      return;
+    }
 
     try {
       const response = await fetch("/api/auth/register", {

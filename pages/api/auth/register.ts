@@ -21,6 +21,12 @@ export default async function handler(
       .json({ message: "Email and password are required." });
   }
 
+  if (password.length < 6) {
+    return res
+      .status(400)
+      .json({ message: "Password must be at least 6 characters long." });
+  }
+
   try {
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
