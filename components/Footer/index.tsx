@@ -44,11 +44,11 @@ export const Footer = () => {
                   Track Your Order
                 </a>
               </li>
-              <li>
-                <a href="/club" className="hover:underline">
+              {/* <li>
+                <a href="/aristocracy" className="hover:underline">
                   Members
                 </a>
-              </li>
+              </li> */}
               <li>
                 <a href="/about" className="hover:underline">
                   About

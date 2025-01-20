@@ -29,7 +29,7 @@ const AnnouncementBanner = () => {
       initial={{ x: 100, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: 100, opacity: 0 }}
-      transition={{ duration: 0.5, ease: "easeInOut" }}
+      transition={{ delay: 0.8, duration: 1, ease: "easeInOut" }}
     >
       <div className="flex items-center space-x-3">
         {/* Icon */}

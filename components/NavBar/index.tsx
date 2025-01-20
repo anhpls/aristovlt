@@ -169,10 +169,9 @@ const NavBar = ({
             )}
           </div>
           {[
-            // { href: "/collections", label: "VAULTS" },
             { href: "/about", label: "ABOUT" },
             { href: "/contact", label: "CONTACT" },
-            { href: "/aristocracy", label: "THE ARISTOCRACY" },
+            // { href: "/aristocracy", label: "THE ARISTOCRACY" },
           ].map((link) => (
             <motion.div
               key={link.href}
