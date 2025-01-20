@@ -90,7 +90,7 @@ const ProductsClient = () => {
 
   return (
     <>
-      <div className="min-h-full bg-stone-200 py-10 pt-28">
+      <div className="min-h-full bg-gradient-to-b from-stone-100 to-stone-200 py-10 pt-28">
         <div className="w-full h-full flex justify-center items-center">
           <div className="text-center shadow-neutral-400 shadow-inner py-14 flex-col  bg-black bg-opacity-10 rounded-sm w-full ">
             <h1 className="text-2xl md:text-6xl drop-shadow-md text-neutral-50 font-extrabold uppercase ">

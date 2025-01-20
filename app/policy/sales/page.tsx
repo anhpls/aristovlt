@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function SalesPolicyPage() {
   return (
     <>
-      <div className="min-h-screen bg-stone-300 flex flex-col">
+      <div className="min-h-screen bg-gradient-to-b from-stone-100 to-stone-200 flex flex-col">
         <HeaderWithNavBar />
 
         <main className="flex-1 mb-40">

@@ -79,11 +79,11 @@ const FAQClient: React.FC = () => {
         {faqData.map((faq, index) => (
           <div
             key={index}
-            className="border border-neutral-200 rounded-lg shadow-sm overflow-hidden"
+            className="border border-neutral-200 rounded-lg shadow-md shadow-neutral-500 overflow-hidden"
           >
             <button
               onClick={() => toggleFAQ(index)}
-              className="w-full flex justify-between items-center px-6 py-4 text-left text-lg font-medium bg-stone-200 text-neutral-800"
+              className="w-full flex justify-between items-center px-6 py-4 text-left text-lg font-medium bg-neutral-200 text-neutral-800"
             >
               <span>{faq.question}</span>
               <motion.span

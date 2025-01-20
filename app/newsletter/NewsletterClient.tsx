@@ -28,12 +28,12 @@ const NewsletterPage = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData), // Send form data to the API
+        body: JSON.stringify(formData),
       });
 
       if (res.ok) {
         setStatus("success");
-        setFormData({ firstName: "", lastName: "", email: "" }); // Clear input fields
+        setFormData({ firstName: "", lastName: "", email: "" });
       } else {
         setStatus("error");
       }
@@ -44,77 +44,124 @@ const NewsletterPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen flex flex-col items-center justify-center p-6 ">
       <motion.div
-        className="bg-stone-200 rounded-lg shadow-md p-8 w-full max-w-lg text-center"
-        initial={{ opacity: 0, y: -20 }}
+        className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md"
+        initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <motion.h1 className="text-3xl font-bold text-gray-800 mb-4">
+        <motion.h1
+          className="text-3xl font-extrabold text-neutral-800 mb-4 text-center"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           Join Our Newsletter
         </motion.h1>
-        <p className="text-gray-600 text-sm mb-6">
+        <motion.p
+          className="text-sm text-neutral-600 mb-6 text-center"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
           Stay updated with the latest releases, exclusive offers, and receive a{" "}
           <strong>10% discount</strong> on your first order.
-        </p>
+        </motion.p>
 
-        <form onSubmit={handleSubmit} className="flex flex-col items-center">
-          <input
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <motion.input
             type="text"
             name="firstName"
             placeholder="First Name"
             value={formData.firstName}
             onChange={handleChange}
-            className="px-4 py-2 border border-gray-300 rounded-md w-full font-medium mb-4"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-neutral-900"
             required
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
           />
-          <input
+          <motion.input
             type="text"
             name="lastName"
             placeholder="Last Name"
             value={formData.lastName}
             onChange={handleChange}
-            className="px-4 py-2 border border-gray-300 rounded-md w-full font-medium mb-4"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-neutral-900"
             required
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
           />
-          <input
+          <motion.input
             type="email"
             name="email"
             placeholder="Email Address"
             value={formData.email}
             onChange={handleChange}
-            className="px-4 py-2 border border-gray-300 rounded-md w-full font-medium mb-4"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-neutral-900"
             required
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
           />
-          <motion.button
-            type="submit"
-            className="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition duration-300 font-semibold"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <motion.div
+            className="w-full"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.9 }}
           >
-            Subscribe
-          </motion.button>
+            <motion.button
+              type="submit"
+              className="w-full bg-stone-800 text-white py-2 rounded-lg font-semibold hover:bg-stone-700 transition duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Subscribe
+            </motion.button>
+          </motion.div>
         </form>
 
+        {/* Status Messages */}
         {status === "success" && (
-          <p className="text-green-600 mt-4">Thank you for subscribing!</p>
+          <motion.p
+            className="text-green-600 mt-4 text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+          >
+            Thank you for subscribing!
+          </motion.p>
         )}
         {status === "error" && (
-          <p className="text-red-600 mt-4">Something went wrong. Try again.</p>
+          <motion.p
+            className="text-red-600 mt-4 text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+          >
+            Something went wrong. Please try again.
+          </motion.p>
         )}
 
-        <div className="mt-8">
-          <h2 className="text-xl font-bold text-gray-800 mb-2 ">
+        {/* Benefits Section */}
+        <motion.div
+          className="mt-8 text-left"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1 }}
+        >
+          <h2 className="text-lg font-bold text-neutral-800 mb-4">
             Why Join Our Newsletter?
           </h2>
-          <ul className="text-left text-gray-600 space-y-2 ">
+          <ul className="text-sm text-neutral-600 space-y-2">
             <li>🌟 Early access to new collections and launches.</li>
             <li>🎉 Exclusive discounts and promo codes.</li>
             <li>🛍 Special holiday offers.</li>
             <li>💌 Personalized content tailored for you.</li>
           </ul>
-        </div>
+        </motion.div>
       </motion.div>
     </div>
   );
