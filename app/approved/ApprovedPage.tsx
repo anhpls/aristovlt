@@ -3,8 +3,22 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 const ThankYouProcessing = () => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  useEffect(() => {
+    // Check if the source is from Stripe
+    const source = searchParams?.get("source");
+    if (source !== "stripe") {
+      // Redirect to home if the source is not Stripe
+      router.push("/home");
+    }
+  }, [searchParams, router]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-gray-100 flex flex-col items-center justify-center p-8">
       <motion.div

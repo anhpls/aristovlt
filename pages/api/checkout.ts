@@ -68,7 +68,8 @@ export default async function handler(
           price_data: {
             currency: "usd",
             product_data: {
-              name: `${item.title} - Size: ${item.size}`,
+              name: `${item.title} `,
+              description: `Size: ${item.size} Color: ${item.color}`,
               metadata: {
                 sku: item.sku,
                 size: item.size,
@@ -115,8 +116,8 @@ export default async function handler(
       },
       automatic_tax: { enabled: false }, // Enable automatic tax calculations
       allow_promotion_codes: true,
-      success_url: `${process.env.BASE_URL}/approved`,
-      cancel_url: `${process.env.BASE_URL}/return`,
+      success_url: `${process.env.BASE_URL}/approved?source=stripe`,
+      cancel_url: `${process.env.BASE_URL}/return?source=stripe`,
     });
 
     // Send session URL back to the frontend
