@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { TypeAnimation } from "react-type-animation";
 import CountdownTimer from "@/components/Countdown";
+
 // import SubscribeButton from "@/components/SubscribeButton";
 
 const LandingPage = () => {
@@ -12,6 +13,7 @@ const LandingPage = () => {
   const [error, setError] = useState("");
   const router = useRouter();
   const [showAnimation, setShowAnimation] = useState(false);
+  const [isInputInteractive, setIsInputInteractive] = useState(false);
   // const [email, setEmail] = useState("");
   // const [status, setStatus] = useState(""); // For success/error messages
 
@@ -121,6 +123,8 @@ const LandingPage = () => {
         onKeyDown={handleKeyPress}
         placeholder="Password"
         className="font-bold p-2 rounded-md text-black outline-neutral-900 drop-shadow-md placeholder-stone-900 border-opacity-65 border-1  placeholder-opacity-30 focus:outline-none focus:ring-2 focus:ring-neutral-800"
+        style={{ pointerEvents: isInputInteractive ? "auto" : "none" }}
+        onAnimationComplete={() => setIsInputInteractive(true)}
       />
       <motion.button
         initial={{ opacity: 0, y: 0 }}
@@ -129,34 +133,12 @@ const LandingPage = () => {
         onClick={handleLogin}
         type="submit"
         className="mt-6 px-6 py-2 bg-orange-600 text-white rounded-full drop-shadow-md hover:bg-orange-500 transition-colors duration-500 hover:border-orange-100 border-2 border-transparent "
+        style={{ pointerEvents: isInputInteractive ? "auto" : "none" }}
+        onAnimationComplete={() => setIsInputInteractive(true)}
       >
         Enter
       </motion.button>
       {error && <p className="text-red-600 mt-4">{error}</p>}
-
-      {/* <form
-        className="flex flex-col md:flex-row items-center gap-2 justify-center md:justify-end "
-        onSubmit={handleSubmit}
-      >
-        <input
-          type="email"
-          placeholder="Enter your email"
-          className="px-4 py-2 border border-gray-200 rounded-md w-full md:w-auto font-normal"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <SubscribeButton />
-      </form>
-
-      {status === "success" && (
-        <p className="text-green-600 mt-2">Welcome to the AristoVLT family!</p>
-      )}
-      {status === "error" && (
-        <p className="text-red-600 mt-2">
-          Something went wrong. Please try again.
-        </p>
-      )} */}
 
       <motion.div
         className="flex space-x-4 text-lg font-semibold absolute bottom-16 "
@@ -164,7 +146,7 @@ const LandingPage = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 2, delay: 0 }}
       >
-        <CountdownTimer targetDate="2025-01-25T23:59:59" />
+        <CountdownTimer targetDate="2025-02-10T23:59:59" />
       </motion.div>
     </div>
   );

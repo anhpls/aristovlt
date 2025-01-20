@@ -37,7 +37,7 @@ const Register = () => {
         // Redirect to login page after successful registration
         setTimeout(() => {
           router.push("/account/login");
-        }, 5000);
+        }, 200);
       } else if (response.status === 409) {
         // Handle "user already exists" error
         setError("An account with this email already exists.");
@@ -99,7 +99,7 @@ const Register = () => {
           )}
           {success && (
             <div className=" text-green-700 font-semibold p-3 rounded mb-4">
-              Registration Successful! Redirecting to login...
+              Success! Redirecting to login...
             </div>
           )}
 
