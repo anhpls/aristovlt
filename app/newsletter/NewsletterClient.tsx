@@ -45,9 +45,9 @@ const NewsletterPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 ">
+    <div className="min-h-screen flex flex-col items-center justify-center p-6 pb-20">
       <motion.div
-        className="pb-7"
+        className="lg:pb-7 py-10"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
