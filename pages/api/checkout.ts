@@ -69,7 +69,7 @@ export default async function handler(
             currency: "usd",
             product_data: {
               name: `${item.title} `,
-              description: `Size: ${item.size} Color: ${item.color}`,
+              description: `Size: ${item.size}     Color: ${item.color}`,
               metadata: {
                 sku: item.sku,
                 size: item.size,
