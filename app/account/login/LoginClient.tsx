@@ -43,7 +43,7 @@ export default function Login() {
         router.push("/account");
       } else {
         const data = await response.json();
-        setError(data.error || "Wrong username or password. Please try again.");
+        setError(data.error || "Wrong email or password. Please try again.");
       }
     } catch (err) {
       console.error("Login Error:", err);
