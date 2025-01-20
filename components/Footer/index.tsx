@@ -127,7 +127,7 @@ export const Footer = () => {
               <a href="https://www.instagram.com/aristovlt" target="_blank">
                 <CiInstagram className="w-8 h-8 " />
               </a>
-              <a href="https://www.instagram.com/aristovlt" target="_blank">
+              <a href="https://tiktok.com/@aristovlt" target="_blank">
                 <FaTiktok className="w-7 h-7 " />
               </a>
             </div>

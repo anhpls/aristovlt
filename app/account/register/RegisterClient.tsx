@@ -37,7 +37,10 @@ const Register = () => {
         // Redirect to login page after successful registration
         setTimeout(() => {
           router.push("/account/login");
-        }, 2000);
+        }, 5000);
+      } else if (response.status === 409) {
+        // Handle "user already exists" error
+        setError("An account with this email already exists.");
       } else {
         const data = await response.json();
         setError(data.error || "Something went wrong. Please try again.");
@@ -53,17 +56,6 @@ const Register = () => {
         <h1 className="text-xl font-semibold text-center mb-6 uppercase">
           Account
         </h1>
-
-        {error && (
-          <div className="bg-red-100 text-red-700 p-3 rounded mb-4">
-            {error}
-          </div>
-        )}
-        {success && (
-          <div className="bg-green-100 text-green-700 p-3 rounded mb-4">
-            Registration successful! Redirecting to login...
-          </div>
-        )}
 
         <form onSubmit={handleRegister}>
           <div className="mb-4">
@@ -101,6 +93,15 @@ const Register = () => {
               required
             />
           </div>
+
+          {error && (
+            <div className=" text-red-700 p-3 rounded mb-4">{error}</div>
+          )}
+          {success && (
+            <div className=" text-green-700 font-semibold p-3 rounded mb-4">
+              Registration Successful! Redirecting to login...
+            </div>
+          )}
 
           <div className="flex justify-center">
             <button

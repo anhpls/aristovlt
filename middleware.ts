@@ -23,20 +23,6 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/home", req.url));
   }
 
-  // if (url.pathname === "/approved" || url.pathname === "/return") {
-  //   // Example condition: check for a specific header or referer
-  //   const referer = req.headers.get("referer");
-  //   if (!referer || !referer.includes("https://aristovlt.vercel.app/")) {
-  //     return NextResponse.redirect(new URL("/home", req.url));
-  //   }
-
-  //   // Example condition: check for a specific session cookie
-  //   const checkoutSession = req.cookies.get("checkoutSession")?.value;
-  //   if (!checkoutSession) {
-  //     return NextResponse.redirect(new URL("/", req.url));
-  //   }
-  // }
-
   const response = NextResponse.next();
   response.headers.set("Cache-Control", "no-store");
 
@@ -56,5 +42,6 @@ export const config = {
     "/return",
     "/approved",
     "/policy/:path*",
+    "/account/:path*",
   ],
 };

@@ -26,7 +26,15 @@ const Header: React.FC<HeaderProps> = ({}) => {
     pathname === "/home" ? "text-white " : "text-neutral-800 ";
 
   const handleRedirect = () => {
-    router.push("/account/login");
+    const isLoggedIn =
+      localStorage.getItem("isLoggedIn") === "true" ||
+      sessionStorage.getItem("isLoggedIn") === "true";
+
+    if (isLoggedIn) {
+      router.push("/account");
+    } else {
+      router.push("/account/login");
+    }
   };
 
   return (

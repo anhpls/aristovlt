@@ -1,25 +1,23 @@
 import { Metadata } from "next";
 import HeaderWithNavBar from "@/components/HeaderWithNavBar.tsx";
 import { Footer } from "@/components/Footer";
-import Account from "./AccountClient";
+import AccountWrapper from "./AccountWrapper"; // Import the wrapper
 
 export const metadata: Metadata = {
-  title: "ARISTO VAULT",
-  description: "Experience the epitome of elegance and sophistication.",
+  title: "User - ARISTO VAULT",
+  description: "Welcome to your AristoVLT account page!",
 };
 
-export default function ContactPage() {
+export default function AccountPage() {
   return (
-    <>
-      <div className="min-h-screen bg-stone-300 flex flex-col">
-        <HeaderWithNavBar />
+    <div className="min-h-screen bg-stone-300 flex flex-col">
+      <HeaderWithNavBar />
 
-        <main className="flex-1">
-          <Account />
-        </main>
+      <main className="flex-1">
+        <AccountWrapper />
+      </main>
 
-        <Footer />
-      </div>
-    </>
+      <Footer />
+    </div>
   );
 }

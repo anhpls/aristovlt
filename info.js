@@ -69,3 +69,11 @@ Failed Payment: 4000 0000 0000 9995
  
  for typescript, remember to make a types.ts file for the types that return from the API or any other types that are used in the project.
  */
+
+/*
+load nvm:
+
+ export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+ */

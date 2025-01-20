@@ -7,11 +7,12 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent form submission from refreshing the page
-    setError(""); // Clear any previous errors
+    e.preventDefault();
+    setError("");
 
     try {
       const response = await fetch("/api/auth/login", {
@@ -21,34 +22,41 @@ export default function Login() {
       });
 
       if (response.ok) {
-        const { token } = await response.json();
+        const { token, user } = await response.json();
 
-        // Save the JWT token to localStorage or a cookie
-        localStorage.setItem("token", token);
+        const saveLogin = (storage: Storage) => {
+          const now = new Date();
+          const expiry = new Date(now.getTime() + 60 * 60 * 1000); // 1 hour from now
 
-        // Redirect to the account page or homepage
+          storage.setItem("token", token);
+          storage.setItem("isLoggedIn", "true");
+          storage.setItem("userName", user.name);
+          storage.setItem("expiry", expiry.toISOString());
+        };
+
+        if (rememberMe) {
+          saveLogin(localStorage);
+        } else {
+          saveLogin(sessionStorage);
+        }
+
         router.push("/account");
       } else {
         const data = await response.json();
-        setError(data.error || "Failed to login. Please try again.");
+        setError(data.error || "Wrong username or password. Please try again.");
       }
-    } catch {
+    } catch (err) {
+      console.error("Login Error:", err);
       setError("An error occurred. Please try again.");
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen  pb-44">
+    <div className="flex justify-center items-center h-screen pb-44">
       <div className="w-full max-w-md bg-none p-6">
         <h1 className="text-xl font-semibold text-center mb-6 uppercase">
           account
         </h1>
-
-        {error && (
-          <div className="bg-red-100 text-red-700 p-3 rounded mb-4">
-            {error}
-          </div>
-        )}
 
         <form onSubmit={handleLogin}>
           <div className="mb-4">
@@ -74,6 +82,24 @@ export default function Login() {
               required
             />
           </div>
+
+          {/* Remember Me Checkbox */}
+          <div className="mb-4 flex items-center">
+            <input
+              type="checkbox"
+              id="rememberMe"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+              className="mr-2"
+            />
+            <label htmlFor="rememberMe" className="text-sm text-neutral-600">
+              Remember Me
+            </label>
+          </div>
+
+          {error && (
+            <div className="text-red-700 p-3 rounded mb-4">{error}</div>
+          )}
 
           <div className="flex justify-center">
             <button

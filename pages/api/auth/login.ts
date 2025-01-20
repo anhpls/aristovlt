@@ -2,6 +2,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
+import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 
@@ -32,7 +33,15 @@ export default async function handler(
       return res.status(401).json({ message: "Invalid credentials." });
     }
 
-    res.status(200).json({ message: "Login successful", userId: user.id });
+    // Generate a JWT token
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, {
+      expiresIn: "1h",
+    });
+
+    res.status(200).json({
+      token,
+      user: { id: user.id, name: user.name, email: user.email },
+    });
   } catch (error) {
     console.error("Error during login:", error);
     res.status(500).json({ message: "Internal Server Error" });
