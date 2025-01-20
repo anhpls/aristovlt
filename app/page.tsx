@@ -93,6 +93,7 @@ const LandingPage = () => {
       className="h-screen bg-cover bg-center flex flex-col items-center justify-center"
       style={{ backgroundImage: "url('/images/landing.png')" }} // image landing
     >
+      <div className="absolute inset-0 bg-black bg-opacity-30"></div>
       {/* <video // video landing
         className="absolute top-0 left-0 w-full h-full object-cover -z-10 opacity-40 "
         src="/images/trailer.mp4"
@@ -122,7 +123,7 @@ const LandingPage = () => {
         onChange={(e) => setPassword(e.target.value)}
         onKeyDown={handleKeyPress}
         placeholder="Password"
-        className="font-bold p-2 rounded-md text-black outline-neutral-900 drop-shadow-md placeholder-stone-900 border-opacity-65 border-1  placeholder-opacity-30 focus:outline-none focus:ring-2 focus:ring-neutral-800"
+        className="font-bold p-2 rounded-md text-black outline-neutral-900 drop-shadow-md placeholder-stone-900 border-opacity-65 border-1  placeholder-opacity-30 focus:outline-none focus:ring-2 focus:ring-neutral-800 bg-neutral-300"
         style={{ pointerEvents: isInputInteractive ? "auto" : "none" }}
         onAnimationComplete={() => setIsInputInteractive(true)}
       />

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { BsMailboxFlag } from "react-icons/bs";
 
 const NewsletterPage = () => {
   const [formData, setFormData] = useState({
@@ -45,6 +46,15 @@ const NewsletterPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 ">
+      <motion.div
+        className="pb-7"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <BsMailboxFlag className="w-40 h-40"></BsMailboxFlag>
+      </motion.div>
+
       <motion.div
         className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md"
         initial={{ opacity: 0, y: -30 }}
@@ -157,9 +167,9 @@ const NewsletterPage = () => {
           </h2>
           <ul className="text-sm text-neutral-600 space-y-2">
             <li>🌟 Early access to new collections and launches.</li>
-            <li>🎉 Exclusive discounts and promo codes.</li>
-            <li>🛍 Special holiday offers.</li>
-            <li>💌 Personalized content tailored for you.</li>
+            <li>🔖 Exclusive discounts and promo codes.</li>
+            <li>🎁 Special holiday offers.</li>
+            <li>📩 Personalized content tailored for you.</li>
           </ul>
         </motion.div>
       </motion.div>
