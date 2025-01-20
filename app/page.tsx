@@ -110,7 +110,7 @@ const LandingPage = () => {
           speed={5}
           repeat={0}
           cursor={false}
-          className="text-5xl md:text-7xl p-2  text-neutral-800 mb-6 font-black shadow-lg shadow-neutral-900 pointer-events-none "
+          className="text-5xl md:text-7xl p-5  text-neutral-800 mb-6 font-black shadow-lg shadow-neutral-900 pointer-events-none "
         />
       )}
 
@@ -133,7 +133,7 @@ const LandingPage = () => {
         transition={{ duration: 2, delay: 3.8 }}
         onClick={handleLogin}
         type="submit"
-        className="mt-6 px-6 py-2 bg-orange-600 text-white rounded-full drop-shadow-md hover:bg-orange-500 transition-colors duration-500 hover:border-orange-100 border-2 border-transparent "
+        className="mt-6 px-6 py-2 bg-orange-700 text-white rounded-full drop-shadow-md hover:bg-orange-800 hover:border-orange-100 border-x-4 border-y-2 border-transparent hover:shadow-lg hover:shadow-neutral-200 transition-all duration-500 "
         style={{ pointerEvents: isInputInteractive ? "auto" : "none" }}
         onAnimationComplete={() => setIsInputInteractive(true)}
       >
