@@ -1,21 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const PaymentCancelled = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
-    // Check if the source is from Stripe
-    const source = searchParams?.get("source");
-    if (source !== "stripe") {
-      // Redirect to home if the source is not Stripe
-      router.push("/home");
+    const referrer = document.referrer;
+    const isFromStripe = referrer.includes("stripe.com");
+    if (!isFromStripe) {
+      window.location.href = "/home"; // Redirect to /home if not from Stripe
     }
-  }, [searchParams, router]);
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
