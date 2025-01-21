@@ -73,7 +73,7 @@ const NavBar = ({
       {/* Lock Menu Icon */}
       <motion.button
         onClick={toggleMenu}
-        className={`fixed top-5 left-6 z-50 ${switchColor}`}
+        className={`fixed top-5 left-6 z-35 ${switchColor}`}
         aria-label={isOpen ? "Close menu" : "Open menu"}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
@@ -98,16 +98,16 @@ const NavBar = ({
           }}
         >
           {isOpen ? (
-            <LockOpenIcon className="w-6 h-6 lg:w-6 lg:h-6 text-white" />
+            <LockOpenIcon className="w-6 h-6 lg:w-6 lg:h-6 text-white z-35" />
           ) : (
-            <LockClosedIcon className="w-6 h-6 lg:w-6 lg:h-6" />
+            <LockClosedIcon className="w-6 h-6 lg:w-6 lg:h-6 z-35" />
           )}
         </motion.div>
       </motion.button>
 
       {/* Animated NavBar */}
       <motion.div
-        className="fixed top-0 left-0 h-full w-64 bg-black bg-opacity-80 text-white z-40"
+        className="fixed top-0 left-0 h-full w-64 bg-black bg-opacity-80 text-white z-30"
         initial={{ x: "-100%" }}
         animate={{ x: isOpen ? "0%" : "-100%" }}
         transition={{ duration: 0.2 }}

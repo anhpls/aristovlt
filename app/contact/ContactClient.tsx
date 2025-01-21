@@ -1,31 +1,34 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { MdLocationOn, MdPhone, MdEmail } from "react-icons/md"; // Importing icons from react-icons
 
 const ContactPageClient = () => {
   return (
-    <div className=" text-gray-800 flex flex-col items-center p-8 pt-28">
+    <div className="w-full min-h-screen bg-gradient-to-br from-stone-300 to-stone-400 py-16 px-4 md:px-16 text-gray-800">
       {/* Hero Section */}
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-center mb-12"
+        className="text-center mb-16"
       >
-        <h1 className="text-5xl font-extrabold mb-4">Get in Touch</h1>
-        <p className="text-lg text-gray-600">
+        <h1 className="text-5xl md:text-6xl font-extrabold text-gray-800">
+          Get in Touch
+        </h1>
+        <p className="text-lg text-gray-600 mt-4">
           Reach out to us with your queries, feedback, or collaboration ideas.
         </p>
       </motion.div>
 
-      <div className="flex flex-col md:flex-row justify-center gap-12 w-full max-w-6xl">
+      <div className="flex flex-col md:flex-row justify-center gap-12 w-full max-w-6xl mx-auto">
         {/* Contact Form */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="bg-gray-50 p-8 rounded-lg shadow-lg w-full md:w-1/2"
+          className="bg-gray-50 p-8 rounded-lg shadow-xl w-full md:w-1/2"
         >
           <form className="flex flex-col gap-6">
             <div>
@@ -87,81 +90,42 @@ const ContactPageClient = () => {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="bg-gray-50 p-8 rounded-lg shadow-lg w-full md:w-1/2"
+          className="bg-gray-50 p-8 rounded-lg shadow-xl w-full md:w-1/2"
         >
           <div className="flex flex-col gap-6">
+            {/* Office */}
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-700">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="white"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3 10l9-7 9 7-9 7-9-7z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 21V9l3-2 3 2v12"
-                  />
-                </svg>
+                <MdLocationOn className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h4 className="text-lg font-semibold">Our Office</h4>
+                <h4 className="text-lg font-semibold text-gray-800">
+                  Our Office
+                </h4>
                 <p className="text-gray-600">
                   123 Aristo Blvd, Los Angeles, CA
                 </p>
               </div>
             </div>
 
+            {/* Phone */}
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-700">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="white"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15 12h3m4 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
+                <MdPhone className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h4 className="text-lg font-semibold">Phone</h4>
+                <h4 className="text-lg font-semibold text-gray-800">Phone</h4>
                 <p className="text-gray-600">+1 (555) 123-4567</p>
               </div>
             </div>
 
+            {/* Email */}
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-700">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="white"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3 8l7.89 5.26c.63.42 1.47.42 2.1 0L21 8m-9 13V5"
-                  />
-                </svg>
+                <MdEmail className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h4 className="text-lg font-semibold">Email</h4>
+                <h4 className="text-lg font-semibold text-gray-800">Email</h4>
                 <p className="text-gray-600">support@aristovlt.com</p>
               </div>
             </div>

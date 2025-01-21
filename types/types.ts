@@ -17,6 +17,7 @@ export interface OptionValue {
   title: string;
   colors?: string[];
   is_available: boolean;
+  is_enabled?: boolean;
 }
 
 export interface Option {
