@@ -133,7 +133,7 @@ const LandingPage = () => {
         transition={{ duration: 2, delay: 3.8 }}
         onClick={handleLogin}
         type="submit"
-        className="mt-6 px-6 py-2 bg-orange-700 text-white rounded-full drop-shadow-md hover:bg-orange-800 hover:border-orange-100 border-x-4 border-y-2 border-transparent hover:shadow-lg hover:shadow-neutral-200 transition-all duration-500 "
+        className="mt-6 px-6 py-2 bg-neutral-900 text-white rounded-full drop-shadow-md hover:bg-neutral-800 border-x-4 border-y-2 border-transparent hover:shadow-md hover:shadow-neutral-200 transition-all duration-500 "
         style={{ pointerEvents: isInputInteractive ? "auto" : "none" }}
         onAnimationComplete={() => setIsInputInteractive(true)}
       >
