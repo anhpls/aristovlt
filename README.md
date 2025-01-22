@@ -36,17 +36,18 @@ AristoVLT represents a brand that is about more than just fashion; it’s a stat
     - **Giveaways and Campaigns**: Monthly campaigns to engage the community.
     - **Archive Shopping**: Past limited-edition collections available for a limited time.
 
-**Technologies Used**
+## Technologies Used
 
-**	•	Next.js:** React-based framework for building SSR (Server-Side Rendered) and static sites.
-**	•	Tailwind CSS:** Utility-first CSS framework used for styling.
-**	•	Stripe API:** Used for payment gateway integration.
-**	•	Printify API:** For managing print-on-demand designs (if applicable).
-**	•	Framer Motion:** For adding animations and smooth transitions to the UI.
-**	•	Vercel:** Platform for deploying the application.
+- **Next.js**: React-based framework for building SSR (Server-Side Rendered) and static sites.
+- **Tailwind CSS**: Utility-first CSS framework used for styling.
+- **Stripe API**: Used for payment gateway integration.
+- **Printify API**: For managing print-on-demand designs (if applicable).
+- **Framer Motion**: For adding animations and smooth transitions to the UI.
+- **Vercel**: Platform for deploying the application.
 
 ## File Structure Snippet
 
+```
 /aristovlt
 ├── /app                           # Contains the core application code
 │   ├── /components                # Reusable UI components for the site
@@ -76,6 +77,7 @@ AristoVLT represents a brand that is about more than just fashion; it’s a stat
 ├── package.json                   # Project metadata and dependencies
 ├── README.md                      # Project documentation
 └── LICENSE                        # License file for the project
+```
 
 ### Explanation:
 - **/app**: Contains the core application logic and UI components.
@@ -118,6 +120,7 @@ This project is licensed under the MIT License.
 For inquiries or collaboration opportunities, please contact:
 
 - **Email**: [contact@aristovlt.com](mailto:contact@aristovlt.com)
+- **Alternate Email**: [anh.h.duy@gmail.com](mailto:anh.h.duy@gmail.com)
 
 ---
 
