@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ContactPageClient from "./ContactClient";
+// import ContactPageClient from "./ContactClient";
 import HeaderWithNavBar from "@/components/HeaderWithNavBar.tsx";
 import { Footer } from "@/components/Footer";
 
@@ -15,7 +15,10 @@ export default function ContactPage() {
         <HeaderWithNavBar />
 
         <main className="flex-1">
-          <ContactPageClient />
+          {/* <ContactPageClient /> */}
+          <h1 className="text-center pt-64 italic font-black text-4xl">
+            Coming Soon
+          </h1>
         </main>
 
         <Footer />
