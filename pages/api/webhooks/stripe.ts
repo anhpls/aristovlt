@@ -102,9 +102,18 @@ export default async function handler(
           }
 
           console.log("Printify order created successfully:", printifyOrder);
+        } catch (error) {
+          console.error("Error creating Printify order:", error);
+        }
 
-          // Send order confirmation email immediately
-          if (email) {
+        // Send confirmation email
+        if (email) {
+          try {
+            interface Item {
+              name: string;
+              price: number;
+              quantity: number;
+            }
             await sendEmailWithTemplate(
               email,
               "d-4c729ee901bc45cab360f0036af2799d",
@@ -113,50 +122,34 @@ export default async function handler(
                 first_name: firstName,
                 last_name: lastName,
                 email,
-                items: items.map(
-                  (item: {
-                    name: string;
-                    price: number;
-                    quantity: number;
-                  }) => ({
-                    name: item.name,
-                    price: `$${(item.price / 100).toFixed(2)}`, // Convert cents to dollars
-                    quantity: item.quantity,
-                    total: `$${((item.price * item.quantity) / 100).toFixed(
-                      2
-                    )}`, // Calculate item total
-                  })
-                ),
+                items: items.map((item: Item) => ({
+                  name: item.name,
+                  price: `$${(item.price / 100).toFixed(2)}`, // Convert cents to dollars
+                  quantity: item.quantity,
+                  total: `$${((item.price * item.quantity) / 100).toFixed(2)}`, // Calculate item total
+                })),
                 gross_total: Array.isArray(items)
-                  ? items.reduce(
-                      (
-                        total: number,
-                        item: { price: number; quantity: number }
-                      ) => {
-                        return total + item.price * item.quantity;
-                      },
-                      0
-                    ) / 100
+                  ? items.reduce((total: number, item: Item) => {
+                      if (!item.price || !item.quantity) {
+                        console.warn("Item missing price or quantity:", item);
+                        return total; // Skip items with missing fields
+                      }
+                      return total + item.price * item.quantity;
+                    }, 0)
                   : 0,
+                tracking: trackingInfo, // Include tracking info if available
               }
             );
-            console.log("Order confirmation email sent.");
-          }
-        } catch (error) {
-          console.error("Error creating Printify order:", error);
-        }
 
-        // Send tracking email when tracking info becomes available
-        if (trackingInfo && email) {
-          await sendEmailWithTemplate(
-            email,
-            "d-de2d688364eb495ba624312fc452d486",
-            {
-              order_number: orderNumber,
-              tracking: trackingInfo,
-            }
-          );
-          console.log("Tracking email sent.");
+            console.log(
+              "Confirmation email sent with Order Number:",
+              orderNumber
+            );
+          } catch (error) {
+            console.error("Error sending confirmation email:", error);
+          }
+        } else {
+          console.warn("Customer email not found in session.");
         }
 
         break;

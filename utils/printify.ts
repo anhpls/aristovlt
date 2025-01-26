@@ -1,4 +1,5 @@
 import Stripe from "stripe";
+import fetch from "node-fetch";
 
 export async function createPrintifyOrder(
   cart: { id: string; sku: string; quantity: number }[],
@@ -33,7 +34,7 @@ export async function createPrintifyOrder(
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${process.env.PRINTIFY_API_KEY}`,
+          Authorization: `Bearer ${process.env.PRINTIFY_API_KEY}`,
         },
         body: JSON.stringify(printifyOrder),
       }
