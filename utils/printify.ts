@@ -11,7 +11,7 @@ export async function createPrintifyOrder(
       variant_id: item.sku,
       quantity: item.quantity,
     })),
-    shipping_method: 1,
+    shipping_method: 4,
     address_to: {
       first_name: shippingDetails.name?.split(" ")[0] || "",
       last_name: shippingDetails.name?.split(" ")[1] || "",

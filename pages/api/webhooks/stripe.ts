@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { buffer } from "micro";
 import Stripe from "stripe";
 import { sendEmailWithTemplate } from "@/utils/email"; // Adjust path as necessary
-import { createPrintifyOrder } from "@/utils/printify"; // Import Printify order function
+import { createPrintifyOrder } from "@/utils/printify"; // Adjust path as necessary
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2024-12-18.acacia",
@@ -62,37 +62,13 @@ export default async function handler(
           ? JSON.parse(session.metadata.cart)
           : [];
 
-        // Send confirmation email
-        if (email) {
-          try {
-            await sendEmailWithTemplate(
-              email,
-              "d-4c729ee901bc45cab360f0036af2799d",
-              {
-                order_number: orderNumber,
-                first_name: firstName,
-                last_name: lastName,
-                email,
-                items,
-              }
-            );
-            console.log(
-              "Confirmation email sent with Order Number:",
-              orderNumber
-            );
-          } catch (error) {
-            console.error("Error sending confirmation email:", error);
-          }
-        } else {
-          console.warn("Customer email not found in session.");
-        }
-
         // Create Printify order
+        let trackingInfo: {
+          carrier: string;
+          number: string;
+          url: string;
+        } | null = null;
         try {
-          const items = session.metadata?.cart
-            ? JSON.parse(session.metadata.cart)
-            : [];
-
           if (!items || items.length === 0) {
             console.error("Cart metadata is missing or invalid.");
             throw new Error(
@@ -114,9 +90,55 @@ export default async function handler(
             session,
             session.shipping_details
           );
+
+          // Extract tracking info from the Printify response
+          if (printifyOrder?.shipments && printifyOrder.shipments.length > 0) {
+            const shipment = printifyOrder.shipments[0];
+            trackingInfo = {
+              carrier: shipment.carrier,
+              number: shipment.number,
+              url: shipment.url,
+            };
+          }
+
           console.log("Printify order created successfully:", printifyOrder);
         } catch (error) {
           console.error("Error creating Printify order:", error);
+        }
+
+        // Send confirmation email
+        if (email) {
+          try {
+            await sendEmailWithTemplate(
+              email,
+              "d-4c729ee901bc45cab360f0036af2799d",
+              {
+                order_number: orderNumber,
+                first_name: firstName,
+                last_name: lastName,
+                email,
+                items,
+                gross_total: Array.isArray(items)
+                  ? items.reduce((total, item) => {
+                      if (!item.price || !item.quantity) {
+                        console.warn("Item missing price or quantity:", item);
+                        return total; // Skip items with missing fields
+                      }
+                      return total + item.price * item.quantity;
+                    }, 0)
+                  : 0,
+                tracking: trackingInfo, // Include tracking info if available
+              }
+            );
+            console.log(
+              "Confirmation email sent with Order Number:",
+              orderNumber
+            );
+          } catch (error) {
+            console.error("Error sending confirmation email:", error);
+          }
+        } else {
+          console.warn("Customer email not found in session.");
         }
 
         break;
