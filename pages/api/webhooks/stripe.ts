@@ -62,24 +62,21 @@ export default async function handler(
           ? JSON.parse(session.metadata.cart)
           : [];
 
-        // Create Printify order
+        // Create Printify order and retrieve tracking information
         let trackingInfo: {
           carrier: string;
           number: string;
           url: string;
         } | null = null;
+
         try {
           if (!items || items.length === 0) {
-            console.error("Cart metadata is missing or invalid.");
             throw new Error(
               "Cart metadata is required to create a Printify order."
             );
           }
 
           if (!session.shipping_details) {
-            console.error(
-              "Shipping details are missing in the Stripe session."
-            );
             throw new Error(
               "Shipping details are required to create a Printify order."
             );
@@ -91,13 +88,13 @@ export default async function handler(
             session.shipping_details
           );
 
-          // Extract tracking info from the Printify response
-          if (printifyOrder?.shipments && printifyOrder.shipments.length > 0) {
+          // Extract tracking info from Printify order
+          if (printifyOrder?.shipments?.length > 0) {
             const shipment = printifyOrder.shipments[0];
             trackingInfo = {
-              carrier: shipment.carrier,
-              number: shipment.number,
-              url: shipment.url,
+              carrier: shipment.carrier || "N/A",
+              number: shipment.number || "N/A",
+              url: shipment.url || "N/A",
             };
           }
 
@@ -106,39 +103,51 @@ export default async function handler(
           console.error("Error creating Printify order:", error);
         }
 
-        // Send confirmation email
-        if (email) {
+        // Send confirmation email only if tracking info exists
+        if (email && trackingInfo) {
           try {
+            const grossTotal = items.reduce(
+              (total: number, item: { price: number; quantity: number }) =>
+                total + item.price * item.quantity,
+              0
+            );
+
+            const dynamicData = {
+              order_number: orderNumber,
+              first_name: firstName,
+              last_name: lastName,
+              email,
+              items: items.map(
+                (item: { name: string; price: number; quantity: number }) => ({
+                  name: item.name,
+                  price: `$${(item.price / 100).toFixed(2)}`,
+                  quantity: item.quantity,
+                  total: `$${((item.price * item.quantity) / 100).toFixed(2)}`,
+                })
+              ),
+              gross_total: `$${(grossTotal / 100).toFixed(2)}`,
+              tracking: trackingInfo,
+            };
+
+            console.log("Sending email with dynamic data:", dynamicData);
+
             await sendEmailWithTemplate(
               email,
-              "d-4c729ee901bc45cab360f0036af2799d",
-              {
-                order_number: orderNumber,
-                first_name: firstName,
-                last_name: lastName,
-                email,
-                items,
-                gross_total: Array.isArray(items)
-                  ? items.reduce((total, item) => {
-                      if (!item.price || !item.quantity) {
-                        console.warn("Item missing price or quantity:", item);
-                        return total; // Skip items with missing fields
-                      }
-                      return total + item.price * item.quantity;
-                    }, 0)
-                  : 0,
-                tracking: trackingInfo, // Include tracking info if available
-              }
+              "d-4c729ee901bc45cab360f0036af2799d", // Your SendGrid template ID
+              dynamicData
             );
+
             console.log(
-              "Confirmation email sent with Order Number:",
+              "Confirmation email sent successfully with Order Number:",
               orderNumber
             );
           } catch (error) {
             console.error("Error sending confirmation email:", error);
           }
         } else {
-          console.warn("Customer email not found in session.");
+          console.warn(
+            "Customer email or tracking information missing; email not sent."
+          );
         }
 
         break;
