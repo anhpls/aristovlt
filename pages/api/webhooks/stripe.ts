@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { buffer } from "micro";
 import Stripe from "stripe";
 import { sendEmailWithTemplate } from "@/utils/email"; // Adjust path as necessary
+import { createPrintifyOrder } from "@/utils/printify"; // Import Printify order function
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2024-12-18.acacia",
@@ -85,6 +86,24 @@ export default async function handler(
         } else {
           console.warn("Customer email not found in session.");
         }
+
+        try {
+          // Call the Printify order function
+          let printifyOrder;
+          if (session.shipping_details) {
+            printifyOrder = await createPrintifyOrder(
+              items,
+              session,
+              session.shipping_details
+            );
+            console.log("Printify order created successfully:", printifyOrder);
+          } else {
+            console.error("Shipping details are missing in the session.");
+          }
+        } catch (error) {
+          console.error("Error creating Printify order:", error);
+        }
+
         break;
       }
 
