@@ -9,7 +9,11 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      <ApprovedPage />
+      <div className="min-h-screen bg-stone-200 flex flex-col">
+        <main className="flex-1">
+          <ApprovedPage />
+        </main>
+      </div>
     </>
   );
 }

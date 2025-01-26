@@ -62,21 +62,24 @@ export default async function handler(
           ? JSON.parse(session.metadata.cart)
           : [];
 
-        // Create Printify order and retrieve tracking information
+        // Create Printify order
         let trackingInfo: {
           carrier: string;
           number: string;
           url: string;
         } | null = null;
-
         try {
           if (!items || items.length === 0) {
+            console.error("Cart metadata is missing or invalid.");
             throw new Error(
               "Cart metadata is required to create a Printify order."
             );
           }
 
           if (!session.shipping_details) {
+            console.error(
+              "Shipping details are missing in the Stripe session."
+            );
             throw new Error(
               "Shipping details are required to create a Printify order."
             );
@@ -88,66 +91,72 @@ export default async function handler(
             session.shipping_details
           );
 
-          // Extract tracking info from Printify order
-          if (printifyOrder?.shipments?.length > 0) {
+          // Extract tracking info from the Printify response
+          if (printifyOrder?.shipments && printifyOrder.shipments.length > 0) {
             const shipment = printifyOrder.shipments[0];
             trackingInfo = {
-              carrier: shipment.carrier || "N/A",
-              number: shipment.number || "N/A",
-              url: shipment.url || "N/A",
+              carrier: shipment.carrier,
+              number: shipment.number,
+              url: shipment.url,
             };
           }
 
           console.log("Printify order created successfully:", printifyOrder);
+
+          // Send order confirmation email immediately
+          if (email) {
+            await sendEmailWithTemplate(
+              email,
+              "d-4c729ee901bc45cab360f0036af2799d",
+              {
+                order_number: orderNumber,
+                first_name: firstName,
+                last_name: lastName,
+                email,
+                items: items.map(
+                  (item: {
+                    name: string;
+                    price: number;
+                    quantity: number;
+                  }) => ({
+                    name: item.name,
+                    price: `$${(item.price / 100).toFixed(2)}`, // Convert cents to dollars
+                    quantity: item.quantity,
+                    total: `$${((item.price * item.quantity) / 100).toFixed(
+                      2
+                    )}`, // Calculate item total
+                  })
+                ),
+                gross_total: Array.isArray(items)
+                  ? items.reduce(
+                      (
+                        total: number,
+                        item: { price: number; quantity: number }
+                      ) => {
+                        return total + item.price * item.quantity;
+                      },
+                      0
+                    ) / 100
+                  : 0,
+              }
+            );
+            console.log("Order confirmation email sent.");
+          }
         } catch (error) {
           console.error("Error creating Printify order:", error);
         }
 
-        // Send confirmation email only if tracking info exists
-        if (email && trackingInfo) {
-          try {
-            const grossTotal = items.reduce(
-              (total: number, item: { price: number; quantity: number }) =>
-                total + item.price * item.quantity,
-              0
-            );
-
-            const dynamicData = {
+        // Send tracking email when tracking info becomes available
+        if (trackingInfo && email) {
+          await sendEmailWithTemplate(
+            email,
+            "d-de2d688364eb495ba624312fc452d486",
+            {
               order_number: orderNumber,
-              first_name: firstName,
-              last_name: lastName,
-              email,
-              items: items.map(
-                (item: { name: string; price: number; quantity: number }) => ({
-                  name: item.name,
-                  price: `$${(item.price / 100).toFixed(2)}`,
-                  quantity: item.quantity,
-                  total: `$${((item.price * item.quantity) / 100).toFixed(2)}`,
-                })
-              ),
-              gross_total: `$${(grossTotal / 100).toFixed(2)}`,
               tracking: trackingInfo,
-            };
-
-            console.log("Sending email with dynamic data:", dynamicData);
-
-            await sendEmailWithTemplate(
-              email,
-              "d-4c729ee901bc45cab360f0036af2799d", // Your SendGrid template ID
-              dynamicData
-            );
-
-            console.log(
-              "Confirmation email sent successfully with Order Number:",
-              orderNumber
-            );
-          } catch (error) {
-            console.error("Error sending confirmation email:", error);
-          }
-        } else {
-          console.warn(
-            "Customer email or tracking information missing; email not sent."
+            }
           );
+          console.log("Tracking email sent.");
         }
 
         break;
