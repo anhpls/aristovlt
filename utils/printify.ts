@@ -33,7 +33,7 @@ export async function createPrintifyOrder(
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.PRINTIFY_API_KEY}`,
+          Authorization: `${process.env.PRINTIFY_API_KEY}`,
         },
         body: JSON.stringify(printifyOrder),
       }
