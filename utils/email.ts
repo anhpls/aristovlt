@@ -14,7 +14,7 @@ export const sendEmailWithTemplate = async (
   try {
     const msg = {
       to,
-      from: "newsletter@aristovlt.com", // Verified sender email
+      from: "shop@aristovlt.com", // Verified sender email
       templateId,
       dynamicTemplateData: dynamicData, // Data for the template placeholders
     };
