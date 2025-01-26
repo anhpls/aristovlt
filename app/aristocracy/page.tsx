@@ -8,8 +8,8 @@ import MembershipPerks from "./Ambassadors";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "WHO - ARISTO VAULT",
-    description: "WHO WE ARE?",
+    title: "Join the club - ARISTO VAULT",
+    description: "in the clerb we all fam",
   };
 }
 

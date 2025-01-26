@@ -147,7 +147,7 @@ const LandingPage = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 2, delay: 0 }}
       >
-        <CountdownTimer targetDate="2025-02-10T23:59:59" />
+        <CountdownTimer targetDate="2025-05-01T23:59:59" />
       </motion.div>
     </div>
   );

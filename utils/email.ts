@@ -1,32 +1,27 @@
 import sgMail from "@sendgrid/mail";
 
-if (!process.env.SENDGRID_API_KEY) {
+const apiKey = process.env.SENDGRID_API_KEY;
+if (!apiKey) {
   throw new Error("SENDGRID_API_KEY is not defined");
 }
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey(apiKey);
 
-export const sendConfirmationEmail = async (to: string, sessionId: string) => {
-  const subject = "Your Order Confirmation";
-  const htmlContent = `
-    <h1>Thank you for your order!</h1>
-    <p>Your payment has been received successfully.</p>
-    <p>Order ID: ${sessionId}</p>
-    <p>Your items will be shipped shortly. Stay tuned for updates!</p>
-  `;
-
+export const sendEmailWithTemplate = async (
+  to: string,
+  templateId: string,
+  dynamicData: Record<string, unknown>
+) => {
   try {
-    await sgMail.send({
+    const msg = {
       to,
-      from: "support@aristovlt.com", // Replace with your verified sender email
-      subject,
-      html: htmlContent,
-    });
-    console.log("Email sent successfully to:", to);
+      from: "newsletter@aristovlt.com", // Verified sender email
+      templateId,
+      dynamicTemplateData: dynamicData, // Data for the template placeholders
+    };
+    await sgMail.send(msg);
+    console.log("Email sent to:", to);
   } catch (error) {
-    console.error(
-      "Error sending email:",
-      (error as any).response?.body || (error as any).message
-    );
-    throw new Error("Failed to send confirmation email.");
+    console.error("Error sending email:", error);
+    throw new Error("Failed to send email.");
   }
 };
