@@ -6,13 +6,11 @@ export async function createPrintifyOrder(
   shippingDetails: Stripe.Checkout.Session.ShippingDetails
 ) {
   const printifyOrder = {
-    line_items: cart.map(
-      (item: { id: string; sku: string; quantity: number }) => ({
-        product_id: item.id,
-        variant_id: item.sku,
-        quantity: item.quantity,
-      })
-    ),
+    line_items: cart.map((item) => ({
+      product_id: item.id,
+      variant_id: item.sku,
+      quantity: item.quantity,
+    })),
     shipping_method: "Standard",
     address_to: {
       first_name: shippingDetails.name?.split(" ")[0] || "",
@@ -28,22 +26,29 @@ export async function createPrintifyOrder(
     },
   };
 
-  const response = await fetch(
-    `https://api.printify.com/v1/shops/${process.env.PRINTIFY_SHOP_ID}/orders.json`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.PRINTIFY_API_KEY}`,
-      },
-      body: JSON.stringify(printifyOrder),
+  try {
+    const response = await fetch(
+      `https://api.printify.com/v1/shops/${process.env.PRINTIFY_SHOP_ID}/orders.json`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.PRINTIFY_API_KEY}`,
+        },
+        body: JSON.stringify(printifyOrder),
+      }
+    );
+
+    if (!response.ok) {
+      const errorResponse = await response.text();
+      console.error("Printify API Error Response:", errorResponse);
+      throw new Error(`Printify order creation failed: ${response.statusText}`);
     }
-  );
 
-  if (!response.ok) {
-    throw new Error(`Printify order creation failed: ${response.statusText}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error creating Printify order:", error);
+    throw error;
   }
-
-  const data = await response.json();
-  return data;
 }

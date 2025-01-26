@@ -62,9 +62,9 @@ export default async function handler(
           ? JSON.parse(session.metadata.cart)
           : [];
 
+        // Send confirmation email
         if (email) {
           try {
-            // Send email with dynamic data
             await sendEmailWithTemplate(
               email,
               "d-4c729ee901bc45cab360f0036af2799d",
@@ -87,19 +87,34 @@ export default async function handler(
           console.warn("Customer email not found in session.");
         }
 
+        // Create Printify order
         try {
-          // Call the Printify order function
-          let printifyOrder;
-          if (session.shipping_details) {
-            printifyOrder = await createPrintifyOrder(
-              items,
-              session,
-              session.shipping_details
+          const items = session.metadata?.cart
+            ? JSON.parse(session.metadata.cart)
+            : [];
+
+          if (!items || items.length === 0) {
+            console.error("Cart metadata is missing or invalid.");
+            throw new Error(
+              "Cart metadata is required to create a Printify order."
             );
-            console.log("Printify order created successfully:", printifyOrder);
-          } else {
-            console.error("Shipping details are missing in the session.");
           }
+
+          if (!session.shipping_details) {
+            console.error(
+              "Shipping details are missing in the Stripe session."
+            );
+            throw new Error(
+              "Shipping details are required to create a Printify order."
+            );
+          }
+
+          const printifyOrder = await createPrintifyOrder(
+            items,
+            session,
+            session.shipping_details
+          );
+          console.log("Printify order created successfully:", printifyOrder);
         } catch (error) {
           console.error("Error creating Printify order:", error);
         }
