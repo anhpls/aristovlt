@@ -7,11 +7,19 @@ export async function createPrintifyOrder(
   shippingDetails: Stripe.Checkout.Session.ShippingDetails
 ) {
   const printifyOrder = {
-    line_items: cart.map((item) => ({
-      product_id: item.id,
-      variant_id: item.sku,
-      quantity: item.quantity,
-    })),
+    external_order_id: `ORD-${Date.now()}`, // Unique ID for each request
+    line_items: cart.map((item) => {
+      if (!item.id || !item.sku || !item.quantity) {
+        throw new Error(
+          "Invalid item data. Product ID, SKU, and quantity are required."
+        );
+      }
+      return {
+        product_id: item.id,
+        variant_id: item.sku,
+        quantity: item.quantity,
+      };
+    }),
     shipping_method: 4,
     address_to: {
       first_name: shippingDetails.name?.split(" ")[0] || "",
@@ -28,6 +36,11 @@ export async function createPrintifyOrder(
   };
 
   try {
+    console.log(
+      "Creating Printify Order with payload:",
+      JSON.stringify(printifyOrder, null, 2)
+    );
+
     const response = await fetch(
       `https://api.printify.com/v1/shops/${process.env.PRINTIFY_SHOP_ID}/orders.json`,
       {
@@ -47,6 +60,7 @@ export async function createPrintifyOrder(
     }
 
     const data = await response.json();
+    console.log("Printify Order Created Successfully:", data);
     return data;
   } catch (error) {
     console.error("Error creating Printify order:", error);
