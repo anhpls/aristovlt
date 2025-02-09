@@ -7,7 +7,7 @@ export async function createPrintifyOrder(
   shippingDetails: Stripe.Checkout.Session.ShippingDetails
 ) {
   const printifyOrder = {
-    external_order_id: `ORD-${Date.now()}`, // Unique ID for each request
+    external_order_id: `ORD-${Date.now()}`,
     line_items: cart.map((item) => {
       if (!item.id || !item.sku || !item.quantity) {
         throw new Error(
@@ -29,7 +29,7 @@ export async function createPrintifyOrder(
       address1: shippingDetails.address?.line1 || "",
       address2: shippingDetails.address?.line2 || "",
       city: shippingDetails.address?.city || "",
-      state: shippingDetails.address?.state || "",
+      region: shippingDetails.address?.state || "",
       country: shippingDetails.address?.country || "",
       zip: shippingDetails.address?.postal_code || "",
     },
