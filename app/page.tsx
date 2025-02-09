@@ -145,7 +145,7 @@ const LandingPage = () => {
         className="flex space-x-4 text-lg font-semibold absolute bottom-16 "
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 2, delay: 0 }}
+        transition={{ duration: 2, delay: 3.8 }}
       >
         <CountdownTimer targetDate="2025-05-01T23:59:59" />
       </motion.div>
